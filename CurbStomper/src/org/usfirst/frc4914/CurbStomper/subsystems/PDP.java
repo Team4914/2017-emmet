@@ -9,10 +9,10 @@
 // it from being updated in the future.
 
 
-package org.usfirst.frc4914.MyRobot.subsystems;
+package org.usfirst.frc4914.CurbStomper.subsystems;
 
-import org.usfirst.frc4914.MyRobot.RobotMap;
-import org.usfirst.frc4914.MyRobot.commands.*;
+import org.usfirst.frc4914.CurbStomper.RobotMap;
+import org.usfirst.frc4914.CurbStomper.commands.*;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
