@@ -16,4 +16,5 @@ Be sure to always document your code with meaningful comments; we're building cl
 
 [wpilibj Documentation](http://first.wpi.edu/FRC/roborio/release/docs/java/)
 
-[TalonSRX 3rd Party Libraries](https://www.ctr-electronics.com/talon-srx.html#product_tabs_technical_resources)
+[TalonSRX 3rd Party Libraries](http://www.ctr-electronics.com/hro.html#product_tabs_technical_resources)  
+At the bottom, under the "Tech Resources" tab, download the latest installer, and follow on-screen instructions.
