@@ -17,3 +17,26 @@ Be sure to always document your code with meaningful comments; we're building cl
 [wpilibj Documentation](http://first.wpi.edu/FRC/roborio/release/docs/java/)
 
 [TalonSRX 3rd Party Libraries](http://www.ctr-electronics.com/hro.html#product_tabs_technical_resources) - At the bottom, under the "Tech Resources" tab, download the latest installer, and follow on-screen instructions.
+
+# OpenCV Vision
+
+Before running vision on your Jetson or Pi, ensure that you are running Python 3.5 
+
+## Running
+
+Before running, make sure that you have the following:
+
+Install numpy
+
+`pip install numpy`
+
+Install OpenCV for Python
+
+`pip install opencv-python`
+
+Ensure that you can export to a NetworkTable
+
+`pip install pynetworktables`
+
+Have the `init.sh` script run on startup if you are using a Microsoft LifeCam. In your robot code, request the NetworkTable and you are good to go.
+
