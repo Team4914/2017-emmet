@@ -15,3 +15,5 @@ Be sure to always document your code with meaningful comments; we're building cl
 [WPILib ScreenSteps Live (2017 FRC Control System)](http://wpilib.screenstepslive.com/s/4485)
 
 [wpilibj Documentation](http://first.wpi.edu/FRC/roborio/release/docs/java/)
+
+[TalonSRX 3rd Party Libraries](https://www.ctr-electronics.com/talon-srx.html#product_tabs_technical_resources)
