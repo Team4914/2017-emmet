@@ -46,6 +46,39 @@ Children:
         value: *id001
     Base: Subsystem
     Name: PDP
+  - Children:
+    - Children: []
+      Properties:
+        Type: !!robotbuilder.data.properties.ChoicesProperty
+          choices: [Victor, Jaguar, Talon, VictorSP, TalonSRX, Spark, SD540]
+          default: Talon
+          name: Type
+          validators: null
+          value: TalonSRX
+        Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
+          choices: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
+            '12', '13', '14', '15', '16', '17', '18', '19']
+          default: '0'
+          name: Output Channel (PWM)
+          validators: [PWMOutput]
+          value: '5'
+      Base: Speed Controller
+      Name: Speed Controller 1
+    Properties:
+      Default command parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Default command parameters
+        validators: null
+        value: []
+      Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Default Command, type: Command, validators: null, value: None}
+      Constants: !!robotbuilder.data.properties.ConstantsProperty
+        default: []
+        name: Constants
+        validators: null
+        value: []
+    Base: Subsystem
+    Name: Intake
   Properties: {}
   Base: Subsystems
   Name: Subsystems
@@ -76,8 +109,8 @@ Children:
   Base: Commands
   Name: Commands
 Properties:
-  Eclipse Workspace: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\cyamo\workspace',
-    extension: null, folder: true, name: Eclipse Workspace, validators: null, value: ..\}
+  Eclipse Workspace: !!robotbuilder.data.properties.FileProperty {default: /Users/jasonpham/workspace,
+    extension: null, folder: true, name: Eclipse Workspace, validators: null, value: ../}
   Export Commands: !!robotbuilder.data.properties.BooleanProperty {default: true,
     name: Export Commands, validators: null, value: true}
   Autonomous command parameters: !!robotbuilder.data.properties.ParametersProperty
@@ -95,8 +128,8 @@ Properties:
     name: Export Subsystems, validators: null, value: true}
   Simulation World File: !!robotbuilder.data.properties.StringProperty {default: /usr/share/frcsim/worlds/GearsBotDemo.world,
     name: Simulation World File, validators: null, value: /usr/share/frcsim/worlds/GearsBotDemo.world}
-  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\cyamo\',
-    extension: null, folder: true, name: Wiring file location, validators: null, value: 'C:\Users\cyamo\'}
+  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: /Users/jasonpham/,
+    extension: null, folder: true, name: Wiring file location, validators: null, value: '/Users/jasonpham/C:\Users\cyamo\'}
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
     name: Autonomous Command, type: Command, validators: null, value: Autonomous Command}
 Base: Robot
