@@ -10,6 +10,19 @@ NetworkTable.setClientMode()
 NetworkTable.initialize()
 table = NetworkTable.getTable("GearContoursReport")
 
+COLOR_MIN = np.array([60, 100, 100])
+COLOR_MAX = np.array([85, 255, 255])
+VIEW_ANGLE = 60 * 360 / 6.283185307 # (for lifecam 3000)
+FOV_PIXEL = 320
+HOOK_CAM_ID = 0
+BOIL_CAM_ID = 1
+DEBUG = False
+
+# HOOK_TARGET_LENGTH = 51 # width of retroreflective tape, in cm
+MIN_HOOK_AREA = 250
+
+MIN_BOIL_AREA = 100
+
 def cart2pol(a):
     x = a[0]
     y = a[1]
@@ -24,148 +37,59 @@ def pol2cart(a):
     y = rho * np.sin(phi)
     return([x, y])
 
-COLOR_MIN = np.array([60, 100, 100])
-COLOR_MAX = np.array([85, 255, 255])
-MIN_AREA = 250
-VIEW_ANGLE = 60 # (for lifecam 3000)
-VIEW_ANGLE *= 360
-VIEW_ANGLE /= 2*3.1415926535
-TARGET_LENGTH = 51 # width of retroreflective tape, in cm
-FOV_PIXEL = 320
-CAM_ID = 0
-DEBUG = False
+def trackHook():
+    # read image from camera, resize to 320x240, convert to HSV
+    ret, frame = cap.read()
+    frame=cv2.resize(frame, (0,0), fx=0.5, fy=0.5)
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-cap = cv2.VideoCapture(CAM_ID)
+    if DEBUG:
+        cv2.imshow('hsv', hsv)
+        cv2.imshow('brg', frame)
 
-while True:
-	# read image from camera
-	ret, frame = cap.read()
+    # threshold image based on HSV range provided by COLOR_MIN and COLOR_MAX
+    frame = cv2.inRange(hsv, COLOR_MIN, COLOR_MAX)
 
-	# resize image to 320x240
-	frame = cv2.resize(frame, (0,0), fx=0.5, fy=0.5)
+    if DEBUG:
+        cv2.imshow('frame', frame)
 
-	# convert BGR format to HSV
-	hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    # find contours based on thresholded image
+    _, contours, heirarchy = cv2.findContours(frame, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-	if DEBUG:
-		cv2.imshow('hsv', hsv)
-		cv2.imshow('brg', frame)
+    # creates array of contours larger than given min area
+    filteredContours = []
+    for i in range(0, len(contours)):
+        if cv2.contourArea(contours[i]) > MIN_HOOK_AREA:
+            filteredContours.append(contours[i])
 
-	# threshold HSV image based on HSV ranges given by COLOR_MIN and COLOR_MAX
-	frame = cv2.inRange(hsv, COLOR_MIN, COLOR_MAX)
+    # finds most rightward (highest x-val) contour from filtered contours
+    if len(filteredContours) > 0:
+        # default index and x value
+        iTargetContour = 0;
+        maxRightness = 0;
 
-	if DEBUG:
-		cv2.imshow('frame', frame)
+        # searches for index of most rightward contours
+        for i in range(0, len(filteredContours)):
 
-	# find contours based on thresholded image
-	_, contours, heirarchy = cv2.findContours(frame, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
-	# clear array of contours from previous iteration
-	filteredContours = []
-
-	# removes contours smaller than minimum area
-	for i in range(0, len(contours)):
-		if cv2.contourArea(contours[i]) > MIN_AREA:
-			filteredContours.append(contours[i])
-
-	# finds most rightward (highest x-value) contour from filtered contours
-	if len(filteredContours) > 0:
-		# default index and x value
-		iTargetContour = 0;
-		maxRightness = 0;
-
-		# searches for index of most rightward contour
-		for i in range(0, len(filteredContours)):
-
-            # calculates center x
+            # analyze centre X
             M = cv2.moments(filteredContours[i])
             cX = int(M["m10"] / M["m00"])
+            if cX > maxRightness:
+                maxRightness = cX
+                iTargetContour = i
 
-            # identfies contours as target contour if more rightward
-			if cX > maxRightness:
-				maxRightness = cX
-				iTargetContour = i
+        targetContour = filteredContours[iTargetContour]
 
-		# target contour
-		targetContour = filteredContours[iTargetContour]
+        M = cv2.moments(targetContour)
+        cX = int(M["m10"] / M["m00"])
+        cY = int(M["m01"] / M["m00"])
 
-		# calculates target contour centre
-		M = cv2.moments(targetContour)
-		cX = int(M["m10"] / M["m00"])
-		cY = int(M["m01"] / M["m00"])
+        print(cX, " ", cY)
 
-		# bounding rectangle
-		rect = cv2.minAreaRect(targetContour)
+cap = cv2.VideoCapture(HOOK_CAM_ID)
 
-		wX = rect[1][0]/2
-		wY = rect[1][1]/2
-
-		xLeft = -wX
-		xRight = wX
-		yBottom = wY
-		# yTop = -wY
-
-		# topLeft = [xLeft, yTop]
-		# topRight = [xRight, yTop]
-		bottomLeft = [xLeft, yBottom]
-		bottomRight = [xRight, yBottom]
-
-		theta = rect[2]/360
-		theta *= 3.1415926535*2
-
-		# topLeft = cart2pol(topLeft)
-		# topRight = cart2pol(topRight)
-		bottomLeft = cart2pol(bottomLeft)
-		bottomRight = cart2pol(bottomRight)
-
-		# topLeft[1] += theta
-		# topRight[1] += theta
-		bottomLeft[1] += theta
-		bottomRight[1] += theta
-
-		# topLeft = pol2cart(topLeft)
-		# topRight = pol2cart(topRight)
-		bottomLeft = pol2cart(bottomLeft)
-		bottomRight = pol2cart(bottomRight)
-
-		# topLeft[0] += cX
-		# topLeft[1] += cY
-		# topRight[0] += cX
-		# topRight[1] += cY
-		bottomLeft[0] += cX
-		bottomLeft[1] += cY
-		bottomRight[0] += cX
-		bottomRight[1] += cY
-
-		lenW = np.abs(bottomRight[0] - bottomLeft[0])
-		lenH = np.abs(bottomRight[1] - bottomLeft[1])
-		targetPixelLength = np.sqrt(lenW**2 + lenH**2)
-
-		targetDistance = TARGET_LENGTH*FOV_PIXEL
-		targetDistance /= 2*targetPixelLength*np.tan(VIEW_ANGLE)
-
-		print("TargetDistance:", targetDistance)
-
-		# prints center X and center Y to console for debug purposes
-		print("cX:", repr(cX).rjust(3), " cY:", repr(cY).rjust(3))
-
-		# publishes contour values to networkTable ContoursReport
-		table.putNumber('isTarget', 1)
-		table.putNumber('cX', cX)
-		table.putNumber('cY', cY)
-		table.putNumber('dist', targetDistance)
-
-	# publishes default values to table if no target found
-	else:
-		# publishes default no target values to networkTable ContoursReport
-		table.putNumber('isTarget', 0)
-		table.putNumber('cX', -1)
-		table.putNumber('cY', -1)
-		table.putNumber('dist', -1)
-
-	if DEBUG:
-		if cv2.waitKey(1) & 0xFF == ord('q'):
-			break
+while True:
+    trackHook()
 
 if DEBUG:
 	cap.release()

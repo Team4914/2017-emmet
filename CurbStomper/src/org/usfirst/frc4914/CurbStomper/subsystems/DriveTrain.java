@@ -81,6 +81,16 @@ public class DriveTrain extends Subsystem {
     	robotDrive41.stopMotor();
     } // END OF stop()
     
+    /**
+     * Inverts all motors
+     */
+    public void invert() {
+    	// CIMRearLeft.setInverted(true);
+    	// CIMFrontLeft.setInverted(true);
+    	// CIMRearRight.setInverted(true);
+    	// CIMFrontRight.setInverted(true);
+    }
+    
     
 }
 
