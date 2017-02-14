@@ -8,7 +8,7 @@ os.system("sudo bash /home/pi/vision/init.sh")
 NetworkTable.setIPAddress("roboRIO-4914-FRC.local")
 NetworkTable.setClientMode()
 NetworkTable.initialize()
-table = NetworkTable.getTable("ContoursReport")
+table = NetworkTable.getTable("GearContoursReport")
 
 def cart2pol(a):
     x = a[0]
@@ -68,28 +68,34 @@ while True:
 		if cv2.contourArea(contours[i]) > MIN_AREA:
 			filteredContours.append(contours[i])
 
-	# processes largest filtered contour by area if present
+	# finds most rightward (highest x-value) contour from filtered contours
 	if len(filteredContours) > 0:
-		# default largest contour index and max area
-		iLargestContour = 0;
-		maxArea = 0;
+		# default index and x value
+		iTargetContour = 0;
+		maxRightness = 0;
 
-		# searches for index of largest contour by area
+		# searches for index of most rightward contour
 		for i in range(0, len(filteredContours)):
-			if cv2.contourArea(filteredContours[i]) > maxArea:
-				maxArea = cv2.contourArea(filteredContours[i])
-				iLargestContour = i
 
-		# largest contour
-		c = filteredContours[iLargestContour]
+            # calculates center x
+            M = cv2.moments(filteredContours[i])
+            cX = int(M["m10"] / M["m00"])
 
-		# calculates centers in the X and Y axes of image
-		M = cv2.moments(c)
+            # identfies contours as target contour if more rightward
+			if cX > maxRightness:
+				maxRightness = cX
+				iTargetContour = i
+
+		# target contour
+		targetContour = filteredContours[iTargetContour]
+
+		# calculates target contour centre
+		M = cv2.moments(targetContour)
 		cX = int(M["m10"] / M["m00"])
 		cY = int(M["m01"] / M["m00"])
 
 		# bounding rectangle
-		rect = cv2.minAreaRect(c)
+		rect = cv2.minAreaRect(targetContour)
 
 		wX = rect[1][0]/2
 		wY = rect[1][1]/2
