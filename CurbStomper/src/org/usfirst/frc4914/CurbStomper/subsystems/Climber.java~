@@ -57,6 +57,13 @@ public class Climber extends Subsystem {
     }
     
     /**
+     * Stops climber motor
+     */
+    public void stop() {
+    	setSpeed(0);
+    }
+    
+    /**
      * Returns velocity of read encoder values
      * 
      * @return velocity of read encoder values

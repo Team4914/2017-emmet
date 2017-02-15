@@ -8,7 +8,7 @@ os.system("sudo bash /home/pi/vision/init.sh")
 NetworkTable.setIPAddress("roboRIO-4914-FRC.local")
 NetworkTable.setClientMode()
 NetworkTable.initialize()
-table = NetworkTable.getTable("GearContoursReport")
+table = NetworkTable.getTable("HookContoursReport")
 
 COLOR_MIN = np.array([60, 100, 100])
 COLOR_MAX = np.array([85, 255, 255])
@@ -85,6 +85,16 @@ def trackHook():
         cY = int(M["m01"] / M["m00"])
 
         print(cX, " ", cY)
+
+		table.putNumber('cX', cX)
+		table.putNumber('cY', cY)
+
+    else: # if no contours found
+
+		table.putNumber('cX', -1)
+		table.putNumber('cY', -1)
+
+# end of trackHook()
 
 cap = cv2.VideoCapture(HOOK_CAM_ID)
 
