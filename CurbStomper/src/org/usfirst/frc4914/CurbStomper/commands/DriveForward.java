@@ -16,7 +16,7 @@ public class DriveForward extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.tankDrive(DriveTrain.autoSpeed, DriveTrain.autoSpeed);
+    	Robot.driveTrain.tankDrive(-DriveTrain.AUTO_SPEED, -DriveTrain.AUTO_SPEED);
     }
 
     // Make this return true when this Command no longer needs to run execute()

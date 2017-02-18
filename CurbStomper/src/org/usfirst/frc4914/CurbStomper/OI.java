@@ -71,7 +71,7 @@ public class OI {
         b.whenPressed(new ReverseClimb());
         rBumper = new JoystickButton(primaryJoystick, 6);
         rBumper.whileHeld(new RunIntake());
-        lBumper = new JoystickButton(primaryJoystick, 6);
+        lBumper = new JoystickButton(primaryJoystick, 5);
         lBumper.whileHeld(new RunReverseIntake());
 
 
