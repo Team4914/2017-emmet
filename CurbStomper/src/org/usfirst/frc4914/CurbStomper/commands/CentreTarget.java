@@ -8,8 +8,8 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-
 package org.usfirst.frc4914.CurbStomper.commands;
+
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc4914.CurbStomper.Robot;
 import edu.wpi.first.wpilibj.command.PIDCommand;
