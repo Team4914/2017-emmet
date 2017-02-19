@@ -21,14 +21,11 @@ import org.usfirst.frc4914.CurbStomper.Robot;
  */
 public class AUTOCentreGear extends CommandGroup {
 
-	public static double AutoSpeed = 0.7;
-	
     public AUTOCentreGear() {
+    	// PRANKS WITHOUT GYRO
     	requires(Robot.driveTrain);
-    	addSequential(new DriveBackward(),3.0);
-    	Timer.delay(5);
-    	addSequential(new DriveForward(),3.0);
+    	addSequential(new DriveBackward(),0.65);
+    	addSequential(new AutonomousCommand(), 7.0);
+    	addSequential(new DriveForward(),0.7);
     }
-
-
 }

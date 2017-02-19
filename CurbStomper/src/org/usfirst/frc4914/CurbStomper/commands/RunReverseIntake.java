@@ -16,12 +16,12 @@ import org.usfirst.frc4914.CurbStomper.Robot;
 /**
  *
  */
-public class RunIntake extends Command {
+public class RunReverseIntake extends Command {
 
 	/*
 	 * 
 	 */
-    public RunIntake() {
+    public RunReverseIntake() {
     	requires(Robot.intake);
     }
 
