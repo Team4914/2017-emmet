@@ -86,13 +86,12 @@ def trackHook():
 
         print(cX, " ", cY)
 
-		table.putNumber('cX', cX)
-		table.putNumber('cY', cY)
+	    table.putNumber('cX', cX)
+	    table.putNumber('cY', cY)
 
     else: # if no contours found
-
-		table.putNumber('cX', -1)
-		table.putNumber('cY', -1)
+        table.putNumber('cX', -1)
+        table.putNumber('cY', -1)
 
 # end of trackHook()
 
