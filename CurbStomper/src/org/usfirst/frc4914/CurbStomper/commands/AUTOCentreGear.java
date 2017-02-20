@@ -22,7 +22,6 @@ import org.usfirst.frc4914.CurbStomper.Robot;
 public class AUTOCentreGear extends CommandGroup {
 
     public AUTOCentreGear() {
-    	// PRANKS WITHOUT GYRO
     	requires(Robot.driveTrain);
     	addSequential(new DriveBackward(),0.65);
     	addSequential(new AutonomousCommand(), 7.0);

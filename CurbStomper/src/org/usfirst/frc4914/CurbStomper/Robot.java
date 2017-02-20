@@ -113,7 +113,11 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
         
         System.out.println(getGoalX() + " " + getGoalY());
-        Robot.driveTrain.tankDrive(Robot.oi.getPrimaryLJ(), Robot.oi.getPrimaryRJ());
+        if (DriveTrain.isInverted) {
+        	Robot.driveTrain.tankDrive(Robot.oi.getPrimaryRJ(), Robot.oi.getPrimaryLJ());
+        } else {
+        	Robot.driveTrain.tankDrive(Robot.oi.getPrimaryLJ(), Robot.oi.getPrimaryRJ());
+        }
     }
 
     /**
