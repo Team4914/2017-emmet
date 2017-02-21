@@ -80,7 +80,6 @@ public class OI {
         lBumper = new JoystickButton(primaryJoystick, 5);
         lBumper.whileHeld(new RunReverseIntake());
         
-        
 
 
         // SmartDashboard Buttons
@@ -108,14 +107,6 @@ public class OI {
     
     public double getPrimaryRJ() {
     	return primaryJoystick.getRawAxis(5);
-    }
-    
-    public double getPrimaryRTrigger() {
-    	return primaryJoystick.getRawAxis(3);
-    }
-    
-    public double getPrimaryLTrigger() {
-    	return primaryJoystick.getRawAxis(2);
     }
     
 }
