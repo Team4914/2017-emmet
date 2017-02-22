@@ -77,7 +77,7 @@ public class Robot extends IterativeRobot {
         
         server = CameraServer.getInstance();
 
-Thread t = new Thread(() -> {
+        Thread t = new Thread(() -> {
     		
     		boolean allowCam1 = false;
     		
@@ -96,9 +96,7 @@ Thread t = new Thread(() -> {
             
             while(!Thread.interrupted()) {
             	
-            	if(oi.getPrimaryJoystick().getRawButton(4)) {
-            		allowCam1 = !allowCam1;
-            	}
+            	if (Robot.oi.getPrimaryJoystick().getRawButton(4)) { allowCam1 = !allowCam1; }
             	
                 if(allowCam1){
                   cvSink2.setEnabled(false);
