@@ -10,7 +10,7 @@ NetworkTable.setClientMode()
 NetworkTable.initialize()
 table = NetworkTable.getTable("HookContoursReport")
 
-COLOR_MIN = np.array([60, 100, 100])
+COLOR_MIN = np.array([60, 80, 80])
 COLOR_MAX = np.array([85, 255, 255])
 VIEW_ANGLE = 60 * 360 / 6.283185307 # (for lifecam 3000)
 FOV_PIXEL = 320
@@ -19,7 +19,7 @@ BOIL_CAM_ID = 1
 DEBUG = False
 
 # HOOK_TARGET_LENGTH = 51 # width of retroreflective tape, in cm
-MIN_HOOK_AREA = 250
+MIN_HOOK_AREA = 150
 
 MIN_BOIL_AREA = 100
 
