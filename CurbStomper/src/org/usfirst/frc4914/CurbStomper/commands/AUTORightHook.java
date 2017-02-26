@@ -24,6 +24,7 @@ public class AUTORightHook extends CommandGroup {
     public AUTORightHook() {
     	requires(Robot.driveTrain);
     	addSequential(new DriveBackward(), 0.65);
+    	addSequential(new TurnCCW(30));
     	addSequential(new CentreTarget());
     }
 }

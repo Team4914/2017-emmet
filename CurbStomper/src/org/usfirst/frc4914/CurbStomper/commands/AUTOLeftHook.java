@@ -24,6 +24,7 @@ public class AUTOLeftHook extends CommandGroup {
     public AUTOLeftHook() {
     	requires(Robot.driveTrain);
     	addSequential(new DriveBackward(), 0.65);
+    	addSequential(new TurnCW(30));
     	addSequential(new CentreTarget());
     }
 }

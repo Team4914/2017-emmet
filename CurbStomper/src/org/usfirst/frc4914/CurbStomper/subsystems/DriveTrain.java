@@ -27,7 +27,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveTrain extends Subsystem {
 	
-	public static final double AUTO_SPEED = 0.2;
+	public static final double AUTO_SPEED = 0.4 ;
 	public static final double ANGLE_EPSILON = 2;
 	public static boolean isInverted = false;
 

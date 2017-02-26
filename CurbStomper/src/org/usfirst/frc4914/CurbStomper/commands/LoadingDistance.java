@@ -12,16 +12,20 @@ public class LoadingDistance extends Command {
     public LoadingDistance() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	requires(Robot.driveTrain);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	setTimeout(0.5);
+    	setTimeout(1);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.tankDrive(0.1, 0.1);
+    	// Robot.driveTrain.tankDrive(-0.3, -0.3);
+    	Robot.leftSpeed = -0.3;
+    	Robot.rightSpeed = -0.3;
+    	Robot.driveTrain.tankDrive(Robot.leftSpeed, Robot.rightSpeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()

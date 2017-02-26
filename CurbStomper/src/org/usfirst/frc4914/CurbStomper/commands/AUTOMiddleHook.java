@@ -23,7 +23,9 @@ public class AUTOMiddleHook extends CommandGroup {
 
     public AUTOMiddleHook() {
     	requires(Robot.driveTrain);
-    	addSequential(new DriveBackward(), 0.65);
+    	addSequential(new DriveBackward(), 0.75);
     	addSequential(new CentreTarget());
+    	addSequential(new RunIntake(), 3);
+    	addSequential(new DriveForward(), 0.7);
     }
 }
