@@ -73,12 +73,13 @@ public class OI {
         CIRCLE.whenPressed(new ToggleClimb());
         SQUARE = new JoystickButton(primaryJoystick, 3);
         SQUARE.whenPressed(new InvertDrive());
-        TRIANGLE = new JoystickButton(primaryJoystick, 4);
-        TRIANGLE.whenPressed(new SwitchCamera());
+        // TRIANGLE = new JoystickButton(primaryJoystick, 4);
+        // TRIANGLE.whenPressed(new SwitchCamera());
         rBumper = new JoystickButton(primaryJoystick, 6);
         rBumper.whileHeld(new RunIntake());
         lBumper = new JoystickButton(primaryJoystick, 5);
         lBumper.whileHeld(new RunReverseIntake());
+        
         
 
 
@@ -107,6 +108,14 @@ public class OI {
     
     public double getPrimaryRJ() {
     	return primaryJoystick.getRawAxis(5);
+    }
+    
+    public double getPrimaryRTrigger() {
+    	return primaryJoystick.getRawAxis(3);
+    }
+    
+    public double getPrimaryLTrigger() {
+    	return primaryJoystick.getRawAxis(2);
     }
     
 }

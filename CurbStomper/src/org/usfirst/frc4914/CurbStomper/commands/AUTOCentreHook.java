@@ -19,9 +19,9 @@ import org.usfirst.frc4914.CurbStomper.Robot;
 /**
  * 
  */
-public class AUTOCentreGear extends CommandGroup {
+public class AUTOCentreHook extends CommandGroup {
 
-    public AUTOCentreGear() {
+    public AUTOCentreHook() {
     	requires(Robot.driveTrain);
     	addSequential(new DriveBackward(),0.65);
     	addSequential(new AutonomousCommand(), 7.0);
