@@ -60,7 +60,6 @@ public class DistanceTarget extends PIDCommand {
     // Called just before this Command runs the first time
     protected void initialize() {
     	getPIDController().setSetpoint(setpoint);
-    	Robot.driveTrain.setBrake(true);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -75,7 +74,6 @@ public class DistanceTarget extends PIDCommand {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.driveTrain.stop();
-    	Robot.driveTrain.setBrake(false);
     }
 
     // Called when another command which requires one or more of the same
