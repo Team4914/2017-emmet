@@ -1,22 +1,27 @@
 package org.usfirst.frc4914.CurbStomper.commands;
 
 import org.usfirst.frc4914.CurbStomper.Robot;
+import org.usfirst.frc4914.CurbStomper.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *	DEPRECATED
+ *
  */
-public class SwitchCamera extends Command {
+public class AdjustShootSpeed extends Command {
+	
+	double offset = 0;
 
-    public SwitchCamera() {
+    public AdjustShootSpeed(double n) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	offset = n;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.switchCamera();
+    	Shooter.shootSpeed += offset;
+    	Robot.shooter.setSpeed(Shooter.shootSpeed);
     }
 
     // Called repeatedly when this Command is scheduled to run

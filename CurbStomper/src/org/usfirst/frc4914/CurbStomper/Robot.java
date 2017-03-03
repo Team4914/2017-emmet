@@ -139,7 +139,10 @@ public class Robot extends IterativeRobot {
      * You can use it to reset subsystems before shutting down.
      */
     public void disabledInit(){
-
+    	Robot.climber.stop();
+    	Robot.driveTrain.stop();
+    	Robot.intake.stop();
+    	Robot.shooter.stop();
     }
 
     public void disabledPeriodic() {
@@ -172,16 +175,21 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        System.out.println(getGoalX() + " " + getGoalY());
+        System.out.println("X: " + getGoalX() + " Y: " + getGoalY() + " shoot: " + shooter.shootSpeed);
         
-        double coFactor = 5.0;
+        double coFactor = 7.0;
         
         // drive controls
         if (DriveTrain.isInverted) {
         	// Robot.driveTrain.tankDrive(-Robot.oi.getPrimaryRJ(), -Robot.oi.getPrimaryLJ());
         	// main drive
-        	leftSpeed -= Robot.oi.getPrimaryRJ();
-        	rightSpeed -= Robot.oi.getPrimaryLJ();
+        	if (DriveTrain.isStraight) {
+        		leftSpeed -= Robot.oi.getPrimaryLJ();
+        		rightSpeed -= Robot.oi.getPrimaryLJ();
+        	} else {
+	        	leftSpeed -= Robot.oi.getPrimaryRJ();
+	        	rightSpeed -= Robot.oi.getPrimaryLJ();
+        	}
         	// co turn
         	leftSpeed -= Robot.oi.getCoZ() / coFactor;
         	rightSpeed += Robot.oi.getCoZ() / coFactor;
@@ -191,8 +199,13 @@ public class Robot extends IterativeRobot {
         } else {
         	// Robot.driveTrain.tankDrive(Robot.oi.getPrimaryLJ(), Robot.oi.getPrimaryRJ());
         	// main drive
-        	leftSpeed += Robot.oi.getPrimaryLJ();
-        	rightSpeed += Robot.oi.getPrimaryRJ();
+        	if (DriveTrain.isStraight) {
+        		leftSpeed += Robot.oi.getPrimaryLJ();
+        		rightSpeed += Robot.oi.getPrimaryLJ();
+        	} else {
+	        	leftSpeed += Robot.oi.getPrimaryLJ();
+	        	rightSpeed += Robot.oi.getPrimaryRJ();
+        	}
         	// co turn
         	leftSpeed -= Robot.oi.getCoZ() / coFactor;
         	rightSpeed += Robot.oi.getCoZ() / coFactor;
@@ -204,7 +217,11 @@ public class Robot extends IterativeRobot {
         Robot.driveTrain.tankDrive(leftSpeed, rightSpeed);
 
         // climber controls
-        Robot.climber.setSpeed(Robot.oi.getPrimaryRT());
+        if (Robot.oi.getPrimaryLT() < 0.1) {
+        	Robot.climber.setSpeed(Robot.oi.getPrimaryRT());
+        } else {
+        	Robot.climber.setSpeed(-Robot.oi.getPrimaryLT());
+        }
         
         leftSpeed = 0;
         rightSpeed = 0;
