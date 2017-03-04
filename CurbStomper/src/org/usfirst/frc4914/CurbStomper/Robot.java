@@ -177,7 +177,7 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
         System.out.println("X: " + getGoalX() + " Y: " + getGoalY() + " shoot: " + shooter.shootSpeed);
         
-        double coFactor = 7.0;
+        double coFactor = 5.0;
         
         // drive controls
         if (DriveTrain.isInverted) {
@@ -191,8 +191,10 @@ public class Robot extends IterativeRobot {
 	        	rightSpeed -= Robot.oi.getPrimaryLJ();
         	}
         	// co turn
-        	leftSpeed -= Robot.oi.getCoZ() / coFactor;
-        	rightSpeed += Robot.oi.getCoZ() / coFactor;
+        	if (Math.abs(Robot.oi.getCoZ()) > 0.25) {
+        		leftSpeed -= Robot.oi.getCoZ() / coFactor;
+        		rightSpeed += Robot.oi.getCoZ() / coFactor;
+        	}
         	// co straight
         	leftSpeed -= Robot.oi.getCoY() / coFactor;
         	rightSpeed -= Robot.oi.getCoY() / coFactor;
@@ -207,8 +209,10 @@ public class Robot extends IterativeRobot {
 	        	rightSpeed += Robot.oi.getPrimaryRJ();
         	}
         	// co turn
-        	leftSpeed -= Robot.oi.getCoZ() / coFactor;
-        	rightSpeed += Robot.oi.getCoZ() / coFactor;
+        	if (Math.abs(Robot.oi.getCoZ()) > 0.25) {
+	        	leftSpeed -= Robot.oi.getCoZ() / coFactor;
+	        	rightSpeed += Robot.oi.getCoZ() / coFactor;
+        	}
         	// co straight
         	leftSpeed += Robot.oi.getCoY() / coFactor;
         	rightSpeed += Robot.oi.getCoY() / coFactor;

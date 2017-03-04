@@ -23,7 +23,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Shooter extends Subsystem {
 	
-	public static double shootSpeed = 0.7;
+	public static double shootSpeed = 0.775;
 	
 	private final Talon shooter = RobotMap.shooter1;
 

@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveBackward extends Command {
     public DriveBackward() {
-    	requires(Robot.driveTrain);
     }
 
     // Called just before this Command runs the first time
