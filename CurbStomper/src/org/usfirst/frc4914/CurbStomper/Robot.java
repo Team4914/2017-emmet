@@ -175,7 +175,7 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        System.out.println("X: " + getGoalX() + " Y: " + getGoalY() + " shoot: " + shooter.shootSpeed);
+        System.out.println("X: " + getGoalX() + " Y: " + getGoalY() + " shoot: " + shooter.shootSpeed + " gyro: " + Robot.driveTrain.getGyroBearing());
         
         double coFactor = 5.0;
         

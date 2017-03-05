@@ -31,6 +31,7 @@ public class DriveTrain extends Subsystem {
 	public static final double ANGLE_EPSILON = 2;
 	public static boolean isInverted = false;
 	public static boolean isStraight = false;
+	public static final double toughboxfuck = 0;
 
 	public double cumL = 0;
 	public double cumR = 0;
@@ -73,6 +74,12 @@ public class DriveTrain extends Subsystem {
     public void tankDrive(double leftValue, double rightValue) {
     	leftValue += cumL;
     	rightValue += cumR;
+    	// toughbox fuck
+    	if (rightValue < -0.001) {
+    		rightValue -= toughboxfuck;
+    	} else if (rightValue > 0.001){
+    		rightValue += toughboxfuck;
+    	}
     	// safety for left side values
     	if (leftValue > 1) leftValue = 1;
     	else if (leftValue < -1) leftValue = -1;
@@ -97,7 +104,7 @@ public class DriveTrain extends Subsystem {
      * @return gyro bearing
      */
     public double getGyroBearing() {
-    	return gyro.getAngle();
+    	return (gyro.getAngle() + 360) % 360;
     }
     
     /**

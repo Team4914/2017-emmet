@@ -22,12 +22,13 @@ import org.usfirst.frc4914.CurbStomper.Robot;
 public class AUTOMiddleHook extends CommandGroup {
 
     public AUTOMiddleHook() {
-    	requires(Robot.driveTrain);
-    	addSequential(new DriveBackward(), 0.75);
+    	// requires(Robot.driveTrain);
+    	addSequential(new DriveBackward(), 1.5);
+    	// addSequential(new TrackTarget());
+    	addSequential(new AUTODelay(), 3);
+    	addSequential(new DriveForward(), 1.5);
     	addSequential(new TrackTarget());
     	addSequential(new AUTODelay(), 3);
-    	addSequential(new DriveForward(), 0.5);
-    	addSequential(new TrackTarget());
     	addSequential(new DriveForward(), 0.7);
     }
 }
