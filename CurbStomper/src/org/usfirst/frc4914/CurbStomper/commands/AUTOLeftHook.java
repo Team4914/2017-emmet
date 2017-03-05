@@ -19,12 +19,19 @@ import org.usfirst.frc4914.CurbStomper.Robot;
 /**
  * 
  */
-public class AUTOCentreHook extends CommandGroup {
+public class AUTOLeftHook extends CommandGroup {
 
-    public AUTOCentreHook() {
+    public AUTOLeftHook() {
     	requires(Robot.driveTrain);
-    	addSequential(new DriveBackward(),0.65);
-    	addSequential(new AutonomousCommand(), 7.0);
-    	addSequential(new DriveForward(),0.7);
+    	addSequential(new DriveBackward(), 1.8);
+    	addSequential(new CW(60));
+    	addSequential(new DriveBackward(), 0.7);
+    	addSequential(new TrackTarget());
+    	addSequential(new AUTODelay(), 3);
+    	addSequential(new DriveForward(), 0.7);
+    	addSequential(new CCW(30));
+    	addSequential(new TrackTarget());
+    	addSequential(new AUTODelay(), 3);
+    	addSequential(new DriveForward(), 0.7);
     }
 }
