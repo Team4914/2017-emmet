@@ -27,11 +27,11 @@ public class AUTOLeftHook extends CommandGroup {
     	addSequential(new CW(60));
     	addSequential(new DriveBackward(), 0.7);
     	addSequential(new TrackTarget());
-    	addSequential(new AUTODelay(), 3);
-    	addSequential(new DriveForward(), 0.7);
-    	addSequential(new CCW(30));
-    	addSequential(new TrackTarget());
-    	addSequential(new AUTODelay(), 3);
-    	addSequential(new DriveForward(), 0.7);
+    	addSequential(new AUTODelay(), 8);
+    	// addSequential(new DriveForward(), 0.5);
+    	// addSequential(new CCW(30));
+    	// addSequential(new TrackTarget());
+    	// addSequential(new AUTODelay(), 3);
+    	// addSequential(new DriveForward(), 0.7);
     }
 }
