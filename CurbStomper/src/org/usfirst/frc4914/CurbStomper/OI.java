@@ -84,8 +84,8 @@ public class OI {
         START = new JoystickButton(primaryJoystick, 8);
         SELECT = new JoystickButton(primaryJoystick, 7);
         
-        SQUARE.whenPressed(new InvertDrive());
-        lBumper.whenPressed(new StraightDrive());
+        lBumper.whenPressed(new InvertDrive());
+        SQUARE.whenPressed(new StraightDrive());
         rBumper.whileHeld(new RunIntake());
         // lBumper.whileHeld(new RunReverseIntake());
         START.whenPressed(new TrackTarget());
@@ -103,12 +103,13 @@ public class OI {
 
 
         // SmartDashboard Buttons
-        SmartDashboard.putData("AUTOLeftHook", new AUTOLeftHook());
-        SmartDashboard.putData("AUTOMiddleHook", new AUTOMiddleHook());
-        SmartDashboard.putData("AUTORightHook", new AUTORightHook());
-        SmartDashboard.putData("Centre Target", new TrackTarget());
-        SmartDashboard.putData("Invert Drive", new InvertDrive());
-        SmartDashboard.putData("Run Intake", new RunIntake());
+        SmartDashboard.putData("Track Target", new TrackTarget());
+        SmartDashboard.putData("test", new Test());
+        SmartDashboard.putNumber("Gyro", Robot.driveTrain.getGyroBearing());
+        SmartDashboard.putNumber("Ultrasonic", Robot.driveTrain.getUltra());
+        SmartDashboard.putNumber("Goal X", Robot.getGoalX());
+        SmartDashboard.putNumber("Goal Y", Robot.getGoalY());
+        
     }
 
     public Joystick getPrimaryJoystick() {

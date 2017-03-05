@@ -147,6 +147,7 @@ public class Robot extends IterativeRobot {
 
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
+        System.out.println(Robot.driveTrain.getUltra());
     }
 
     public void autonomousInit() {
@@ -242,14 +243,22 @@ public class Robot extends IterativeRobot {
      * Returns goal X position on camera
      */
     public static double getGoalX() {
-    	return table.getNumber("cX", -1);
+    	try {
+    		return table.getNumber("cX", -1);
+    	} catch (Exception e) {
+    		return -1;
+    	}
     }
     
     /**
      * Returns goal Y position on camera
      */
     public static double getGoalY() {
-    	return table.getNumber("cY", -1);
+    	try {
+    		return table.getNumber("cY", -1);
+    	} catch (Exception e) {
+    		return -1;
+    	}
     }
     
     /**
