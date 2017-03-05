@@ -11,7 +11,7 @@ public class DriveBackward extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	// TODO reset gyro
+    	//TODO reset gyro
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -20,9 +20,9 @@ public class DriveBackward extends Command {
     	double left = 0, right = 0;
     	
     	if(gyroAngle < 0) {
-    		left = DriveTrain.AUTO_SPEED - (gyroAngle/30)*0.3;
-    	} else if (gyroAngle > 0){ 
     		right = DriveTrain.AUTO_SPEED - (gyroAngle/30)*0.3;
+    	} else if (gyroAngle > 0){ 
+    		left = DriveTrain.AUTO_SPEED - (gyroAngle/30)*0.3;
     	}
     	
     	Robot.driveTrain.tankDrive(left, right);
