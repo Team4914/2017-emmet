@@ -86,6 +86,7 @@ public class OI {
         
         lBumper.whenPressed(new InvertDrive());
         SQUARE.whenPressed(new StraightDrive());
+        CIRCLE.whileHeld(new RunReverseIntake());
         rBumper.whileHeld(new RunIntake());
         // lBumper.whileHeld(new RunReverseIntake());
         START.whenPressed(new TrackTarget());
