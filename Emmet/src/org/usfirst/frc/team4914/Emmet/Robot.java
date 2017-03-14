@@ -3,8 +3,8 @@ package org.usfirst.frc.team4914.Emmet;
 
 import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
-import org.usfirst.frc.team4914.robot.commands.*;
-import org.usfirst.frc.team4914.robot.subsystems.*;
+import org.usfirst.frc.team4914.Emmet.commands.*;
+import org.usfirst.frc.team4914.Emmet.subsystems.*;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
