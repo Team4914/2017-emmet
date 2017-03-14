@@ -11,7 +11,7 @@ public class DriveBackward extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	// TODO reset gyro orientation
+    	Robot.driveTrain.resetGyro();
     }
 
     // Called repeatedly when this Command is scheduled to run
