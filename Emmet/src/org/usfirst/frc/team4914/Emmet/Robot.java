@@ -1,9 +1,15 @@
 
 package org.usfirst.frc.team4914.Emmet;
 
-import org.usfirst.frc.team4914.Emmet.commands.ExampleCommand;
-import org.usfirst.frc.team4914.Emmet.subsystems.ExampleSubsystem;
+import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
+import org.usfirst.frc.team4914.robot.commands.*;
+import org.usfirst.frc.team4914.robot.subsystems.*;
 
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -20,11 +26,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
+	public static Drivetrain drivetrain;
+	public static Climber climber;
+	public static Fuel fuel;
 
+	static CameraServer server;
+	
 	Command autonomousCommand;
-	SendableChooser<Command> chooser = new SendableChooser<>();
+	SendableChooser<Command> autoChooser = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -32,10 +42,24 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
+		RobotMap.init();
+		
+		drivetrain = new Drivetrain();
+		climber = new Climber();
+		fuel = new Fuel();
+		
 		oi = new OI();
-		chooser.addDefault("Default Auto", new ExampleCommand());
+		
+		server = CameraServer.getInstance();
+		cameraInit();
+		
+		autoChooser.addDefault("Middle Hook", new AutoMiddleHook());
+		autoChooser.addObject("Left Hook", new AutoLeftHook());
+		autoChooser.addObject("Right Hook", new AutoRightHook());
 		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", chooser);
+		SmartDashboard.putData("Auto mode", autoChooser);
+		
+		SmartDashboard.putNumber("Auto delay", 0);
 	}
 
 	/**
@@ -45,12 +69,17 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
-
+		Robot.drivetrain.stop();
+		Robot.climber.stop();
+		Robot.fuel.stopAll();
 	}
 
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		// DEBUG CODE HERE \\
+		
+		// *************** \\
 	}
 
 	/**
@@ -66,7 +95,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = chooser.getSelected();
+		autonomousCommand = (Command) autoChooser.getSelected();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -104,6 +133,28 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		
+		// primary
+		if (RobotConstants.isTrigger) {
+			Robot.drivetrain.arcadeDrive(Robot.oi.getPrimaryLJ_H(), Robot.oi.getPrimaryRT(), Robot.oi.getPrimaryLT());
+		} else {
+			Robot.drivetrain.tankDrive(Robot.oi.getPrimaryLJ_V(), Robot.oi.getPrimaryRJ_V(), false, RobotConstants.isInverted);
+		}
+		
+		// co turn
+    	if (Math.abs(Robot.oi.getCoZ()) > 0.25) {
+    		Robot.drivetrain.setAdditionalInput(-Robot.oi.getCoZ() * RobotConstants.CO_DRIVE_PERCENT / 100
+    			, Robot.oi.getCoZ() * RobotConstants.CO_DRIVE_PERCENT / 100);
+    	}
+    	
+    	// co straight
+    	if (RobotConstants.isInverted) {
+	    	Robot.drivetrain.setAdditionalInput(-Robot.oi.getCoY() * RobotConstants.CO_DRIVE_PERCENT / 100
+	    		, -Robot.oi.getCoY() * RobotConstants.CO_DRIVE_PERCENT / 100);
+    	} else {
+	    	Robot.drivetrain.setAdditionalInput(Robot.oi.getCoY() * RobotConstants.CO_DRIVE_PERCENT / 100
+	    		, Robot.oi.getCoY() * RobotConstants.CO_DRIVE_PERCENT / 100);
+    	}
 	}
 
 	/**
@@ -113,4 +164,58 @@ public class Robot extends IterativeRobot {
 	public void testPeriodic() {
 		LiveWindow.run();
 	}
+	
+	/**
+	 * Returns auto delay, in seconds, from SmartDashboard
+	 */
+	public static double getAutoDelay() {
+		return SmartDashboard.getNumber("Auto delay", 0);
+	}
+    
+    /**
+     * Camera switcher initialization
+     */
+    private void cameraInit() {
+
+        // camera switching code
+        Thread t = new Thread(() -> {
+    		
+    		boolean allowCam1 = false;
+    		
+    		UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture(0);
+            camera1.setResolution(320, 240);
+            camera1.setFPS(30);
+            UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture(1);
+            camera2.setResolution(320, 240);
+            camera2.setFPS(30);
+            
+            CvSink cvSink1 = CameraServer.getInstance().getVideo(camera1);
+            CvSink cvSink2 = CameraServer.getInstance().getVideo(camera2);
+            CvSource outputStream = CameraServer.getInstance().putVideo("Switcher", 320, 240);
+            
+            Mat image = new Mat();            
+            Mat grey = new Mat();
+            
+            while(!Thread.interrupted()) {
+            	
+            	if (Robot.oi.getPrimaryJoystick().getRawButton(4)) { allowCam1 = !allowCam1; }
+            	
+                if(allowCam1){
+                  cvSink2.setEnabled(false);
+                  cvSink1.setEnabled(true);
+                  cvSink1.grabFrame(image);
+                } else{
+                  cvSink1.setEnabled(false);
+                  cvSink2.setEnabled(true);
+                  cvSink2.grabFrame(image);     
+                }
+                
+                Imgproc.cvtColor(image, grey, Imgproc.COLOR_BGR2GRAY);
+                
+                outputStream.putFrame(grey);
+            }
+            
+        });
+        t.start();
+    }
 }

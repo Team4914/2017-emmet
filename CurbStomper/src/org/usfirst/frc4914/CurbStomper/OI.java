@@ -129,6 +129,14 @@ public class OI {
     	return primaryJoystick.getRawAxis(5);
     }
     
+    public double getPrimaryLJ_H() {
+    	return primaryJoystick.getRawAxis(0);
+    }
+    
+    public double getPrimaryRJ_H() {
+    	return primaryJoystick.getRawAxis(4);
+    }
+    
     public double getPrimaryRT() {
     	return primaryJoystick.getRawAxis(3);
     }

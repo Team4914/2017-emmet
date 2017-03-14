@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4914.robot.subsystems;
 
+import org.usfirst.frc.team4914.Emmet.RobotConstants;
 import org.usfirst.frc.team4914.Emmet.RobotMap;
 
 import com.ctre.CANTalon;
@@ -69,7 +70,48 @@ public class Drivetrain extends Subsystem {
     }
     
     /**
+     * Operates drivetrain in trigger drive
+     * 
+     * @param turnChannel input for left/right turning
+     * @param forwardChannel input for forward speed
+     * @param backwardChannel input for backward speed
+     */
+    public void triggerDrive(double turnChannel, double forwardChannel, double backwardChannel) {
+    	// left and right input speeds
+    	double leftSpeed = 0;
+    	double rightSpeed = 0;
+    	
+    	if (forwardChannel <= 0.001) {
+    		leftSpeed = -backwardChannel;
+    		rightSpeed = -backwardChannel;
+    	} else {
+    		leftSpeed = forwardChannel;
+    		rightSpeed = forwardChannel;
+    	}
+    	
+    	if (turnChannel > 0) {
+    		leftSpeed *= (1 - Math.abs(turnChannel));
+    	} else {
+    		rightSpeed *= (1 - Math.abs(turnChannel));
+    	}
+    	
+    	tankDrive(leftSpeed, rightSpeed, false, RobotConstants.isInverted);
+    }
+    
+    public void arcadeDrive(double turnChannel, double forwardChannel, double backwardChannel) {
+		// Moves robot using both trigger axes
+		double moveValue = forwardChannel - backwardChannel;
+		
+		// Rotates robot left and right on a single axis
+		double rotateValue = turnChannel;
+		
+		// Drives robot at provided move and rotate values
+		robotDrive41.arcadeDrive(moveValue, rotateValue, true);
+	} // End of method
+    
+    /**
      * Sets additional left and right values for drive train
+     * Ranges from -1 to 1
      */
     public void setAdditionalInput(double addLeftInput, double addRightInput) {
     	additionalLeftInput = addLeftInput;
