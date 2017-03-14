@@ -1,31 +1,29 @@
 package org.usfirst.frc4914.CurbStomper.commands;
 
-import org.usfirst.frc4914.CurbStomper.Robot;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class SwitchCamera extends Command {
+public class AUTODelay extends Command {
 
-    public SwitchCamera() {
+    public AUTODelay() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.switchCamera();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	boolean a = true;
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true
