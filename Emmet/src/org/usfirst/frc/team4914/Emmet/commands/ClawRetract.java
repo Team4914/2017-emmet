@@ -6,34 +6,35 @@ import org.usfirst.frc.team4914.Emmet.RobotConstants;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 
 
-public class TurnCW extends PIDCommand {
+public class ClawRetract extends PIDCommand {
 
-    public TurnCW(int angle) {
+    public ClawRetract() {
 
-    	super("TurnCW", RobotConstants.AUTO_TURN_P, 
-    			RobotConstants.AUTO_TURN_I, RobotConstants.AUTO_TURN_D);
-    	getPIDController().setSetpoint(angle);
+    	super("DriveForward", RobotConstants.GEAR_P, 
+    			RobotConstants.GEAR_I, RobotConstants.GEAR_D);
+    	getPIDController().setSetpoint(RobotConstants.GEAR_INIT_SETPOINT);
         
-    	getPIDController().setInputRange(0, 360);
-    	getPIDController().setContinuous(true);
-        getPIDController().setAbsoluteTolerance(RobotConstants.AUTO_TURN_TOLERANCE);
-        getPIDController().setOutputRange(-0.4, 0.4);
+    	getPIDController().setContinuous(false);
+        getPIDController().setAbsoluteTolerance(RobotConstants.GEAR_TOLERANCE);
+        getPIDController().setOutputRange(-0.1, 0.1);
+        
+        requires(Robot.gear);
     }
 
     protected double returnPIDInput() {
-    	return Robot.drivetrain.getGyroBearing();
+    	return Robot.gear.getEncoderPosition();
     }
 
     protected void usePIDOutput(double output) {
-    	Robot.drivetrain.tankDrive(-output, output, false, false);
+    	Robot.gear.setClaw(output);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	// sets timeout
-    	setTimeout(5);
+    	setTimeout(3);
     	// resets all sensors
-    	Robot.drivetrain.resetGyro();
+    	Robot.gear.resetEncoder();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -49,7 +50,7 @@ public class TurnCW extends PIDCommand {
     protected void end() {
     	getPIDController().disable();
     	getPIDController().free();
-    	Robot.drivetrain.stop();
+    	Robot.gear.stop();
     }
 
     // Called when another command which requires one or more of the same

@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4914.Emmet;
 
+import org.usfirst.frc.team4914.Emmet.commands.*;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -81,6 +83,11 @@ public class OI {
         lBumper = new JoystickButton(primaryJoystick, 5);
         START = new JoystickButton(primaryJoystick, 8);
         SELECT = new JoystickButton(primaryJoystick, 7);
+        
+        lBumper.whenPressed(new ClawExtend());
+        lBumper.whenReleased(new ClawRetract());
+        rBumper.whenPressed(new ToggleDriveModes());
+        SQUARE.whenPressed(new ToggleDriveDirection());
 
         coJoystick = new Joystick(1);
         
@@ -92,6 +99,9 @@ public class OI {
         colBumper = new JoystickButton(coJoystick, 5);
         coSTART = new JoystickButton(coJoystick, 8);
         coSELECT = new JoystickButton(coJoystick, 7);
+        
+        colBumper.whenPressed(new ClawExtend());
+        colBumper.whenReleased(new ClawRetract());
         
         /*
         TRIGGER = new JoystickButton(coJoystick, 1);

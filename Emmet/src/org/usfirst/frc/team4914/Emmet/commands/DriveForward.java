@@ -8,10 +8,13 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 
 public class DriveForward extends PIDCommand {
 
-    public DriveForward(int distance) {
+    public DriveForward(double distance) {
 
     	super("DriveForward", RobotConstants.AUTO_DRIVE_P, 
     			RobotConstants.AUTO_DRIVE_I, RobotConstants.AUTO_DRIVE_D);
+    	
+    	distance *= RobotConstants.INCHES_TO_ENCODER;
+    	
     	getPIDController().setSetpoint(distance);
         
     	getPIDController().setContinuous(false);
@@ -47,6 +50,8 @@ public class DriveForward extends PIDCommand {
 
     // Called once after isFinished returns true
     protected void end() {
+    	getPIDController().disable();
+    	getPIDController().free();
     	Robot.drivetrain.stop();
     }
 

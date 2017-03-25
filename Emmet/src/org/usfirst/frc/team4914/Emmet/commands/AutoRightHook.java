@@ -10,31 +10,24 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class AutoRightHook extends CommandGroup {
 
+	// AKA BOILER SIDE HOOK
     public AutoRightHook() {
-        // Add Commands here:
-        // e.g. addSequential(new Command1());
-        //      addSequential(new Command2());
-        // these will run in order.
-
-        // To run multiple commands at the same time,
-        // use addParallel()
-        // e.g. addParallel(new Command1());
-        //      addSequential(new Command2());
-        // Command1 and Command2 will run in parallel.
-
-        // A command group will require all of the subsystems that each member
-        // would require.
-        // e.g. if Command1 requires chassis, and Command2 requires arm,
-        // a CommandGroup containing them would require both the chassis and the
-        // arm.
+    	// strategic delay
     	addSequential(new AutoDelay(Robot.getAutoDelay()));
-    	addSequential(new DriveBackward(RobotConstants.AUTO_SPEED));
-    	addSequential(new TurnCCW(RobotConstants.AUTO_TURN);
-    	addSequential(new TrackTarget());
-    	addSequential(new clawExtend());
-    	addSequential(new DriveForward(0));
-    	addSequential(new TurnCW(RobotConstants.AUTO_TURN;
-    	addParallel(new clawRetract());
-    	AddSequential(new DriveBackward(3));
+    	
+    	// first leg of path
+    	addSequential(new DriveForward(RobotConstants.AUTO_DRIVE_RHOOK_D1));
+    	// turn toward airship
+    	addSequential(new TurnCCW(RobotConstants.AUTO_TURN_RHOOK_SETPOINT));
+    	// second leg of path
+    	addSequential(new DriveForward(RobotConstants.AUTO_DRIVE_RHOOK_D2));
+    	// extend claws and deposit gear
+    	addSequential(new ClawExtend());
+    	// back away from airship
+    	addSequential(new DriveForward(-RobotConstants.AUTO_DRIVE_RHOOK_D2));
+    	addParallel(new ClawRetract());
+    	// turn and head down field
+    	addSequential(new TurnCW(RobotConstants.AUTO_TURN_RHOOK_SETPOINT));
+    	addSequential(new DriveForward(60));
     }
 }

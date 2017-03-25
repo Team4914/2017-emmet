@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4914.Emmet.subsystems;
 
+import org.usfirst.frc.team4914.Emmet.Robot;
 import org.usfirst.frc.team4914.Emmet.RobotMap;
 
 import edu.wpi.first.wpilibj.TalonSRX;
@@ -18,6 +19,7 @@ public class Climber extends Subsystem {
     }
     
     public void setSpeed(double speed) {
+    	speed = Robot.limit(speed);
     	climber.set(speed);
     }
     

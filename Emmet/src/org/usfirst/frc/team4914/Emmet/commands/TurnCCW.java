@@ -47,6 +47,8 @@ public class TurnCCW extends PIDCommand {
 
     // Called once after isFinished returns true
     protected void end() {
+    	getPIDController().disable();
+    	getPIDController().free();
     	Robot.drivetrain.stop();
     }
 

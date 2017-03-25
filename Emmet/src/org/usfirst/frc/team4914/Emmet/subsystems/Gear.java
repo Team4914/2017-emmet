@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4914.Emmet.subsystems;
 
+import org.usfirst.frc.team4914.Emmet.Robot;
 import org.usfirst.frc.team4914.Emmet.RobotMap;
 
 import com.ctre.CANTalon;
@@ -19,6 +20,7 @@ public class Gear extends Subsystem {
     }
     
     public void setClaw(double speed) {
+    	speed = Robot.limit(speed);
     	claw.set(speed);
     }
     

@@ -31,7 +31,6 @@ public class RobotMap {
 	public static CANTalon claw;
 	
 	// FUEL \\
-	public static TalonSRX intake;
 	public static Talon shooter;
 	
 	// DIAGNOSTIC \\
@@ -67,9 +66,7 @@ public class RobotMap {
 		LiveWindow.addActuator("Gear", "Claw", claw);
 		
 		// FUEL \\
-		intake = new TalonSRX(5);
 		shooter = new Talon(6);
-		LiveWindow.addActuator("Fuel", "Intake", intake);
 		LiveWindow.addActuator("Fuel", "Shooter", shooter);
 		
 		// DIAGNOSTIC \\

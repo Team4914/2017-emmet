@@ -52,16 +52,20 @@ public class Robot extends IterativeRobot {
 		
 		oi = new OI();
 		
+		// initializes camera server
 		server = CameraServer.getInstance();
 		cameraInit();
 		
+		// initializes auto chooser
 		autoChooser.addDefault("Middle Hook", new AutoMiddleHook());
-		autoChooser.addObject("Left Hook", new AutoLeftHook());
-		autoChooser.addObject("Right Hook", new AutoRightHook());
-		// chooser.addObject("My Auto", new MyAutoCommand());
+		autoChooser.addObject("Loading Station Hook", new AutoLeftHook());
+		autoChooser.addObject("Boiler Side Hook", new AutoRightHook());
 		SmartDashboard.putData("Auto mode", autoChooser);
-		
+		// auto delay
 		SmartDashboard.putNumber("Auto delay", 0);
+		
+		// resets all sensors
+		resetAllSensors();
 	}
 
 	/**
@@ -101,6 +105,9 @@ public class Robot extends IterativeRobot {
 
 		// DEBUG \\
 		if (RobotConstants.isTestingEnvironment) readTestingEnvironment();
+		
+		// resets sensors
+		resetAllSensors();
 		
 		autonomousCommand = (Command) autoChooser.getSelected();
 
@@ -145,6 +152,8 @@ public class Robot extends IterativeRobot {
 		
 		// drive control
 		drive();
+		// climb control
+		climb();
 	}
 
 	/**
@@ -250,6 +259,16 @@ public class Robot extends IterativeRobot {
     	}
     }
     
+    private void climb() {
+    	Robot.climber.setSpeed(Robot.oi.getCoRT() - Robot.oi.getCoLT());
+    }
+    
+    public void resetAllSensors() {
+    	Robot.drivetrain.resetEncoder();
+    	Robot.drivetrain.resetGyro();
+    	Robot.gear.resetEncoder();
+    }
+    
     /**
      * starts up smartdashboard variable changing
      */
@@ -259,11 +278,14 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putBoolean("isTrigger", RobotConstants.isTrigger);
     	
     	SmartDashboard.putNumber("AUTO_SPEED", RobotConstants.AUTO_SPEED);
+    	SmartDashboard.putNumber("INCHES_TO_ENCODER", RobotConstants.INCHES_TO_ENCODER);
     	
     	SmartDashboard.putNumber("AUTO_DRIVE_TOLERANCE", RobotConstants.AUTO_DRIVE_TOLERANCE);
-    	SmartDashboard.putNumber("AUTO_DRIVE_RHOOK_SETPOINT", RobotConstants.AUTO_DRIVE_RHOOK_SETPOINT);
-    	SmartDashboard.putNumber("AUTO_DRIVE_LHOOK_SETPOINT", RobotConstants.AUTO_DRIVE_LHOOK_SETPOINT);
-    	SmartDashboard.putNumber("AUTO_DRIVE_MHOOK_SETPOINT", RobotConstants.AUTO_DRIVE_MHOOK_SETPOINT);
+    	SmartDashboard.putNumber("AUTO_DRIVE_RHOOK_D1", RobotConstants.AUTO_DRIVE_RHOOK_D1);
+    	SmartDashboard.putNumber("AUTO_DRIVE_RHOOK_D2", RobotConstants.AUTO_DRIVE_RHOOK_D2);
+    	SmartDashboard.putNumber("AUTO_DRIVE_LHOOK_D1", RobotConstants.AUTO_DRIVE_LHOOK_D1);
+    	SmartDashboard.putNumber("AUTO_DRIVE_LHOOK_D2", RobotConstants.AUTO_DRIVE_LHOOK_D2);
+    	SmartDashboard.putNumber("AUTO_DRIVE_MHOOK_D1", RobotConstants.AUTO_DRIVE_MHOOK_D1);
     	SmartDashboard.putNumber("AUTO_DRIVE_P", RobotConstants.AUTO_DRIVE_P);
     	SmartDashboard.putNumber("AUTO_DRIVE_I", RobotConstants.AUTO_DRIVE_I);
     	SmartDashboard.putNumber("AUTO_DRIVE_D", RobotConstants.AUTO_DRIVE_D);
@@ -305,18 +327,21 @@ public class Robot extends IterativeRobot {
 		RobotConstants.isTrigger = SmartDashboard.getBoolean("isTrigger", false);
 		
 		RobotConstants.AUTO_SPEED = SmartDashboard.getNumber("AUTO_SPEED", 0);
+		RobotConstants.AUTO_SPEED = SmartDashboard.getNumber("INCHES_TO_ENCODER", 0);
 		
 		RobotConstants.AUTO_DRIVE_TOLERANCE = SmartDashboard.getNumber("AUTO_DRIVE_TOLERANCE", 0);
-		RobotConstants.AUTO_DRIVE_RHOOK_SETPOINT = SmartDashboard.getNumber("AUTO_DRIVE_RHOOK_SETPOINT", 0);
-		RobotConstants.AUTO_DRIVE_LHOOK_SETPOINT = SmartDashboard.getNumber("AUTO_DRIVE_LHOOK_SETPOINT", 0);
-		RobotConstants.AUTO_DRIVE_MHOOK_SETPOINT = SmartDashboard.getNumber("AUTO_DRIVE_MHOOK_SETPOINT", 0);
+		RobotConstants.AUTO_DRIVE_RHOOK_D1 = SmartDashboard.getNumber("AUTO_DRIVE_RHOOK_D1", 0);
+		RobotConstants.AUTO_DRIVE_RHOOK_D2 = SmartDashboard.getNumber("AUTO_DRIVE_RHOOK_D2", 0);
+		RobotConstants.AUTO_DRIVE_LHOOK_D1 = SmartDashboard.getNumber("AUTO_DRIVE_LHOOK_D1", 0);
+		RobotConstants.AUTO_DRIVE_LHOOK_D2 = SmartDashboard.getNumber("AUTO_DRIVE_LHOOK_D2", 0);
+		RobotConstants.AUTO_DRIVE_MHOOK_D1 = SmartDashboard.getNumber("AUTO_DRIVE_MHOOK_D1", 0);
 		RobotConstants.AUTO_DRIVE_P = SmartDashboard.getNumber("AUTO_DRIVE_P", 0);
 		RobotConstants.AUTO_DRIVE_I = SmartDashboard.getNumber("AUTO_DRIVE_I", 0);
 		RobotConstants.AUTO_DRIVE_D = SmartDashboard.getNumber("AUTO_DRIVE_D", 0);
 		
-		RobotConstants.AUTO_TURN_TOLERANCE = SmartDashboard.getNumber("AUTO_TURN_TOLERANCE", 0);
-		RobotConstants.AUTO_TURN_RHOOK_SETPOINT = SmartDashboard.getNumber("AUTO_TURN_RHOOK_SETPOINT", 0);
-		RobotConstants.AUTO_TURN_LHOOK_SETPOINT = SmartDashboard.getNumber("AUTO_TURN_LHOOK_SETPOINT", 0);
+		RobotConstants.AUTO_TURN_TOLERANCE = (int) SmartDashboard.getNumber("AUTO_TURN_TOLERANCE", 0);
+		RobotConstants.AUTO_TURN_RHOOK_SETPOINT = (int) SmartDashboard.getNumber("AUTO_TURN_RHOOK_SETPOINT", 0);
+		RobotConstants.AUTO_TURN_LHOOK_SETPOINT = (int) SmartDashboard.getNumber("AUTO_TURN_LHOOK_SETPOINT", 0);
 		RobotConstants.AUTO_TURN_P = SmartDashboard.getNumber("AUTO_TURN_P", 0);
 		RobotConstants.AUTO_TURN_I = SmartDashboard.getNumber("AUTO_TURN_I", 0);
 		RobotConstants.AUTO_TURN_D = SmartDashboard.getNumber("AUTO_TURN_D", 0);
@@ -336,5 +361,20 @@ public class Robot extends IterativeRobot {
 		RobotConstants.GEAR_P = SmartDashboard.getNumber("GEAR_P", 0);
 		RobotConstants.GEAR_I = SmartDashboard.getNumber("GEAR_I", 0);
 		RobotConstants.GEAR_D = SmartDashboard.getNumber("GEAR_D", 0);
+    }
+    
+    /**
+     * Limits speed to values between 1 and -1
+     * @param speed raw input speed
+     * @return returns limited speed between 1 and -1
+     */
+    public static double limit(double speed) {
+    	if (speed > 1) {
+    		return 1;
+    	} else if (speed < -1) {
+    		return -1;
+    	} else {
+    		return speed;
+    	}
     }
 }

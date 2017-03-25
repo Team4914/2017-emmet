@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4914.Emmet.subsystems;
 
+import org.usfirst.frc.team4914.Emmet.Robot;
 import org.usfirst.frc.team4914.Emmet.RobotMap;
 
 import edu.wpi.first.wpilibj.Talon;
@@ -11,7 +12,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Fuel extends Subsystem {
 
-	private final TalonSRX intake = RobotMap.intake;
 	private final Talon shooter = RobotMap.shooter;
 	
 
@@ -20,16 +20,9 @@ public class Fuel extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
-    public void setIntake(double speed) {
-    	intake.set(speed);
-    }
-    
     public void setShooter(double speed) {
+    	speed = Robot.limit(speed);
     	shooter.set(speed);
-    }
-    
-    public void stopIntake() {
-    	setIntake(0);
     }
     
     public void stopShooter() {
@@ -37,7 +30,6 @@ public class Fuel extends Subsystem {
     }
     
     public void stopAll() {
-    	stopIntake();
     	stopShooter();
     }
 }
