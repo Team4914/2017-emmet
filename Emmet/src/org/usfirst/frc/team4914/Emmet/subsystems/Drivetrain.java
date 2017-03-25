@@ -76,6 +76,7 @@ public class Drivetrain extends Subsystem {
      * @param forwardChannel input for forward speed
      * @param backwardChannel input for backward speed
      */
+    /*
     public void triggerDrive(double turnChannel, double forwardChannel, double backwardChannel) {
     	// left and right input speeds
     	double leftSpeed = 0;
@@ -97,11 +98,24 @@ public class Drivetrain extends Subsystem {
     	
     	tankDrive(leftSpeed, rightSpeed, false, RobotConstants.isInverted);
     }
+    */
     
-    public void arcadeDrive(double turnChannel, double forwardChannel, double backwardChannel) {
+    /**
+     * Operates drivetrain in trigger drive using built-in arcade drive
+     * 
+     * @param turnChannel value for turning (-1 to 1)
+     * @param forwardChannel value for driving forward (-1 to 1)
+     * @param backwardChannel value for driving backward (-1 to 1)
+     */
+    public void triggerDrive(double turnChannel, double forwardChannel, double backwardChannel, boolean isInverted) {
 		// Moves robot using both trigger axes
-		double moveValue = forwardChannel - backwardChannel;
-		
+    	double moveValue = 0;
+    	if (isInverted) {
+    		moveValue = backwardChannel - forwardChannel;
+    	} else {
+    		moveValue = forwardChannel - backwardChannel;
+    	}
+    		
 		// Rotates robot left and right on a single axis
 		double rotateValue = turnChannel;
 		
@@ -157,6 +171,22 @@ public class Drivetrain extends Subsystem {
     	a[1] = accel.getY();
     	a[2] = accel.getZ();
     	return a;
+    }
+    
+    /**
+     * Returns drive encoder position
+     * 
+     * @return raw encoder position
+     */
+    public double getEncoderPosition() {
+    	return CIMRearLeft.getEncPosition();
+    }
+    
+    /**
+     * Resets encoder to a value of 0
+     */
+    public void resetEncoder() {
+    	CIMRearLeft.setPosition(0);
     }
     
 }

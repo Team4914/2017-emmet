@@ -30,6 +30,7 @@ public class Robot extends IterativeRobot {
 	public static Drivetrain drivetrain;
 	public static Climber climber;
 	public static Fuel fuel;
+	public static Gear gear;
 
 	static CameraServer server;
 	
@@ -47,6 +48,7 @@ public class Robot extends IterativeRobot {
 		drivetrain = new Drivetrain();
 		climber = new Climber();
 		fuel = new Fuel();
+		gear = new Gear();
 		
 		oi = new OI();
 		
@@ -72,6 +74,7 @@ public class Robot extends IterativeRobot {
 		Robot.drivetrain.stop();
 		Robot.climber.stop();
 		Robot.fuel.stopAll();
+		Robot.gear.stop();
 	}
 
 	@Override
@@ -95,14 +98,11 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = (Command) autoChooser.getSelected();
 
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
+		// DEBUG \\
+		if (RobotConstants.isTestingEnvironment) readTestingEnvironment();
+		
+		autonomousCommand = (Command) autoChooser.getSelected();
 
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null)
@@ -115,6 +115,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		
+		// DEBUG \\
+		if (RobotConstants.isTestingEnvironment) updateTestingEnvironment();
 	}
 
 	@Override
@@ -125,6 +128,9 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+		
+		// DEBUG \\
+		if (RobotConstants.isTestingEnvironment) readTestingEnvironment();
 	}
 
 	/**
@@ -134,27 +140,11 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		
-		// primary
-		if (RobotConstants.isTrigger) {
-			Robot.drivetrain.arcadeDrive(Robot.oi.getPrimaryLJ_H(), Robot.oi.getPrimaryRT(), Robot.oi.getPrimaryLT());
-		} else {
-			Robot.drivetrain.tankDrive(Robot.oi.getPrimaryLJ_V(), Robot.oi.getPrimaryRJ_V(), false, RobotConstants.isInverted);
-		}
+		// DEBUG \\
+		if (RobotConstants.isTestingEnvironment) updateTestingEnvironment();
 		
-		// co turn
-    	if (Math.abs(Robot.oi.getCoZ()) > 0.25) {
-    		Robot.drivetrain.setAdditionalInput(-Robot.oi.getCoZ() * RobotConstants.CO_DRIVE_PERCENT / 100
-    			, Robot.oi.getCoZ() * RobotConstants.CO_DRIVE_PERCENT / 100);
-    	}
-    	
-    	// co straight
-    	if (RobotConstants.isInverted) {
-	    	Robot.drivetrain.setAdditionalInput(-Robot.oi.getCoY() * RobotConstants.CO_DRIVE_PERCENT / 100
-	    		, -Robot.oi.getCoY() * RobotConstants.CO_DRIVE_PERCENT / 100);
-    	} else {
-	    	Robot.drivetrain.setAdditionalInput(Robot.oi.getCoY() * RobotConstants.CO_DRIVE_PERCENT / 100
-	    		, Robot.oi.getCoY() * RobotConstants.CO_DRIVE_PERCENT / 100);
-    	}
+		// drive control
+		drive();
 	}
 
 	/**
@@ -217,5 +207,134 @@ public class Robot extends IterativeRobot {
             
         });
         t.start();
+    }
+    
+    private void drive() {
+    	char override = 'p'; // which controller to take control
+    	double p = 0; // total primary input
+    	double c = 0; // total co input
+
+    	// calculates total primary input
+    	if (RobotConstants.isTrigger) {
+    		p += Math.abs(Robot.oi.getPrimaryRT());
+    		p += Math.abs(Robot.oi.getPrimaryLT());
+    		p += Math.abs(Robot.oi.getPrimaryRJ_H());
+    	} else {
+    		p += Math.abs(Robot.oi.getPrimaryLJ_V());
+    		p += Math.abs(Robot.oi.getPrimaryRJ_V());
+    	}
+    	
+    	// calculates total co input
+    	c += Math.abs(Robot.oi.getCoLJ_V());
+    	c += Math.abs(Robot.oi.getCoRJ_V());
+    	
+    	// finds overriding input
+    	if (p > c) {
+    		override = 'p';
+    	} else {
+    		override = 'c';
+    	}
+    	
+    	// primary drive inputs
+    	if (override == 'p') {
+    		if (RobotConstants.isTrigger) {
+    			Robot.drivetrain.triggerDrive(Robot.oi.getPrimaryLJ_H(), Robot.oi.getPrimaryRT(), Robot.oi.getPrimaryLT(), RobotConstants.isInverted);
+    		} else {
+    			Robot.drivetrain.tankDrive(Robot.oi.getPrimaryLJ_V(), Robot.oi.getPrimaryRJ_V(), false, RobotConstants.isInverted);
+    		}
+    	}
+    	
+    	// co drive inputs
+    	if (override == 'c') {
+    		Robot.drivetrain.tankDrive(Robot.oi.getCoLJ_V(), Robot.oi.getPrimaryRJ_V(), false, RobotConstants.isInverted);
+    	}
+    }
+    
+    /**
+     * starts up smartdashboard variable changing
+     */
+    public void updateTestingEnvironment() {
+    	// CONSTANTS \\
+    	SmartDashboard.putBoolean("isInverted", RobotConstants.isInverted);
+    	SmartDashboard.putBoolean("isTrigger", RobotConstants.isTrigger);
+    	
+    	SmartDashboard.putNumber("AUTO_SPEED", RobotConstants.AUTO_SPEED);
+    	
+    	SmartDashboard.putNumber("AUTO_DRIVE_TOLERANCE", RobotConstants.AUTO_DRIVE_TOLERANCE);
+    	SmartDashboard.putNumber("AUTO_DRIVE_RHOOK_SETPOINT", RobotConstants.AUTO_DRIVE_RHOOK_SETPOINT);
+    	SmartDashboard.putNumber("AUTO_DRIVE_LHOOK_SETPOINT", RobotConstants.AUTO_DRIVE_LHOOK_SETPOINT);
+    	SmartDashboard.putNumber("AUTO_DRIVE_MHOOK_SETPOINT", RobotConstants.AUTO_DRIVE_MHOOK_SETPOINT);
+    	SmartDashboard.putNumber("AUTO_DRIVE_P", RobotConstants.AUTO_DRIVE_P);
+    	SmartDashboard.putNumber("AUTO_DRIVE_I", RobotConstants.AUTO_DRIVE_I);
+    	SmartDashboard.putNumber("AUTO_DRIVE_D", RobotConstants.AUTO_DRIVE_D);
+    	
+    	SmartDashboard.putNumber("AUTO_TURN_TOLERANCE", RobotConstants.AUTO_TURN_TOLERANCE);
+    	SmartDashboard.putNumber("AUTO_TURN_RHOOK_SETPOINT", RobotConstants.AUTO_TURN_RHOOK_SETPOINT);
+    	SmartDashboard.putNumber("AUTO_TURN_LHOOK_SETPOINT", RobotConstants.AUTO_TURN_LHOOK_SETPOINT);
+    	SmartDashboard.putNumber("AUTO_TURN_P", RobotConstants.AUTO_TURN_P);
+    	SmartDashboard.putNumber("AUTO_TURN_I", RobotConstants.AUTO_TURN_I);
+    	SmartDashboard.putNumber("AUTO_TURN_D", RobotConstants.AUTO_TURN_D);
+    	
+    	SmartDashboard.putNumber("FLYWHEEL_SPEED", RobotConstants.FLYWHEEL_SPEED);
+    	
+    	SmartDashboard.putNumber("VISION_TOLERANCE", RobotConstants.VISION_TOLERANCE);
+    	SmartDashboard.putNumber("VISION_X_SETPOINT", RobotConstants.VISION_X_SETPOINT);
+    	SmartDashboard.putNumber("VISION_Y_SETPOINT", RobotConstants.VISION_Y_SETPOINT);
+    	SmartDashboard.putNumber("VISION_P", RobotConstants.VISION_P);
+    	SmartDashboard.putNumber("VISION_I", RobotConstants.VISION_I);
+    	SmartDashboard.putNumber("VISION_D", RobotConstants.VISION_D);
+    	
+    	SmartDashboard.putNumber("GEAR_TOLERANCE", RobotConstants.GEAR_TOLERANCE);
+    	SmartDashboard.putNumber("GEAR_INIT_SETPOINT", RobotConstants.GEAR_INIT_SETPOINT);
+    	SmartDashboard.putNumber("GEAR_FINAL_SETPOINT", RobotConstants.GEAR_FINAL_SETPOINT);
+    	SmartDashboard.putNumber("GEAR_P", RobotConstants.GEAR_P);
+    	SmartDashboard.putNumber("GEAR_I", RobotConstants.GEAR_I);
+    	SmartDashboard.putNumber("GEAR_D", RobotConstants.GEAR_D);
+    	
+    	// SENSORS \\
+    	SmartDashboard.putNumber("Drive Encoder", Robot.drivetrain.getEncoderPosition());
+    	SmartDashboard.putNumber("Gyro", Robot.drivetrain.getGyroBearing());
+    	SmartDashboard.putNumber("Gear Encoder", Robot.gear.getEncoderPosition());
+    }
+    
+    /**
+     * grabs values from testing environment
+     */
+    public void readTestingEnvironment() {
+    	RobotConstants.isInverted = SmartDashboard.getBoolean("isInverted", false);
+		RobotConstants.isTrigger = SmartDashboard.getBoolean("isTrigger", false);
+		
+		RobotConstants.AUTO_SPEED = SmartDashboard.getNumber("AUTO_SPEED", 0);
+		
+		RobotConstants.AUTO_DRIVE_TOLERANCE = SmartDashboard.getNumber("AUTO_DRIVE_TOLERANCE", 0);
+		RobotConstants.AUTO_DRIVE_RHOOK_SETPOINT = SmartDashboard.getNumber("AUTO_DRIVE_RHOOK_SETPOINT", 0);
+		RobotConstants.AUTO_DRIVE_LHOOK_SETPOINT = SmartDashboard.getNumber("AUTO_DRIVE_LHOOK_SETPOINT", 0);
+		RobotConstants.AUTO_DRIVE_MHOOK_SETPOINT = SmartDashboard.getNumber("AUTO_DRIVE_MHOOK_SETPOINT", 0);
+		RobotConstants.AUTO_DRIVE_P = SmartDashboard.getNumber("AUTO_DRIVE_P", 0);
+		RobotConstants.AUTO_DRIVE_I = SmartDashboard.getNumber("AUTO_DRIVE_I", 0);
+		RobotConstants.AUTO_DRIVE_D = SmartDashboard.getNumber("AUTO_DRIVE_D", 0);
+		
+		RobotConstants.AUTO_TURN_TOLERANCE = SmartDashboard.getNumber("AUTO_TURN_TOLERANCE", 0);
+		RobotConstants.AUTO_TURN_RHOOK_SETPOINT = SmartDashboard.getNumber("AUTO_TURN_RHOOK_SETPOINT", 0);
+		RobotConstants.AUTO_TURN_LHOOK_SETPOINT = SmartDashboard.getNumber("AUTO_TURN_LHOOK_SETPOINT", 0);
+		RobotConstants.AUTO_TURN_P = SmartDashboard.getNumber("AUTO_TURN_P", 0);
+		RobotConstants.AUTO_TURN_I = SmartDashboard.getNumber("AUTO_TURN_I", 0);
+		RobotConstants.AUTO_TURN_D = SmartDashboard.getNumber("AUTO_TURN_D", 0);
+		
+		RobotConstants.FLYWHEEL_SPEED = SmartDashboard.getNumber("FLYWHEEL_SPEED", 0);
+		
+		RobotConstants.VISION_TOLERANCE = (int) SmartDashboard.getNumber("VISION_TOLERANCE", 0);
+		RobotConstants.VISION_X_SETPOINT = (int) SmartDashboard.getNumber("VISION_X_SETPOINT", 0);
+		RobotConstants.VISION_Y_SETPOINT = (int) SmartDashboard.getNumber("VISION_Y_SETPOINT", 0);
+		RobotConstants.VISION_P = SmartDashboard.getNumber("VISION_P", 0);
+		RobotConstants.VISION_I = SmartDashboard.getNumber("VISION_I", 0);
+		RobotConstants.VISION_D = SmartDashboard.getNumber("VISION_D", 0);
+		
+		RobotConstants.GEAR_TOLERANCE = SmartDashboard.getNumber("GEAR_TOLERANCE", 0);
+		RobotConstants.GEAR_INIT_SETPOINT = SmartDashboard.getNumber("GEAR_INIT_SETPOINT", 0);
+		RobotConstants.GEAR_FINAL_SETPOINT = SmartDashboard.getNumber("GEAR_FINAL_SETPOINT", 0);
+		RobotConstants.GEAR_P = SmartDashboard.getNumber("GEAR_P", 0);
+		RobotConstants.GEAR_I = SmartDashboard.getNumber("GEAR_I", 0);
+		RobotConstants.GEAR_D = SmartDashboard.getNumber("GEAR_D", 0);
     }
 }

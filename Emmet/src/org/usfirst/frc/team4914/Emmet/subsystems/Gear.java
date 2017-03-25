@@ -26,8 +26,11 @@ public class Gear extends Subsystem {
     	setClaw(0);
     }
     
-    public double getEnc() {
+    public double getEncoderPosition() {
     	return claw.getEncPosition();
     }
+    
+    public void resetEncoder() {
+    	claw.setEncPosition(0);
+    }
 }
-
