@@ -16,6 +16,7 @@ import org.usfirst.frc4914.CurbStomper.commands.*;
 
 import com.ctre.CANTalon;
 
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 
@@ -25,6 +26,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Climber extends Subsystem {
 	
 	private final CANTalon climber = RobotMap.climberClimber;
+	private final Talon c1 = RobotMap.c1;
+	private final Talon c2 = RobotMap.c2;
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -44,7 +47,9 @@ public class Climber extends Subsystem {
      * @param speed speed at which to run motor
      */
     public void setSpeed(double speed) {
-    	climber.set(speed);
+    	// climber.set(speed);
+    	c1.set(speed);
+    	c2.set(speed);
     }
     
     /**

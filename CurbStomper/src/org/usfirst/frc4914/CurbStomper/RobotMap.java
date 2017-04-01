@@ -46,8 +46,8 @@ public class RobotMap {
 	public static RobotDrive driveTrainRobotDrive41;
 	public static CANTalon climberClimber;
     public static PowerDistributionPanel pDPPowerDistributionPanel1;
-    public static TalonSRX intakeIntake;
-    public static Talon shooter1;
+    public static Talon c2;
+    public static Talon c1;
     public static AnalogInput ultra;
 
     /*
@@ -61,21 +61,21 @@ public class RobotMap {
     	driveTrainRobotDrive41 = new RobotDrive(driveTrainCIMRearLeft, driveTrainCIMFrontLeft, 
     			driveTrainCIMRearRight, driveTrainCIMFrontRight);
     	climberClimber = new CANTalon(3);
-        intakeIntake = new TalonSRX(5);
+        c1 = new Talon(5);
         pDPPowerDistributionPanel1 = new PowerDistributionPanel(0);
         gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
-        shooter1 = new Talon(6);
+        c2 = new Talon(6);
         ultra = new AnalogInput(0);
         
         LiveWindow.addSensor("PDP", "PowerDistributionPanel 1", pDPPowerDistributionPanel1);
         LiveWindow.addSensor("Ultra", "Ultra", ultra);
-        LiveWindow.addActuator("Intake", "Intake", intakeIntake);
+       //  LiveWindow.addActuator("Intake", "Intake", intakeIntake);
         LiveWindow.addActuator("Climber", "Climber", climberClimber);
         LiveWindow.addActuator("RearLeft (2)", "Drivetrain", driveTrainCIMRearLeft);
         LiveWindow.addActuator("FrontLeft (12)", "Drivetrain", driveTrainCIMFrontLeft);
         LiveWindow.addActuator("RearRight (1)", "Drivetrain", driveTrainCIMRearRight);
         LiveWindow.addActuator("FrontRight (11)", "Drivetrain", driveTrainCIMFrontRight);
         LiveWindow.addActuator("Drive Train", "Gyro", gyro);
-        LiveWindow.addActuator("Shooter", "Shooter", shooter1);
+        // LiveWindow.addActuator("Shooter", "Shooter", shooter1);
     }
 }

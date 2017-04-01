@@ -25,7 +25,7 @@ public class Shooter extends Subsystem {
 	
 	public static double shootSpeed = 0.775;
 	
-	private final Talon shooter = RobotMap.shooter1;
+	// private final Talon shooter = RobotMap.shooter1;
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -44,7 +44,7 @@ public class Shooter extends Subsystem {
      * @param speed speed at which to run motor(s)
      */
     public void setSpeed(double speed) {
-    	shooter.set(speed);
+    	// shooter.set(speed);
     }
     
     /**
@@ -55,6 +55,7 @@ public class Shooter extends Subsystem {
     }
     
     public double getSpeed() {
-    	return shooter.getSpeed();
+    	// return shooter.getSpeed();
+    	return 0;
     }
 }

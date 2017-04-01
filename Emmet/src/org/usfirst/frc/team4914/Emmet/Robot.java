@@ -41,7 +41,7 @@ public class Robot extends IterativeRobot {
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
-	@Override
+	// @Override
 	public void robotInit() {
 		RobotMap.init();
 		
@@ -73,7 +73,7 @@ public class Robot extends IterativeRobot {
 	 * You can use it to reset any subsystem information you want to clear when
 	 * the robot is disabled.
 	 */
-	@Override
+	// @Override
 	public void disabledInit() {
 		Robot.drivetrain.stop();
 		Robot.climber.stop();
@@ -81,7 +81,7 @@ public class Robot extends IterativeRobot {
 		Robot.gear.stop();
 	}
 
-	@Override
+	// @Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		// DEBUG CODE HERE \\
@@ -100,7 +100,7 @@ public class Robot extends IterativeRobot {
 	 * chooser code above (like the commented example) or additional comparisons
 	 * to the switch structure below with additional strings & commands.
 	 */
-	@Override
+	// @Override
 	public void autonomousInit() {
 
 		// DEBUG \\
@@ -119,7 +119,7 @@ public class Robot extends IterativeRobot {
 	/**
 	 * This function is called periodically during autonomous
 	 */
-	@Override
+	// @Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 		
@@ -127,7 +127,7 @@ public class Robot extends IterativeRobot {
 		if (RobotConstants.isTestingEnvironment) updateTestingEnvironment();
 	}
 
-	@Override
+	// @Override
 	public void teleopInit() {
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
@@ -143,7 +143,7 @@ public class Robot extends IterativeRobot {
 	/**
 	 * This function is called periodically during operator control
 	 */
-	@Override
+	// @Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		
@@ -159,7 +159,7 @@ public class Robot extends IterativeRobot {
 	/**
 	 * This function is called periodically during test mode
 	 */
-	@Override
+	// @Override
 	public void testPeriodic() {
 		LiveWindow.run();
 	}

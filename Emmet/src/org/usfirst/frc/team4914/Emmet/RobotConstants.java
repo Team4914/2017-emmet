@@ -42,9 +42,9 @@ public class RobotConstants {
 	public static double VISION_D = 1;
 	
 	// GEAR \\
-	public static double GEAR_TOLERANCE = 0.01;
-	public static double GEAR_INIT_SETPOINT = 0;
-	public static double GEAR_FINAL_SETPOINT = 0;
+	public static double GEAR_TOLERANCE = 0.005;
+	public static double GEAR_INIT_SETPOINT = 0.010;
+	public static double GEAR_FINAL_SETPOINT = 0.233;
 	public static double GEAR_P = 0.001;
 	public static double GEAR_I = 1;
 	public static double GEAR_D = 1;

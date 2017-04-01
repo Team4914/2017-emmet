@@ -25,7 +25,8 @@ public class RobotMap {
 	public static BuiltInAccelerometer accel;
 	
 	// CLIMB \\
-	public static TalonSRX climber;
+	public static Talon climber;
+	public static Talon climber2;
 	
 	// GEAR \\
 	public static CANTalon claw;
@@ -58,8 +59,10 @@ public class RobotMap {
 		LiveWindow.addSensor("Drive Sensors", "Accelerometer", accel);
 		
 		// CLIMB \\
-		climber = new TalonSRX(0);
+		climber = new Talon(5);
+		climber2 = new Talon(6);
 		LiveWindow.addActuator("Climber", "Climber", climber);
+		LiveWindow.addActuator("Climber", "Climber2", climber2);
 		
 		// GEAR \\
 		claw = new CANTalon(3);
