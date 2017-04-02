@@ -1,5 +1,20 @@
 # To-do List
 
+## changelog
+- linked libraries order (changed)
+- image cvt colour grey (changed)
+- removed built in accelerometer
+- implemented encoder
+
+## To-do
+- move climber up
+- 13mm green ratchet
+- cleanup
+- jason's controller
+- encoder mount
+- backup hopper parts
+- electronics protection
+
 run through all commands and functionalities
 
 1. check polarity of rotate value  
