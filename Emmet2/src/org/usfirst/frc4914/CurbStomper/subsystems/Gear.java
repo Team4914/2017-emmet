@@ -2,6 +2,7 @@ package org.usfirst.frc4914.CurbStomper.subsystems;
 
 import org.usfirst.frc4914.CurbStomper.Robot;
 import org.usfirst.frc4914.CurbStomper.RobotMap;
+import org.usfirst.frc4914.CurbStomper.commands.ClawRetract2;
 
 import com.ctre.CANTalon;
 
@@ -17,6 +18,7 @@ public class Gear extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+    	setDefaultCommand(new ClawRetract2());
     }
     
     public void setClaw(double speed) {

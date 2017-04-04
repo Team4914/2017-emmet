@@ -11,7 +11,7 @@ public class ClawRetract extends PIDCommand {
     public ClawRetract() {
 
     	super("DriveForward", RobotConstants.GEAR_P, 
-    			RobotConstants.GEAR_I, RobotConstants.GEAR_D);
+    			RobotConstants.GEAR_I, RobotConstants.GEAR_D, 0.001);
     	getPIDController().setSetpoint(RobotConstants.GEAR_INIT_SETPOINT);
         
     	getPIDController().setContinuous(false);
@@ -34,7 +34,7 @@ public class ClawRetract extends PIDCommand {
     	// sets timeout
     	setTimeout(3);
     	// resets all sensors
-    	Robot.gear.resetEncoder();
+    	// Robot.gear.resetEncoder();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -48,8 +48,6 @@ public class ClawRetract extends PIDCommand {
 
     // Called once after isFinished returns true
     protected void end() {
-    	getPIDController().disable();
-    	getPIDController().free();
     	Robot.gear.stop();
     }
 

@@ -15,6 +15,11 @@
 - backup hopper parts
 - electronics protection
 
+## Code To-do
+- three camera support?
+- uncomment camera code
+
+
 run through all commands and functionalities
 
 1. check polarity of rotate value  

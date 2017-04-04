@@ -17,12 +17,14 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.opencv.core.Mat;
+import org.usfirst.frc4914.CurbStomper.commands.*;
 import org.usfirst.frc4914.CurbStomper.subsystems.*;
 
 /**
@@ -44,7 +46,7 @@ public class Robot extends IterativeRobot {
 	static CameraServer server;
 	
 	Command autonomousCommand;
-	SendableChooser autoChooser;
+	SendableChooser<CommandGroup> autoChooser;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -69,16 +71,22 @@ public class Robot extends IterativeRobot {
 		cameraInit();
 		
 		// initializes auto chooser
-		autoChooser = new SendableChooser();
+		autoChooser = new SendableChooser<CommandGroup>();
 		// autoChooser.addDefault("Middle Hook", new AutoMiddleHook());
 		// autoChooser.addObject("Loading Station Hook", new AutoLeftHook());
 		// autoChooser.addObject("Boiler Side Hook", new AutoRightHook());
+		autoChooser.addDefault("Middle Hook", new AutoMiddleHook());
+		autoChooser.addObject("Left Hook", new AutoLeftHook());
+		autoChooser.addObject("Right Hook", new AutoRightHook());
 		SmartDashboard.putData("Auto mode", autoChooser);
 		// auto delay
 		SmartDashboard.putNumber("Auto delay", 0);
 		
 		// resets all sensors
 		resetAllSensors();
+		
+
+		if (RobotConstants.isTestingEnvironment) updateTestingEnvironment();
 	}
 
 	/**
@@ -98,6 +106,7 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		// DEBUG CODE HERE \\
+		System.out.println(Robot.drivetrain.getGyroBearing());
 		
 		// *************** \\
 	}
@@ -151,6 +160,8 @@ public class Robot extends IterativeRobot {
 		
 		// DEBUG \\
 		if (RobotConstants.isTestingEnvironment) readTestingEnvironment();
+		
+		resetAllSensors();
 	}
 
 	/**
@@ -162,6 +173,7 @@ public class Robot extends IterativeRobot {
 		
 		// DEBUG \\
 		if (RobotConstants.isTestingEnvironment) updateTestingEnvironment();
+		System.out.println(RobotConstants.AUTO_DRIVE_P);
 		
 		// drive control
 		drive();
@@ -195,10 +207,10 @@ public class Robot extends IterativeRobot {
     		boolean allowCam1 = false;
     		
     		UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture(0);
-            camera1.setResolution(320, 240);
+            camera1.setResolution(160, 120);
             camera1.setFPS(30);
             UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture(1);
-            camera2.setResolution(320, 240);
+            camera2.setResolution(160, 120);
             camera2.setFPS(30);
             
             CvSink cvSink1 = CameraServer.getInstance().getVideo(camera1);
@@ -241,7 +253,8 @@ public class Robot extends IterativeRobot {
     	if (RobotConstants.isTrigger) {
     		p += Math.abs(Robot.oi.getPrimaryRT());
     		p += Math.abs(Robot.oi.getPrimaryLT());
-    		// p += Math.abs(Robot.oi.getPrimaryRJ_H());
+    		p += Math.abs(Robot.oi.getPrimaryRJ_V());
+    		p += Math.abs(Robot.oi.getPrimaryLJ_V());
     	} else {
     		p += Math.abs(Robot.oi.getPrimaryLJ_V());
     		p += Math.abs(Robot.oi.getPrimaryRJ_V());
@@ -260,11 +273,12 @@ public class Robot extends IterativeRobot {
     	
     	// primary drive inputs
     	if (override == 'p') {
-    		if (RobotConstants.isTrigger) {
+    		/* if (RobotConstants.isTrigger) {
     			Robot.drivetrain.triggerDrive(Robot.oi.getPrimaryLJ_H(), Robot.oi.getPrimaryRT(), Robot.oi.getPrimaryLT(), RobotConstants.isInverted);
     		} else {
     			Robot.drivetrain.tankDrive(Robot.oi.getPrimaryLJ_V(), Robot.oi.getPrimaryRJ_V(), false, RobotConstants.isInverted);
-    		}
+    		} */
+    		Robot.drivetrain.hybridDrive(Robot.oi.getPrimaryJoystick(), RobotConstants.isInverted);
     	}
     	
     	// co drive inputs
@@ -274,7 +288,8 @@ public class Robot extends IterativeRobot {
     }
     
     private void climb() {
-    	Robot.climber.setSpeed(Robot.oi.getCoRT() - Robot.oi.getCoLT());
+    	// Robot.climber.setSpeed(Robot.oi.getCoRT() - Robot.oi.getCoLT());
+    	Robot.climber.setSpeed(Robot.oi.getCoLT()*-0.2 + Robot.oi.getCoRT()*-0.7);
     }
     
     public void resetAllSensors() {

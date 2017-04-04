@@ -13,13 +13,16 @@ public class DriveForward extends PIDCommand {
     	super("DriveForward", RobotConstants.AUTO_DRIVE_P, 
     			RobotConstants.AUTO_DRIVE_I, RobotConstants.AUTO_DRIVE_D);
     	
+    	Robot.drivetrain.resetEncoder();
+    	Robot.drivetrain.resetGyro();
+    	
     	distance *= RobotConstants.INCHES_TO_ENCODER;
     	
     	getPIDController().setSetpoint(distance);
         
     	getPIDController().setContinuous(false);
         getPIDController().setAbsoluteTolerance(RobotConstants.AUTO_DRIVE_TOLERANCE);
-        getPIDController().setOutputRange(-0.5, 0.5);
+        getPIDController().setOutputRange(-0.2, 0.2);
     }
 
     protected double returnPIDInput() {
@@ -27,7 +30,8 @@ public class DriveForward extends PIDCommand {
     }
 
     protected void usePIDOutput(double output) {
-    	Robot.drivetrain.triggerDrive(Robot.drivetrain.getGyroBearing()*0.03, output, 0, false);
+    	// Robot.drivetrain.triggerDrive(Robot.drivetrain.getGyroBearing()*0.003, output, 0, false);
+    	Robot.drivetrain.tankDrive(output, output, false, false);
     }
 
     // Called just before this Command runs the first time
@@ -50,9 +54,9 @@ public class DriveForward extends PIDCommand {
 
     // Called once after isFinished returns true
     protected void end() {
-    	getPIDController().disable();
-    	getPIDController().free();
     	Robot.drivetrain.stop();
+    	Robot.drivetrain.resetEncoder();
+    	Robot.drivetrain.resetGyro();
     }
 
     // Called when another command which requires one or more of the same

@@ -17,7 +17,7 @@ public class TurnCCW extends PIDCommand {
     	getPIDController().setInputRange(0, 360);
     	getPIDController().setContinuous(true);
         getPIDController().setAbsoluteTolerance(RobotConstants.AUTO_TURN_TOLERANCE);
-        getPIDController().setOutputRange(-0.4, 0.4);
+        getPIDController().setOutputRange(-0.1, 0.1);
     }
 
     protected double returnPIDInput() {
@@ -47,8 +47,6 @@ public class TurnCCW extends PIDCommand {
 
     // Called once after isFinished returns true
     protected void end() {
-    	getPIDController().disable();
-    	getPIDController().free();
     	Robot.drivetrain.stop();
     }
 

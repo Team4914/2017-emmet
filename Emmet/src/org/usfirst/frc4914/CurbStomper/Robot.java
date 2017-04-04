@@ -90,7 +90,7 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		// DEBUG CODE HERE \\
-		
+		System.out.println(Robot.drivetrain.getGyroBearing());
 		// *************** \\
 	}
 

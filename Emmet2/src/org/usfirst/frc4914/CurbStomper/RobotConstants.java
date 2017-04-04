@@ -2,7 +2,7 @@ package org.usfirst.frc4914.CurbStomper;
 
 public class RobotConstants {
 	
-	public static boolean isTestingEnvironment = true;
+	public static boolean isTestingEnvironment = false;
 	
 	// DRIVE \\
 	public static boolean isInverted = true;
@@ -11,7 +11,7 @@ public class RobotConstants {
 	
 	// AUTONOMOUS \\
 	public static double AUTO_SPEED = 24;
-	public static double INCHES_TO_ENCODER = 18;
+	public static double INCHES_TO_ENCODER = 1.0/9.185185;
 
 	public static double AUTO_DRIVE_TOLERANCE = 0.5;
 	public static double AUTO_DRIVE_RHOOK_D1 = 67.9;
@@ -26,7 +26,7 @@ public class RobotConstants {
 	public static int AUTO_TURN_TOLERANCE = 2;
 	public static int AUTO_TURN_RHOOK_SETPOINT = 60;
 	public static int AUTO_TURN_LHOOK_SETPOINT = 60;
-	public static double AUTO_TURN_P = 0.5;
+	public static double AUTO_TURN_P = 0.1;
 	public static double AUTO_TURN_I = 1;
 	public static double AUTO_TURN_D = 1;
 	
@@ -42,10 +42,10 @@ public class RobotConstants {
 	public static double VISION_D = 1;
 	
 	// GEAR \\
-	public static double GEAR_TOLERANCE = 0.005;
-	public static double GEAR_INIT_SETPOINT = 0.010;
-	public static double GEAR_FINAL_SETPOINT = 0.233;
-	public static double GEAR_P = 0.001;
+	public static double GEAR_TOLERANCE = 10;
+	public static double GEAR_INIT_SETPOINT = 0;
+	public static double GEAR_FINAL_SETPOINT = 750;
+	public static double GEAR_P = 0.1;
 	public static double GEAR_I = 1;
 	public static double GEAR_D = 1;
 }

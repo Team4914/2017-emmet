@@ -12,14 +12,13 @@
 package org.usfirst.frc4914.CurbStomper.subsystems;
 
 import org.usfirst.frc4914.CurbStomper.RobotMap;
-import org.usfirst.frc4914.CurbStomper.commands.*;
 
 import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 
@@ -85,6 +84,35 @@ public class DriveTrain extends Subsystem {
     	
     	robotDrive41.tankDrive(-leftValue, -rightValue, false);
     } // END OF tankDrive(double leftValue, double rightValue)
+    
+    public void hybridDrive(Joystick driveStick, boolean isInverted) {
+    	double lspeed = 0;
+    	double rspeed = 0;
+    	
+    	double RT = driveStick.getRawAxis(3);
+    	double LT = driveStick.getRawAxis(2);
+    	double RJ = driveStick.getRawAxis(5);
+    	double LJ = driveStick.getRawAxis(1);
+    	
+    	if (isInverted) {
+    		// straight drive control, RT forward LT backward
+    		lspeed = RT - LT;
+    		rspeed = lspeed;
+
+    		// tank drive control
+    		lspeed -= LJ;
+    		rspeed -= RJ;
+    		
+    	} else {
+    		lspeed = driveStick.getRawAxis(2) - driveStick.getRawAxis(3);
+    		rspeed = driveStick.getRawAxis(2) - driveStick.getRawAxis(3);
+
+    		// tank drive control
+    		lspeed -= RJ;
+    		rspeed -= LJ;
+    		
+    	}
+    }
     
     /**
      * Stops drivetrain operation

@@ -57,7 +57,7 @@ public class RobotMap {
 		// DRIVE SENSORS \\
 		gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
 		// accel = new BuiltInAccelerometer();
-		enc = new Encoder(0, 1);
+		enc = new Encoder(9, 8);
 		LiveWindow.addSensor("Drive Sensors", "Gyro", gyro);
 		// LiveWindow.addSensor("Drive Sensors", "Accelerometer", accel);
 		LiveWindow.addSensor("Drive Sensors", "Encoder", enc);

@@ -11,7 +11,7 @@ public class ClawExtend extends PIDCommand {
     public ClawExtend() {
 
     	super("DriveForward", RobotConstants.GEAR_P, 
-    			RobotConstants.GEAR_I, RobotConstants.GEAR_D);
+    			RobotConstants.GEAR_I, RobotConstants.GEAR_D, 0.001);
     	getPIDController().setSetpoint(RobotConstants.GEAR_FINAL_SETPOINT);
         
     	getPIDController().setContinuous(false);
@@ -26,7 +26,7 @@ public class ClawExtend extends PIDCommand {
     }
 
     protected void usePIDOutput(double output) {
-    	Robot.gear.setClaw(output);
+    	Robot.gear.setClaw(output/10.0);
     }
 
     // Called just before this Command runs the first time
@@ -34,11 +34,11 @@ public class ClawExtend extends PIDCommand {
     	// sets timeout
     	setTimeout(3);
     	// resets all sensors
-    	Robot.gear.resetEncoder();
+    	// Robot.gear.resetEncoder();
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() { }
+    protected void execute() { System.out.println("ClawExtend"); }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
@@ -48,8 +48,6 @@ public class ClawExtend extends PIDCommand {
 
     // Called once after isFinished returns true
     protected void end() {
-    	getPIDController().disable();
-    	getPIDController().free();
     	Robot.gear.stop();
     }
 

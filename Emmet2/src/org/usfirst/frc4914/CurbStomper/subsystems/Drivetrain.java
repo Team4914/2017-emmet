@@ -8,6 +8,7 @@ import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -103,6 +104,36 @@ public class Drivetrain extends Subsystem {
     }
     */
     
+    public void hybridDrive(Joystick driveStick, boolean isInverted) {
+    	double lspeed = 0;
+    	double rspeed = 0;
+    	
+    	double RT = driveStick.getRawAxis(3);
+    	double LT = driveStick.getRawAxis(2);
+    	double RJ = driveStick.getRawAxis(5);
+    	double LJ = driveStick.getRawAxis(1);
+    	
+    	if (isInverted) {
+    		// straight drive control, RT forward LT backward
+    		lspeed = RT - LT;
+    		rspeed = lspeed;
+
+    		// tank drive control
+    		lspeed -= LJ;
+    		rspeed -= RJ;
+    		
+    	} else {
+    		lspeed = LT - RT;
+    		rspeed = lspeed;
+
+    		// tank drive control
+    		lspeed += RJ;
+    		rspeed += LJ;
+    	}
+    	
+    	robotDrive41.tankDrive(lspeed, rspeed, false);
+    }
+    
     /**
      * Operates drivetrain in trigger drive using built-in arcade drive
      * 
@@ -184,7 +215,7 @@ public class Drivetrain extends Subsystem {
      */
     public double getEncoderPosition() {
     	// return CIMRearLeft.getEncPosition();
-    	return enc.getDistance();
+    	return enc.getDistance() / 1000.0;
     }
     
     /**

@@ -22,12 +22,12 @@ public class AutoLeftHook extends CommandGroup {
     	// second leg of path
     	addSequential(new DriveForward(RobotConstants.AUTO_DRIVE_LHOOK_D2));
     	// extend claws and deposit gear
-    	addSequential(new ClawExtend());
+    	addSequential(new ClawExtend2());
     	// back away from airship
     	addSequential(new DriveForward(-RobotConstants.AUTO_DRIVE_LHOOK_D2));
-    	addParallel(new ClawRetract());
+    	addParallel(new ClawRetract2());
     	// turn and head down field
     	addSequential(new TurnCCW(RobotConstants.AUTO_TURN_LHOOK_SETPOINT));
-    	addSequential(new DriveForward(60));
+    	addSequential(new DriveForward(-60));
     }
 }
