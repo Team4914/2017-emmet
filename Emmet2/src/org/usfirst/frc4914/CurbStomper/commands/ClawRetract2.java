@@ -21,7 +21,7 @@ public class ClawRetract2 extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(Robot.gear.getEncoderPosition() > 10) {
+    	if(Robot.gear.getEncoderPosition() > 10 && !Robot.oi.getPrimaryJoystick().getRawButton(5)) {
     		Robot.gear.setClaw(-0.15);
     	} else {
     		Robot.gear.stop();

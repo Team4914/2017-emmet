@@ -22,7 +22,7 @@ public class DriveForward extends PIDCommand {
         
     	getPIDController().setContinuous(false);
         getPIDController().setAbsoluteTolerance(RobotConstants.AUTO_DRIVE_TOLERANCE);
-        getPIDController().setOutputRange(-0.2, 0.2);
+        getPIDController().setOutputRange(-RobotConstants.AUTO_SPEED / 60.0, RobotConstants.AUTO_SPEED / 60.0);
     }
 
     protected double returnPIDInput() {
@@ -30,8 +30,8 @@ public class DriveForward extends PIDCommand {
     }
 
     protected void usePIDOutput(double output) {
-    	// Robot.drivetrain.triggerDrive(Robot.drivetrain.getGyroBearing()*0.003, output, 0, false);
-    	Robot.drivetrain.tankDrive(output, output, false, false);
+    	Robot.drivetrain.triggerDrive(Robot.drivetrain.getRawGyroBearing()*0.03, output, 0, false);
+    	// Robot.drivetrain.tankDrive(output, output, false, false);
     }
 
     // Called just before this Command runs the first time

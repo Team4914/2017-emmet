@@ -188,6 +188,15 @@ public class Drivetrain extends Subsystem {
     }
     
     /**
+     * Returns raw gyrometer bearing
+     * 
+     * @return gyro bearing in degrees
+     */
+    public double getRawGyroBearing() {
+    	return gyro.getAngle();
+    }
+    
+    /**
      * Resets gyro bearing
      */
     public void resetGyro() {

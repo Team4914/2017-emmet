@@ -54,9 +54,7 @@ public class Robot extends IterativeRobot {
 	 */
 	// @Override
 	public void robotInit() {
-		
-		System.out.println("1");
-		
+			
 		RobotMap.init();
 		
 		drivetrain = new Drivetrain();
@@ -84,9 +82,9 @@ public class Robot extends IterativeRobot {
 		
 		// resets all sensors
 		resetAllSensors();
-		
 
 		if (RobotConstants.isTestingEnvironment) updateTestingEnvironment();
+		updateSensorDisplay();
 	}
 
 	/**
@@ -106,7 +104,7 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		// DEBUG CODE HERE \\
-		System.out.println(Robot.drivetrain.getGyroBearing());
+		updateSensorDisplay();
 		
 		// *************** \\
 	}
@@ -126,7 +124,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 
 		// DEBUG \\
-		if (RobotConstants.isTestingEnvironment) readTestingEnvironment();
+		if (RobotConstants.isTestingEnvironment) updateTestingEnvironment();
 		
 		// resets sensors
 		resetAllSensors();
@@ -146,7 +144,8 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		
 		// DEBUG \\
-		if (RobotConstants.isTestingEnvironment) updateTestingEnvironment();
+		if (RobotConstants.isTestingEnvironment) readTestingEnvironment();
+		updateSensorDisplay();
 	}
 
 	// @Override
@@ -159,7 +158,8 @@ public class Robot extends IterativeRobot {
 			autonomousCommand.cancel();
 		
 		// DEBUG \\
-		if (RobotConstants.isTestingEnvironment) readTestingEnvironment();
+		if (RobotConstants.isTestingEnvironment) updateTestingEnvironment();
+		updateSensorDisplay();
 		
 		resetAllSensors();
 	}
@@ -172,8 +172,8 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		
 		// DEBUG \\
-		if (RobotConstants.isTestingEnvironment) updateTestingEnvironment();
-		System.out.println(RobotConstants.AUTO_DRIVE_P);
+		if (RobotConstants.isTestingEnvironment) readTestingEnvironment();
+		updateSensorDisplay();
 		
 		// drive control
 		drive();
@@ -222,7 +222,7 @@ public class Robot extends IterativeRobot {
             
             while(!Thread.interrupted()) {
             	
-            	if (Robot.oi.getPrimaryJoystick().getRawButton(4)) { allowCam1 = !allowCam1; }
+            	if (Robot.oi.getPrimaryJoystick().getRawButton(4) || Robot.oi.getCoJoystick().getRawButton(4)) { allowCam1 = !allowCam1; }
             	
                 if(allowCam1){
                   cvSink2.setEnabled(false);
@@ -250,22 +250,22 @@ public class Robot extends IterativeRobot {
     	double c = 0; // total co input
 
     	// calculates total primary input
-    	if (RobotConstants.isTrigger) {
+    	/*if (RobotConstants.isTrigger) {*/
     		p += Math.abs(Robot.oi.getPrimaryRT());
     		p += Math.abs(Robot.oi.getPrimaryLT());
     		p += Math.abs(Robot.oi.getPrimaryRJ_V());
-    		p += Math.abs(Robot.oi.getPrimaryLJ_V());
+    		p += Math.abs(Robot.oi.getPrimaryLJ_V());/*
     	} else {
     		p += Math.abs(Robot.oi.getPrimaryLJ_V());
     		p += Math.abs(Robot.oi.getPrimaryRJ_V());
-    	}
+    	}*/
     	
     	// calculates total co input
     	c += Math.abs(Robot.oi.getCoLJ_V());
     	c += Math.abs(Robot.oi.getCoRJ_V());
     	
     	// finds overriding input
-    	if (p > c) {
+    	if (p*1.5 > c) {
     		override = 'p';
     	} else {
     		override = 'c';
@@ -303,8 +303,8 @@ public class Robot extends IterativeRobot {
      */
     public void updateTestingEnvironment() {
     	// CONSTANTS \\
-    	SmartDashboard.putBoolean("isInverted", RobotConstants.isInverted);
-    	SmartDashboard.putBoolean("isTrigger", RobotConstants.isTrigger);
+    	/*SmartDashboard.putBoolean("isInverted", RobotConstants.isInverted);
+    	SmartDashboard.putBoolean("isTrigger", RobotConstants.isTrigger);*/
     	
     	SmartDashboard.putNumber("AUTO_SPEED", RobotConstants.AUTO_SPEED);
     	SmartDashboard.putNumber("INCHES_TO_ENCODER", RobotConstants.INCHES_TO_ENCODER);
@@ -326,7 +326,7 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putNumber("AUTO_TURN_I", RobotConstants.AUTO_TURN_I);
     	SmartDashboard.putNumber("AUTO_TURN_D", RobotConstants.AUTO_TURN_D);
     	
-    	SmartDashboard.putNumber("FLYWHEEL_SPEED", RobotConstants.FLYWHEEL_SPEED);
+    	/*SmartDashboard.putNumber("FLYWHEEL_SPEED", RobotConstants.FLYWHEEL_SPEED);
     	
     	SmartDashboard.putNumber("VISION_TOLERANCE", RobotConstants.VISION_TOLERANCE);
     	SmartDashboard.putNumber("VISION_X_SETPOINT", RobotConstants.VISION_X_SETPOINT);
@@ -340,20 +340,23 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putNumber("GEAR_FINAL_SETPOINT", RobotConstants.GEAR_FINAL_SETPOINT);
     	SmartDashboard.putNumber("GEAR_P", RobotConstants.GEAR_P);
     	SmartDashboard.putNumber("GEAR_I", RobotConstants.GEAR_I);
-    	SmartDashboard.putNumber("GEAR_D", RobotConstants.GEAR_D);
-    	
+    	SmartDashboard.putNumber("GEAR_D", RobotConstants.GEAR_D);*/
+    }
+    
+    public void updateSensorDisplay() {
     	// SENSORS \\
     	SmartDashboard.putNumber("Drive Encoder", Robot.drivetrain.getEncoderPosition());
     	SmartDashboard.putNumber("Gyro", Robot.drivetrain.getGyroBearing());
     	SmartDashboard.putNumber("Gear Encoder", Robot.gear.getEncoderPosition());
+    	
     }
     
     /**
      * grabs values from testing environment
      */
     public void readTestingEnvironment() {
-    	RobotConstants.isInverted = SmartDashboard.getBoolean("isInverted", false);
-		RobotConstants.isTrigger = SmartDashboard.getBoolean("isTrigger", false);
+    	/*RobotConstants.isInverted = SmartDashboard.getBoolean("isInverted", false);
+		RobotConstants.isTrigger = SmartDashboard.getBoolean("isTrigger", false);*/
 		
 		RobotConstants.AUTO_SPEED = SmartDashboard.getNumber("AUTO_SPEED", 0);
 		RobotConstants.AUTO_SPEED = SmartDashboard.getNumber("INCHES_TO_ENCODER", 0);
@@ -375,7 +378,7 @@ public class Robot extends IterativeRobot {
 		RobotConstants.AUTO_TURN_I = SmartDashboard.getNumber("AUTO_TURN_I", 0);
 		RobotConstants.AUTO_TURN_D = SmartDashboard.getNumber("AUTO_TURN_D", 0);
 		
-		RobotConstants.FLYWHEEL_SPEED = SmartDashboard.getNumber("FLYWHEEL_SPEED", 0);
+		/*RobotConstants.FLYWHEEL_SPEED = SmartDashboard.getNumber("FLYWHEEL_SPEED", 0);
 		
 		RobotConstants.VISION_TOLERANCE = (int) SmartDashboard.getNumber("VISION_TOLERANCE", 0);
 		RobotConstants.VISION_X_SETPOINT = (int) SmartDashboard.getNumber("VISION_X_SETPOINT", 0);
@@ -389,7 +392,7 @@ public class Robot extends IterativeRobot {
 		RobotConstants.GEAR_FINAL_SETPOINT = SmartDashboard.getNumber("GEAR_FINAL_SETPOINT", 0);
 		RobotConstants.GEAR_P = SmartDashboard.getNumber("GEAR_P", 0);
 		RobotConstants.GEAR_I = SmartDashboard.getNumber("GEAR_I", 0);
-		RobotConstants.GEAR_D = SmartDashboard.getNumber("GEAR_D", 0);
+		RobotConstants.GEAR_D = SmartDashboard.getNumber("GEAR_D", 0);*/
     }
     
     /**
