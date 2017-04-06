@@ -42,9 +42,9 @@ public class OI {
     
 	public JoystickButton lBumper;
 	public JoystickButton rBumper;
+    public JoystickButton A;
+    public JoystickButton B;
     public JoystickButton X;
-    public JoystickButton CIRCLE;
-    public JoystickButton SQUARE;
     public JoystickButton TRIANGLE;
     public JoystickButton START;
     public JoystickButton SELECT;
@@ -75,9 +75,9 @@ public class OI {
 
         primaryJoystick = new Joystick(0);
         
-        X = new JoystickButton(primaryJoystick, 1);
-        CIRCLE = new JoystickButton(primaryJoystick, 2);
-        SQUARE = new JoystickButton(primaryJoystick, 3);
+        A = new JoystickButton(primaryJoystick, 1);
+        B = new JoystickButton(primaryJoystick, 2);
+        X = new JoystickButton(primaryJoystick, 3);
         TRIANGLE = new JoystickButton(primaryJoystick, 4);
         rBumper = new JoystickButton(primaryJoystick, 6);
         lBumper = new JoystickButton(primaryJoystick, 5);
@@ -87,7 +87,9 @@ public class OI {
         lBumper.whenPressed(new ClawExtend2());
         lBumper.whenReleased(new ClawRetract2());
         rBumper.whenPressed(new ToggleDriveModes());
-        SQUARE.whenPressed(new ToggleDriveDirection());
+        X.whenPressed(new ToggleDriveDirection());
+        B.whenPressed(new DeadReckon(5));
+        
 
         coJoystick = new Joystick(1);
         
@@ -99,9 +101,9 @@ public class OI {
         colBumper = new JoystickButton(coJoystick, 5);
         coSTART = new JoystickButton(coJoystick, 8);
         coSELECT = new JoystickButton(coJoystick, 7);
-        
-        colBumper.whenPressed(new ClawExtend());
-        colBumper.whenReleased(new ClawRetract());
+
+        colBumper.whenPressed(new ClawExtend2());
+        colBumper.whenReleased(new ClawRetract2());
         
         /*
         TRIGGER = new JoystickButton(coJoystick, 1);

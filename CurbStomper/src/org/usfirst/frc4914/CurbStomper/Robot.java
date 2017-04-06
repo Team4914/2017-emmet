@@ -82,7 +82,8 @@ public class Robot extends IterativeRobot {
         
         // sets up camera switcher
         server = CameraServer.getInstance();
-        cameraInit();
+        server.startAutomaticCapture(0);
+        // cameraInit();
         
         // set up sendable chooser for autonomous
         autoChooser = new SendableChooser();

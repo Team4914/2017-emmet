@@ -30,7 +30,7 @@ public class DriveForward extends PIDCommand {
     }
 
     protected void usePIDOutput(double output) {
-    	Robot.drivetrain.triggerDrive(Robot.drivetrain.getRawGyroBearing()*0.03, output, 0, false);
+    	Robot.drivetrain.triggerDrive(Robot.drivetrain.getRawGyroBearing()*0.03, -output, 0, false);
     	// Robot.drivetrain.tankDrive(output, output, false, false);
     }
 

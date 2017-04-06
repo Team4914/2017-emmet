@@ -2,7 +2,7 @@ package org.usfirst.frc4914.CurbStomper;
 
 public class RobotConstants {
 	
-	public static boolean isTestingEnvironment = true;
+	public static boolean isTestingEnvironment = false;
 	
 	// DRIVE \\
 	public static boolean isInverted = true;
@@ -10,7 +10,7 @@ public class RobotConstants {
 	public static double CO_DRIVE_PERCENT = 30; // unused
 	
 	// AUTONOMOUS \\
-	public static double AUTO_SPEED = 12;
+	public static double AUTO_SPEED = 30;
 	public static double INCHES_TO_ENCODER = 1.0/9.185185;
 
 	public static double AUTO_DRIVE_TOLERANCE = 0.5;
@@ -18,7 +18,7 @@ public class RobotConstants {
 	public static double AUTO_DRIVE_RHOOK_D2 = 67.0;
 	public static double AUTO_DRIVE_LHOOK_D1 = 68.8;
 	public static double AUTO_DRIVE_LHOOK_D2 = 65.3;
-	public static double AUTO_DRIVE_MHOOK_D1 = 72.0;
+	public static double AUTO_DRIVE_MHOOK_D1 = 10; // originally 72
 	public static double AUTO_DRIVE_P = 0.1;
 	public static double AUTO_DRIVE_I = 0;
 	public static double AUTO_DRIVE_D = 0;

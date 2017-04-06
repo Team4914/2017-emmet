@@ -11,9 +11,6 @@
 
 package org.usfirst.frc4914.CurbStomper;
 
-import edu.wpi.cscore.CvSink;
-import edu.wpi.cscore.CvSource;
-import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -23,7 +20,6 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.opencv.core.Mat;
 import org.usfirst.frc4914.CurbStomper.commands.*;
 import org.usfirst.frc4914.CurbStomper.subsystems.*;
 
@@ -46,7 +42,7 @@ public class Robot extends IterativeRobot {
 	static CameraServer server;
 	
 	Command autonomousCommand;
-	SendableChooser<CommandGroup> autoChooser;
+	// SendableChooser<CommandGroup> autoChooser;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -66,19 +62,10 @@ public class Robot extends IterativeRobot {
 		
 		// initializes camera server
 		server = CameraServer.getInstance();
-		cameraInit();
+		// cameraInit();
+		// server.startAutomaticCapture(0);
 		
-		// initializes auto chooser
-		autoChooser = new SendableChooser<CommandGroup>();
-		// autoChooser.addDefault("Middle Hook", new AutoMiddleHook());
-		// autoChooser.addObject("Loading Station Hook", new AutoLeftHook());
-		// autoChooser.addObject("Boiler Side Hook", new AutoRightHook());
-		autoChooser.addDefault("Middle Hook", new AutoMiddleHook());
-		autoChooser.addObject("Left Hook", new AutoLeftHook());
-		autoChooser.addObject("Right Hook", new AutoRightHook());
-		SmartDashboard.putData("Auto mode", autoChooser);
-		// auto delay
-		SmartDashboard.putNumber("Auto delay", 0);
+		autonomousCommand = (Command) new AutoMiddleHook();
 		
 		// resets all sensors
 		resetAllSensors();
@@ -129,11 +116,17 @@ public class Robot extends IterativeRobot {
 		// resets sensors
 		resetAllSensors();
 		
-		autonomousCommand = (Command) autoChooser.getSelected();
-
+		// autonomousCommand = (Command) autoChooser.getSelected();
+		
+		// autonomousCommand = (Command) new DeadReckon(7.2);
+		
 		// schedule the autonomous command (example)
-		if (autonomousCommand != null)
+		// if (autonomousCommand != null) autonomousCommand.start();
+		try {
 			autonomousCommand.start();
+		} catch(Exception e) {
+			
+		}
 	}
 
 	/**
@@ -175,6 +168,8 @@ public class Robot extends IterativeRobot {
 		if (RobotConstants.isTestingEnvironment) readTestingEnvironment();
 		updateSensorDisplay();
 		
+		System.out.println(Robot.drivetrain.getEncoderPosition());
+		
 		// drive control
 		drive();
 		// climb control
@@ -199,7 +194,7 @@ public class Robot extends IterativeRobot {
     /**
      * Camera switcher initialization
      */
-    private void cameraInit() {
+    /*private void cameraInit() {
 
         // camera switching code
         Thread t = new Thread(() -> {
@@ -207,10 +202,10 @@ public class Robot extends IterativeRobot {
     		boolean allowCam1 = false;
     		
     		UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture(0);
-            camera1.setResolution(160, 120);
+            camera1.setResolution(320, 240);
             camera1.setFPS(30);
             UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture(1);
-            camera2.setResolution(160, 120);
+            camera2.setResolution(320, 240);
             camera2.setFPS(30);
             
             CvSink cvSink1 = CameraServer.getInstance().getVideo(camera1);
@@ -222,7 +217,7 @@ public class Robot extends IterativeRobot {
             
             while(!Thread.interrupted()) {
             	
-            	if (Robot.oi.getPrimaryJoystick().getRawButton(4) || Robot.oi.getCoJoystick().getRawButton(4)) { allowCam1 = !allowCam1; }
+            	if (Robot.oi.getPrimaryJoystick().getRawButton(4)) { allowCam1 = !allowCam1; }
             	
                 if(allowCam1){
                   cvSink2.setEnabled(false);
@@ -234,16 +229,15 @@ public class Robot extends IterativeRobot {
                   cvSink2.grabFrame(image);     
                 }
                 
-                // Imgproc.cvtColor(image, grey, Imgproc.COLOR_BGR2GRAY);
+                Imgproc.cvtColor(image, grey, Imgproc.COLOR_BGR2GRAY);
                 
-                // outputStream.putFrame(grey);
-                outputStream.putFrame(image);
+                outputStream.putFrame(grey);
             }
             
         });
         t.start();
     }
-    
+*/    
     private void drive() {
     	char override = 'p'; // which controller to take control
     	double p = 0; // total primary input
@@ -283,7 +277,7 @@ public class Robot extends IterativeRobot {
     	
     	// co drive inputs
     	if (override == 'c') {
-    		Robot.drivetrain.tankDrive(Robot.oi.getCoLJ_V(), Robot.oi.getPrimaryRJ_V(), false, RobotConstants.isInverted);
+    		Robot.drivetrain.tankDrive(Robot.oi.getCoLJ_V()*0.3, Robot.oi.getCoRJ_V()*0.3, false, !RobotConstants.isInverted);
     	}
     }
     
