@@ -24,9 +24,7 @@ public class DeadReckonBackward extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	System.out.println("deadreckoning");
-    	// Robot.drivetrain.triggerDrive(Robot.drivetrain.getRawGyroBearing()*0.03, 0, 0.2, false);
-    	Robot.drivetrain.tankDrive(-10/60.0 + Robot.drivetrain.getRawGyroBearing()*0.03, -10/60.0, false, false);
+    	Robot.drivetrain.tankDrive(-10/60.0 + Robot.drivetrain.getRawGyroBearing()*0.05, -10/60.0, false, false);
     }
 
     // Make this return true when this Command no longer needs to run execute()

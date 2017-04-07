@@ -84,9 +84,9 @@ public class OI {
         START = new JoystickButton(primaryJoystick, 8);
         SELECT = new JoystickButton(primaryJoystick, 7);
         
-        lBumper.whenPressed(new ClawExtend2());
-        lBumper.whenReleased(new ClawRetract2());
-        rBumper.whenPressed(new ToggleDriveModes());
+        rBumper.whenPressed(new ClawExtend2());
+        rBumper.whenReleased(new ClawRetract2());
+        lBumper.whenPressed(new ToggleDriveDirection());
         X.whenPressed(new ToggleDriveDirection());
         B.whenPressed(new DeadReckon(5));
         
@@ -104,6 +104,8 @@ public class OI {
 
         colBumper.whenPressed(new ClawExtend2());
         colBumper.whenReleased(new ClawRetract2());
+        corBumper.whenPressed(new ClawExtend2());
+        corBumper.whenReleased(new ClawRetract2());
         
         /*
         TRIGGER = new JoystickButton(coJoystick, 1);

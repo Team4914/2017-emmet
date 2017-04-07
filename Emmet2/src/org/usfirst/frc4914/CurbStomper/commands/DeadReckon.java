@@ -11,39 +11,49 @@ import edu.wpi.first.wpilibj.command.Command;
 public class DeadReckon extends Command {
 	
 	double distance = 0;
+	double bearing = 0;
 
-    public DeadReckon(double timeout) {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	// setTimeout(timeout);
-    	distance = timeout;
+    public DeadReckon(double encoderSetpoint) {
+    	setTimeout(2);
+    	distance = encoderSetpoint;
     }
 
-    // Called just before this Command runs the first time
     protected void initialize() {
-    	// Robot.drivetrain.triggerDrive(Robot.drivetrain.getRawGyroBearing()*0.03, -RobotConstants.AUTO_SPEED/60.0, 0, false);
+    	// resets sensors
     	Robot.drivetrain.resetGyro();
+    	Robot.drivetrain.resetEncoder();
+    	
+    	// resets baseline auto boolean
+    	RobotConstants.isBaselineAuto = false;
+    	
+    	// inverts speed if distance negative
+    	if (distance < 0) RobotConstants.AUTO_SPEED *= -1;
     }
 
-    // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	System.out.println("deadreckoning");
-    	// Robot.drivetrain.triggerDrive(Robot.drivetrain.getRawGyroBearing()*0.03, 0, 0.2, false);
-    	Robot.drivetrain.tankDrive(10/60.0 + Robot.drivetrain.getRawGyroBearing()*0.03, 10/60.0, false, false);
+    	// variable updates
+    	RobotConstants.isBaselineAuto = (isTimedOut() && Robot.drivetrain.getEncoderPosition() < 1);
+    	bearing = Robot.drivetrain.getRawGyroBearing();
+    	
+    	// drive control
+    	if (RobotConstants.isBaselineAuto) {
+    		Robot.drivetrain.tankDrive(-RobotConstants.AUTO_SPEED + bearing*RobotConstants.AUTO_DRIVESTRAIGHT_P, 
+    				-RobotConstants.AUTO_SPEED - bearing*RobotConstants.AUTO_DRIVESTRAIGHT_P, false, false);
+    	} else {
+    		Robot.drivetrain.tankDrive(RobotConstants.AUTO_SPEED + bearing*RobotConstants.AUTO_DRIVESTRAIGHT_P, 
+    				RobotConstants.AUTO_SPEED - bearing*RobotConstants.AUTO_DRIVESTRAIGHT_P, false, false);
+    	}
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.drivetrain.getEncoderPosition() >= distance;
+        return Math.abs(Robot.drivetrain.getEncoderPosition()) >= Math.abs(distance);
     }
 
-    // Called once after isFinished returns true
     protected void end() {
     	Robot.drivetrain.stop();
+    	if (distance < 0) RobotConstants.AUTO_SPEED *= -1;
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
     protected void interrupted() {
     	end();
     }

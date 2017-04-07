@@ -15,13 +15,17 @@ public class AutoMiddleHook extends CommandGroup {
     	// addSequential(new AutoDelay(Robot.getAutoDelay()));
     	
     	// drive forward
-    	// addSequential(new DriveForward(RobotConstants.AUTO_DRIVE_MHOOK_D1));
-    	// addSequential(new DeadReckon(6.5));
     	addSequential(new DeadReckon(7.9));
     	// extend claws and deposit gear
     	addSequential(new ClawExtend2());
     	// back away from airship
-    	addSequential(new DeadReckonBackward(2));
+    	addSequential(new DeadReckon(-2));
+    	addParallel(new ClawRetract2());
+    	
+    	// try two
+    	addSequential(new DeadReckon(2.1));
+    	addSequential(new ClawExtend2());
+    	addSequential(new DeadReckon(-2));
     	addParallel(new ClawRetract2());
     	
     	// addSequential(new DeadReckon(3));

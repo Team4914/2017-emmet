@@ -10,7 +10,8 @@ public class RobotConstants {
 	public static double CO_DRIVE_PERCENT = 30; // unused
 	
 	// AUTONOMOUS \\
-	public static double AUTO_SPEED = 30;
+	public static boolean isBaselineAuto = false;
+	public static double AUTO_SPEED = 10/60.0;
 	public static double INCHES_TO_ENCODER = 1.0/9.185185;
 
 	public static double AUTO_DRIVE_TOLERANCE = 0.5;
@@ -22,6 +23,8 @@ public class RobotConstants {
 	public static double AUTO_DRIVE_P = 0.1;
 	public static double AUTO_DRIVE_I = 0;
 	public static double AUTO_DRIVE_D = 0;
+	
+	public static double AUTO_DRIVESTRAIGHT_P = 0.05;
 	
 	public static int AUTO_TURN_TOLERANCE = 2;
 	public static int AUTO_TURN_RHOOK_SETPOINT = 60;
