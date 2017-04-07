@@ -52,6 +52,9 @@ public class DeadReckon extends Command {
     protected void end() {
     	Robot.drivetrain.stop();
     	if (distance < 0) RobotConstants.AUTO_SPEED *= -1;
+    	if (RobotConstants.isBaselineAuto) {
+    		while (true) { boolean a = true; }
+    	}
     }
 
     protected void interrupted() {
