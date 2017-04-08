@@ -86,9 +86,7 @@ public class Robot extends IterativeRobot {
 		
 		// autonomousCommand = (Command) autoChooser.getSelected();
 		
-		try {
-			autonomousCommand.start();
-		} catch(Exception e) { }
+		if (autonomousCommand != null) autonomousCommand.start();
 	}
 	
 	// @Override
@@ -102,10 +100,11 @@ public class Robot extends IterativeRobot {
 
 	// @Override
 	public void teleopInit() {
+		RobotConstants.isBaselineAuto = false;
 		// stops auto
-		try {
-			autonomousCommand.cancel();
-		} catch(Exception e) { }
+		if (autonomousCommand != null) autonomousCommand.cancel();
+		
+		RobotConstants.isInverted = !RobotConstants.isInverted;
 		
 		// DEBUG \\
 		if (RobotConstants.isTestingEnvironment) updateTestingEnvironment();

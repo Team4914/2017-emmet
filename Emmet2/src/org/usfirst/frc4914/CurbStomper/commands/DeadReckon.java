@@ -37,12 +37,14 @@ public class DeadReckon extends Command {
     	
     	// drive control
     	if (RobotConstants.isBaselineAuto) {
-    		Robot.drivetrain.tankDrive(-RobotConstants.AUTO_SPEED + bearing*RobotConstants.AUTO_DRIVESTRAIGHT_P, 
-    				-RobotConstants.AUTO_SPEED - bearing*RobotConstants.AUTO_DRIVESTRAIGHT_P, false, false);
+    		distance = 10;
+    		Robot.drivetrain.tankDrive((-8.0/60.0) + bearing*RobotConstants.AUTO_DRIVESTRAIGHT_P, 
+    				(-8.0/60.0) - bearing*RobotConstants.AUTO_DRIVESTRAIGHT_P, false, false);
     	} else {
     		Robot.drivetrain.tankDrive(RobotConstants.AUTO_SPEED + bearing*RobotConstants.AUTO_DRIVESTRAIGHT_P, 
     				RobotConstants.AUTO_SPEED - bearing*RobotConstants.AUTO_DRIVESTRAIGHT_P, false, false);
     	}
+    	System.out.println(Robot.drivetrain.getRawGyroBearing());
     }
 
     protected boolean isFinished() {
@@ -52,12 +54,10 @@ public class DeadReckon extends Command {
     protected void end() {
     	Robot.drivetrain.stop();
     	if (distance < 0) RobotConstants.AUTO_SPEED *= -1;
-    	if (RobotConstants.isBaselineAuto) {
-    		while (true) { boolean a = true; }
-    	}
     }
 
     protected void interrupted() {
-    	end();
+    	Robot.drivetrain.stop();
+    	if (distance < 0) RobotConstants.AUTO_SPEED *= -1;
     }
 }
