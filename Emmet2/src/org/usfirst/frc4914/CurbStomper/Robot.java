@@ -49,7 +49,8 @@ public class Robot extends IterativeRobot {
 		// cameraInit();
 		// server.startAutomaticCapture(0);
 		
-		autonomousCommand = (Command) new AutoMiddleHook();
+		// autonomousCommand = (Command) new AutoMiddleHook();
+		autonomousCommand = (Command) new AutoBaseline();
 		
 		// resets all sensors
 		resetAllSensors();
