@@ -2,7 +2,6 @@
 package org.usfirst.frc4914.CurbStomper;
 
 import org.opencv.core.Mat;
-import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc4914.CurbStomper.commands.*;
 import org.usfirst.frc4914.CurbStomper.subsystems.*;
 

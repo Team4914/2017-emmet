@@ -10,7 +10,6 @@
 
 package org.usfirst.frc4914.CurbStomper.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc4914.CurbStomper.Robot;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 

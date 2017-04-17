@@ -10,8 +10,6 @@
 
 
 package org.usfirst.frc4914.CurbStomper.commands;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 import org.usfirst.frc4914.CurbStomper.Robot;

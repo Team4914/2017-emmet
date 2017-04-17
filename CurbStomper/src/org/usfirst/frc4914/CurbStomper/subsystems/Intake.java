@@ -11,11 +11,6 @@
 
 package org.usfirst.frc4914.CurbStomper.subsystems;
 
-import org.usfirst.frc4914.CurbStomper.RobotMap;
-import org.usfirst.frc4914.CurbStomper.commands.*;
-import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.TalonSRX;
-
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 

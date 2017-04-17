@@ -4,7 +4,6 @@ import org.usfirst.frc4914.CurbStomper.Robot;
 import org.usfirst.frc4914.CurbStomper.RobotMap;
 
 import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**

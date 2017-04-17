@@ -1,8 +1,6 @@
 package org.usfirst.frc4914.CurbStomper.commands;
 
 import org.usfirst.frc4914.CurbStomper.Robot;
-import org.usfirst.frc4914.CurbStomper.RobotConstants;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
