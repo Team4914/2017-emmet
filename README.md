@@ -1,5 +1,8 @@
 # FRC-2017
 
+[![GitHub issues](https://img.shields.io/github/issues/Team4914/2017-emmet.svg)](https://github.com/Team4914/2017-emmet/issues)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/Team4914/2017-emmet/master/LICENSE)
+
 Team 4914 Robot Game Code for **FIRST STEAMWORKS**
 
 Latest project can be found under `Emmet2`
