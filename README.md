@@ -31,7 +31,9 @@ Before running vision on your Jetson or Pi, ensure that you are running Python 3
 
 Before running, make sure that you have the following installed:
 
-```pip install numpy opencv-python pynetworktables```
+```
+pip install numpy opencv-python pynetworktables
+```
 
 Have the `init.sh` script run on startup if you are using a Microsoft LifeCam. In your robot code, request the NetworkTable and you are good to go.
 
