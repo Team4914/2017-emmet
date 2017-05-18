@@ -20,7 +20,7 @@ Be sure to always document your code with meaningful comments; we're building cl
 
 [TalonSRX 3rd Party Libraries](http://www.ctr-electronics.com/hro.html#product_tabs_technical_resources) - At the bottom, under the "Tech Resources" tab, download the latest installer, and follow on-screen instructions.
 
-# OpenCV Vision
+# OpenCV
 
 Before running vision on your Jetson or Pi, ensure that you are running Python 3.5 
 
