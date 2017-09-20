@@ -4,7 +4,7 @@ import org.usfirst.frc4914.CurbStomper.Robot;
 import org.usfirst.frc4914.CurbStomper.RobotMap;
 import org.usfirst.frc4914.CurbStomper.commands.ClawRetract2;
 
-import com.ctre.CANTalon;
+import com.ctre.MotorControl.*;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 

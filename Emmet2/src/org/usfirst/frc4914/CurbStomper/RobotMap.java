@@ -1,6 +1,6 @@
 package org.usfirst.frc4914.CurbStomper;
 
-import com.ctre.CANTalon;
+import com.ctre.MotorControl.*;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
