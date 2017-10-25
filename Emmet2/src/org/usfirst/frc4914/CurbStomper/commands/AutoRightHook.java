@@ -37,12 +37,12 @@ public class AutoRightHook extends CommandGroup {
     	addSequential(new ClawExtend2());
     	addSequential(new DeadReckon2(-RobotConstants.AUTO_RHOOK_D3_TIME));
     	addParallel(new ClawRetract2());
-    	addSequential(new DeadReckonTurn(0.2, true));
+    	addSequential(new DeadReckonTurn(0.2, false));
     	addSequential(new DeadReckon2(RobotConstants.AUTO_RHOOK_D3_TIME));
     	addSequential(new ClawExtend2());
     	addSequential(new DeadReckon2(-RobotConstants.AUTO_RHOOK_D3_TIME));
     	addParallel(new ClawRetract2());
-    	addSequential(new DeadReckonTurn(0.2, true));
+    	addSequential(new DeadReckonTurn(0.2, false));
     	addSequential(new DeadReckon2(RobotConstants.AUTO_RHOOK_D3_TIME));
     	addSequential(new ClawExtend2());
     	addSequential(new DeadReckon2(-RobotConstants.AUTO_RHOOK_D3_TIME));
