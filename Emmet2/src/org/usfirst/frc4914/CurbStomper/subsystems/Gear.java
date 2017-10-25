@@ -3,9 +3,8 @@ package org.usfirst.frc4914.CurbStomper.subsystems;
 import org.usfirst.frc4914.CurbStomper.Robot;
 import org.usfirst.frc4914.CurbStomper.RobotMap;
 import org.usfirst.frc4914.CurbStomper.commands.ClawRetract2;
-
-import com.ctre.MotorControl.*;
-
+//import com.ctre.MotorControl.*;
+import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**

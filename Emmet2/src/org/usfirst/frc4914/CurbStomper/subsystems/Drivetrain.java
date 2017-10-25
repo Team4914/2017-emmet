@@ -2,8 +2,8 @@ package org.usfirst.frc4914.CurbStomper.subsystems;
 
 import org.usfirst.frc4914.CurbStomper.RobotMap;
 
-import com.ctre.MotorControl.*;
-
+//import com.ctre.MotorControl.*;
+import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
