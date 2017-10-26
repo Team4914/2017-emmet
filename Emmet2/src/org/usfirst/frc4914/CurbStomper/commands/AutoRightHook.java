@@ -28,7 +28,7 @@ public class AutoRightHook extends CommandGroup {
     	//Drive Back
     	addSequential(new DeadReckon2(-RobotConstants.AUTO_RHOOK_D3_TIME));
     	//Retract Claw
-    	addParallel(new ClawRetract2());
+    	addSequential(new ClawRetract2());
     	//Adjust trajectory by turning CW a bit
     	addSequential(new DeadReckonTurn(0.2, false));
     	//Second approach to hook
@@ -38,7 +38,7 @@ public class AutoRightHook extends CommandGroup {
     	//Drive Back
     	addSequential(new DeadReckon2(-RobotConstants.AUTO_RHOOK_D3_TIME));
     	//Retract Claw
-    	addParallel(new ClawRetract2());
+    	addSequential(new ClawRetract2());
     	//Adjust trajectory
     	addSequential(new DeadReckonTurn(0.2, false));
     	//Third approach to hook
@@ -48,6 +48,6 @@ public class AutoRightHook extends CommandGroup {
     	//Drive back
     	addSequential(new DeadReckon2(-RobotConstants.AUTO_RHOOK_D3_TIME));
     	//Retract claw
-    	addParallel(new ClawRetract2());
+    	addSequential(new ClawRetract2());
     }
 }
