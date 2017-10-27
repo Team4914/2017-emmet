@@ -36,7 +36,7 @@ public class RobotConstants {
 	// NEW DEAD RECKON AUTO \\
 	//Use AUTO_SPEED for speed from normal autonomous ^
 	public static double AUTO_RHOOK_D1_TIME = 7.6;
-	public static double AUTO_INITIAL_RHOOK_ROTATION_TIME = 10.825;
+	public static double AUTO_RHOOK_ROTATION_TIME = 1.6;
 	public static double AUTO_RHOOK_D2_TIME = 4.5;
 	public static double AUTO_RHOOK_D3_TIME = 2.5;
 	
