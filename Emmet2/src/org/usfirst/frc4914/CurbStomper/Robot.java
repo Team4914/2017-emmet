@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.opencv.core.Mat;
@@ -29,18 +28,12 @@ public class Robot extends IterativeRobot {
 	static CameraServer server;
 	
 	Command autonomousCommand;
-	SendableChooser autoChooser;
+	// SendableChooser<CommandGroup> autoChooser;
 
 	// @Override
 	public void robotInit() {
 			
 		RobotMap.init();
-		
-		autoChooser = new SendableChooser();
-		autoChooser.addDefault("Auto Left Hook", new AutoLeftHook());
-		autoChooser.addObject("Auto Middle Hook", new AutoMiddleHook());
-		autoChooser.addObject("Auto Right Hook", new AutoRightHook());
-		SmartDashboard.putData("Autonomous mode chooser", autoChooser);
 		
 		drivetrain = new Drivetrain();
 		climber = new Climber();
@@ -84,9 +77,6 @@ public class Robot extends IterativeRobot {
 
 	// @Override
 	public void autonomousInit() {
-		
-		autonomousCommand = (Command) autoChooser.getSelected();
-		autonomousCommand.start();
 
 		// DEBUG \\
 		if (RobotConstants.isTestingEnvironment) updateTestingEnvironment();
