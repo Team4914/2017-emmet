@@ -40,13 +40,11 @@ public class RobotConstants {
 	public static double AUTO_RHOOK_D2_TIME = 4.5;
 	public static double AUTO_RHOOK_D3_TIME = 2.5;
 	
-	public static double AUTO_LHOOK_D1_TIME = 7.6;
-	public static double AUTO_INITIAL_LHOOK_ROTATION_TIME = 10.825;
-	public static double AUTO_LHOOK_D2_TIME = 4.5;
-	public static double AUTO_LHOOK_D3_TIME = 2.5;
+	public static double AUTO_LHOOK_D1_TIME = 10/60.0;
+	public static double AUTO_LHOOK_ROTATION_TIME = 10/60.0;
+	public static double AUTO_LHOOK_D2_TIME = 10/60.0;
 	
-	public static double AUTO_MHOOK_D1_TIME = 4;
-	public static double AUTO_MHOOK_D2_TIME = 2;
+	public static double AUTO_MHOOK_D1_TIME = 0;
 	
 	// FUEL \\
 	public static double FLYWHEEL_SPEED = 0;
