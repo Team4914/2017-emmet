@@ -9,12 +9,12 @@ public class DeadReckonTurn extends Command{
 	
 	double speed = RobotConstants.AUTO_SPEED;
 	
-	//CW boolean true for CW, false for CCW
-	public DeadReckonTurn(double timeout, boolean CW) {
+	//CCW boolean true for CCW, false for CW
+	public DeadReckonTurn(double timeout, boolean CCW) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	setTimeout(timeout);
-    	if (!CW) speed = -speed;
+    	if (!CCW) speed = -speed;
     }
 
     // Called just before this Command runs the first time

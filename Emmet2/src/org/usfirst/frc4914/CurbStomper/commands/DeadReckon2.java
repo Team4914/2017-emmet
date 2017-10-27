@@ -31,8 +31,8 @@ public class DeadReckon2 extends Command {
     	// variable updates
     	bearing = Robot.drivetrain.getRawGyroBearing();
     	
-		Robot.drivetrain.tankDrive(RobotConstants.AUTO_SPEED + bearing*RobotConstants.AUTO_DRIVESTRAIGHT_P, 
-				RobotConstants.AUTO_SPEED - bearing*RobotConstants.AUTO_DRIVESTRAIGHT_P, false, false);
+		Robot.drivetrain.tankDrive((RobotConstants.AUTO_SPEED + bearing*RobotConstants.AUTO_DRIVESTRAIGHT_P)*2, 
+				(RobotConstants.AUTO_SPEED - bearing*RobotConstants.AUTO_DRIVESTRAIGHT_P)*2, false, false);
     	System.out.println(Robot.drivetrain.getRawGyroBearing());
     }
 

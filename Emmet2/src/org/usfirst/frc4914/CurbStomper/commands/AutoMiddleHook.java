@@ -1,5 +1,7 @@
 package org.usfirst.frc4914.CurbStomper.commands;
 
+import org.usfirst.frc4914.CurbStomper.RobotConstants;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -7,29 +9,25 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class AutoMiddleHook extends CommandGroup {
 
-    public AutoMiddleHook() {
-    	// strategic delay
-    	// addSequential(new AutoDelay(Robot.getAutoDelay()));
-    	
+    public AutoMiddleHook() {    	
     	// drive forward
-    	addSequential(new DeadReckon2(7.9));
-    	// extend claws and deposit gear
+    	addSequential(new DeadReckon2(RobotConstants.AUTO_MHOOK_D1_TIME));
     	addSequential(new ClawExtend2());
-    	// back away from airship
-    	addSequential(new DeadReckon2(-2));
+    	addSequential(new DeadReckon2(-RobotConstants.AUTO_MHOOK_D2_TIME));
     	addParallel(new ClawRetract2());
     	
-    	// try two
-    	addSequential(new DeadReckon2(2.1));
+    	//correct left and second attempt
+    	addSequential(new DeadReckonTurn(0.2, true));
+    	addSequential(new DeadReckon2(RobotConstants.AUTO_MHOOK_D2_TIME));
     	addSequential(new ClawExtend2());
-    	addSequential(new DeadReckon2(-2));
+    	addSequential(new DeadReckon2(-RobotConstants.AUTO_MHOOK_D2_TIME));
     	addParallel(new ClawRetract2());
     	
-    	// addSequential(new DeadReckon(3));
-    	// addSequential(new ClawExtend2());
-    	// addSequential(new DeadReckonBackward(2));
-    	// addSequential(new ClawRetract2());
-    	// turn and head down field
-    	// addSequential(new TurnCCW(90));
+    	//correct right and third attempt
+    	addSequential(new DeadReckonTurn(0.4, false));
+    	addSequential(new DeadReckon2(RobotConstants.AUTO_MHOOK_D2_TIME));
+    	addSequential(new ClawExtend2());
+    	addSequential(new DeadReckon2(-RobotConstants.AUTO_MHOOK_D2_TIME));
+    	addParallel(new ClawRetract2());
     }
 }
