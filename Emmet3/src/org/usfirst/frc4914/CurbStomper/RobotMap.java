@@ -71,6 +71,7 @@ public class RobotMap {
 		LiveWindow.addActuator("Gear", "Claw", claw);
 		
 		// FUEL \\
+		//Before deploying --> correct Talon port and type for shooter motor
 		 shooter = new Talon(8);
 		 LiveWindow.addActuator("Fuel", "Shooter", shooter);
 		
