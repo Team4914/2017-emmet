@@ -36,17 +36,21 @@ public class RobotConstants {
 	// NEW DEAD RECKON AUTO \\
 	//Use AUTO_SPEED for speed from normal autonomous ^
 	public static double AUTO_RHOOK_D1_TIME = 7.6/2;
-	public static double AUTO_RHOOK_INITIAL_ROTATION_TIME = 10.825;
+	public static double AUTO_RHOOK_ROTATION_ANGLE = 60;
 	public static double AUTO_RHOOK_D2_TIME = 4.5/2;
 	public static double AUTO_RHOOK_D3_TIME = 2.5/2;
 	
 	public static double AUTO_LHOOK_D1_TIME = 7.6/2;
-	public static double AUTO_LHOOK_INITIAL_ROTATION_TIME = 10.825;
+	public static double AUTO_LHOOK_ROTATION_ANGLE = 60;
 	public static double AUTO_LHOOK_D2_TIME = 4.5/2;
 	public static double AUTO_LHOOK_D3_TIME = 2.5/2;
 	
 	public static double AUTO_MHOOK_D1_TIME = 7.9/2;
 	public static double AUTO_MHOOK_D2_TIME = 4.5/2;
+	
+	//to set emergency timeout for DeadReckonTurn in case gyro fails
+	//Multiply angle by this constant and add one and a half seconds to get timeout
+	public static double ANGLE_TO_TIME_DEAD_RECKON_TURN = 1/30;
 	
 	// FUEL \\
 	public static double FLYWHEEL_SPEED = 0;
