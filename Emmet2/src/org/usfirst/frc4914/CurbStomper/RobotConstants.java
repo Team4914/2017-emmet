@@ -11,6 +11,7 @@ public class RobotConstants {
 	
 	// AUTONOMOUS \\
 	public static boolean isBaselineAuto = false;
+	// divide real-world velocity in inches per second by 60 to obtain motor output
 	public static double AUTO_SPEED = 10/60.0;
 	public static double INCHES_TO_ENCODER = 1.0/9.185185;
 
