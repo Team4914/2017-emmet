@@ -86,7 +86,7 @@ public class OI {
         rBumper.whenReleased(new ClawRetract2());
         lBumper.whenPressed(new ToggleDriveDirection());
         X.whenPressed(new ToggleDriveDirection());
-        B.whenPressed(new DeadReckon(5));
+        //B.whenPressed is unused
         
 
         coJoystick = new Joystick(1);
