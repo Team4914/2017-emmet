@@ -1,47 +1,25 @@
 # To-do List
 
-## changelog
-- linked libraries order (changed)
-- image cvt colour grey (changed)
-- removed built in accelerometer
-- implemented encoder
+In time for Hamilton:
 
-## To-do
-- move climber up
-- 13mm green ratchet
-- cleanup
-- jason's controller
-- encoder mount
-- backup hopper parts
-- electronics protection
+## build fix-ups
+- physical climber supports, remove cable and replace with rex raft
+- replace climber velcro
 
-## Code To-do
-- three camera support?
-- uncomment camera code
+## programming
+- test smooth autonomous, proof of concept
+- make necessary changes for autonomous, either revert back or continue with
+  smooth autonomous
 
+## drive team practice
+- invert drive
+- smooth driving, and transitions between tank and trigger drive
+- correcting position at hoppers
+- human player to coach to driver communication
+- pilot practice
 
-run through all commands and functionalities
-
-1. check polarity of rotate value  
-`Drivetrain.java` `public void triggerDrive()`
-2. check polarity of invert trigger drive  
-`Drivetrain.java` `public void triggerDrive()`
-3. tune all PID controllers
-4. check if squared inputs for trigger drive are good
-
-** carry on with `clawExtend.java`**
-
-## Saturday March 25, 2017
-#### gear
-1. drill ziptie holes for lexan
-2. mark shaft for cut
-3. remove plate
-4. mark and drill rivet holes
-5. hole punch for ziptie notch
-
-#### climber
-1. find churro, wheels, bolts, and (maybe) hubs
-2. drill larger holes
-3. experiment with velcro
-4. find aluminium and/or plexi plate for shape cut
-5. shaft collar + longer bolts, proof of concept
+## fuel mechanism
+- attach agitator and test with stacks of balls, proof of concept
+- choose between which fuel system to go with, old or new
+- test shooter accuracy
+... more to be added once the tasks above are completed
