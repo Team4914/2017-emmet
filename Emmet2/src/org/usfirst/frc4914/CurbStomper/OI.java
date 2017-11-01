@@ -87,6 +87,7 @@ public class OI {
         lBumper.whenPressed(new ToggleDriveDirection());
         X.whenPressed(new ToggleDriveDirection());
         //B.whenPressed is unused
+        B.whenPressed(new AutoLeftHookBoilerSide());
         
 
         coJoystick = new Joystick(1);

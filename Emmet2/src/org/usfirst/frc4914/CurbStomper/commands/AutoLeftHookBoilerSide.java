@@ -81,6 +81,7 @@ public class AutoLeftHookBoilerSide extends Command {
 	    	Robot.drivetrain.tankDrive(VelocityProfile[(int)currentTime*10][1]/5.0, VelocityProfile[(int)currentTime*10][0]/5.0, false, false);
 	    	// increments current time by one time step
 	    	currentTime += timeStep;
+	    	System.out.println(VelocityProfile[(int)currentTime*10][1]);
 	    } catch (IndexOutOfBoundsException e) {
 	    	// ends command when no more values are left in the velocity profile
 	    	end();
