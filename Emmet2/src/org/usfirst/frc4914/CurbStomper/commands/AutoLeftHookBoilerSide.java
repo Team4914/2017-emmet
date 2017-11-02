@@ -17,12 +17,12 @@ public class AutoLeftHookBoilerSide extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.drivetrain.stop();
-    	setTimeout(5);
+    	setTimeout(3);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.tankDrive(1.0603*0.3, 0.3, false, false);
+    	Robot.drivetrain.tankDrive(0.3, 0.3*1.43, false, false);
     }
 
     // Make this return true when this Command no longer needs to run execute()
