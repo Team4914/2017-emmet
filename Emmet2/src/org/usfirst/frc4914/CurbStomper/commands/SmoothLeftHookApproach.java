@@ -27,7 +27,7 @@ public class SmoothLeftHookApproach extends Command {
     	angleToTurn = angle;
     	
     	//calculate left and right peak speeds
-    	//peak speed = (1/6 of a circle with radius "radiusOfTurn" +/- width of the robot)/time interval
+    	//peak speed = (length of an arc of the angle provided of a circle with radius "radiusOfTurn" +/- width of the robot)/time interval
     	leftPeakSpeed = (angleToTurn * pi * (radiusOfTurn+(27.5/2)) * 2)/(180 * totalTime);
     	rightPeakSpeed = (angleToTurn * pi * (radiusOfTurn-(27.5/2)) * 2)/(180 * totalTime);
     }
