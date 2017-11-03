@@ -48,7 +48,7 @@ public class Robot extends IterativeRobot {
 		// server.startAutomaticCapture(0);
 		
 		//change autonomousCommand and redeploy for diff auto positions
-		autonomousCommand = (Command) new AutoLeftHookBoilerSide();
+		autonomousCommand = (Command) new AutoLeftHook;
 		
 		// resets all sensors
 		resetAllSensors();
@@ -257,18 +257,18 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putNumber("INCHES_TO_ENCODER", RobotConstants.INCHES_TO_ENCODER);
     	
     	SmartDashboard.putNumber("AUTO_DRIVE_TOLERANCE", RobotConstants.AUTO_DRIVE_TOLERANCE);
-    	SmartDashboard.putNumber("AUTO_DRIVE_RHOOK_D1", RobotConstants.AUTO_DRIVE_RHOOK_D1);
-    	SmartDashboard.putNumber("AUTO_DRIVE_RHOOK_D2", RobotConstants.AUTO_DRIVE_RHOOK_D2);
-    	SmartDashboard.putNumber("AUTO_DRIVE_LHOOK_D1", RobotConstants.AUTO_DRIVE_LHOOK_D1);
-    	SmartDashboard.putNumber("AUTO_DRIVE_LHOOK_D2", RobotConstants.AUTO_DRIVE_LHOOK_D2);
-    	SmartDashboard.putNumber("AUTO_DRIVE_MHOOK_D1", RobotConstants.AUTO_DRIVE_MHOOK_D1);
+//    	SmartDashboard.putNumber("AUTO_DRIVE_RHOOK_D1", RobotConstants.AUTO_DRIVE_RHOOK_D1);
+//    	SmartDashboard.putNumber("AUTO_DRIVE_RHOOK_D2", RobotConstants.AUTO_DRIVE_RHOOK_D2);
+//    	SmartDashboard.putNumber("AUTO_DRIVE_LHOOK_D1", RobotConstants.AUTO_DRIVE_LHOOK_D1);
+//    	SmartDashboard.putNumber("AUTO_DRIVE_LHOOK_D2", RobotConstants.AUTO_DRIVE_LHOOK_D2);
+//    	SmartDashboard.putNumber("AUTO_DRIVE_MHOOK_D1", RobotConstants.AUTO_DRIVE_MHOOK_D1);
     	SmartDashboard.putNumber("AUTO_DRIVE_P", RobotConstants.AUTO_DRIVE_P);
     	SmartDashboard.putNumber("AUTO_DRIVE_I", RobotConstants.AUTO_DRIVE_I);
     	SmartDashboard.putNumber("AUTO_DRIVE_D", RobotConstants.AUTO_DRIVE_D);
     	
     	SmartDashboard.putNumber("AUTO_TURN_TOLERANCE", RobotConstants.AUTO_TURN_TOLERANCE);
-    	SmartDashboard.putNumber("AUTO_TURN_RHOOK_SETPOINT", RobotConstants.AUTO_TURN_RHOOK_SETPOINT);
-    	SmartDashboard.putNumber("AUTO_TURN_LHOOK_SETPOINT", RobotConstants.AUTO_TURN_LHOOK_SETPOINT);
+//    	SmartDashboard.putNumber("AUTO_TURN_RHOOK_SETPOINT", RobotConstants.AUTO_TURN_RHOOK_SETPOINT);
+//    	SmartDashboard.putNumber("AUTO_TURN_LHOOK_SETPOINT", RobotConstants.AUTO_TURN_LHOOK_SETPOINT);
     	SmartDashboard.putNumber("AUTO_TURN_P", RobotConstants.AUTO_TURN_P);
     	SmartDashboard.putNumber("AUTO_TURN_I", RobotConstants.AUTO_TURN_I);
     	SmartDashboard.putNumber("AUTO_TURN_D", RobotConstants.AUTO_TURN_D);
@@ -309,18 +309,18 @@ public class Robot extends IterativeRobot {
 		RobotConstants.AUTO_SPEED = SmartDashboard.getNumber("INCHES_TO_ENCODER", 0);
 		
 		RobotConstants.AUTO_DRIVE_TOLERANCE = SmartDashboard.getNumber("AUTO_DRIVE_TOLERANCE", 0);
-		RobotConstants.AUTO_DRIVE_RHOOK_D1 = SmartDashboard.getNumber("AUTO_DRIVE_RHOOK_D1", 0);
-		RobotConstants.AUTO_DRIVE_RHOOK_D2 = SmartDashboard.getNumber("AUTO_DRIVE_RHOOK_D2", 0);
-		RobotConstants.AUTO_DRIVE_LHOOK_D1 = SmartDashboard.getNumber("AUTO_DRIVE_LHOOK_D1", 0);
-		RobotConstants.AUTO_DRIVE_LHOOK_D2 = SmartDashboard.getNumber("AUTO_DRIVE_LHOOK_D2", 0);
-		RobotConstants.AUTO_DRIVE_MHOOK_D1 = SmartDashboard.getNumber("AUTO_DRIVE_MHOOK_D1", 0);
+//		RobotConstants.AUTO_DRIVE_RHOOK_D1 = SmartDashboard.getNumber("AUTO_DRIVE_RHOOK_D1", 0);
+//		RobotConstants.AUTO_DRIVE_RHOOK_D2 = SmartDashboard.getNumber("AUTO_DRIVE_RHOOK_D2", 0);
+//		RobotConstants.AUTO_DRIVE_LHOOK_D1 = SmartDashboard.getNumber("AUTO_DRIVE_LHOOK_D1", 0);
+//		RobotConstants.AUTO_DRIVE_LHOOK_D2 = SmartDashboard.getNumber("AUTO_DRIVE_LHOOK_D2", 0);
+//		RobotConstants.AUTO_DRIVE_MHOOK_D1 = SmartDashboard.getNumber("AUTO_DRIVE_MHOOK_D1", 0);
 		RobotConstants.AUTO_DRIVE_P = SmartDashboard.getNumber("AUTO_DRIVE_P", 0);
 		RobotConstants.AUTO_DRIVE_I = SmartDashboard.getNumber("AUTO_DRIVE_I", 0);
 		RobotConstants.AUTO_DRIVE_D = SmartDashboard.getNumber("AUTO_DRIVE_D", 0);
 		
 		RobotConstants.AUTO_TURN_TOLERANCE = (int) SmartDashboard.getNumber("AUTO_TURN_TOLERANCE", 0);
-		RobotConstants.AUTO_TURN_RHOOK_SETPOINT = (int) SmartDashboard.getNumber("AUTO_TURN_RHOOK_SETPOINT", 0);
-		RobotConstants.AUTO_TURN_LHOOK_SETPOINT = (int) SmartDashboard.getNumber("AUTO_TURN_LHOOK_SETPOINT", 0);
+//		RobotConstants.AUTO_TURN_RHOOK_SETPOINT = (int) SmartDashboard.getNumber("AUTO_TURN_RHOOK_SETPOINT", 0);
+//		RobotConstants.AUTO_TURN_LHOOK_SETPOINT = (int) SmartDashboard.getNumber("AUTO_TURN_LHOOK_SETPOINT", 0);
 		RobotConstants.AUTO_TURN_P = SmartDashboard.getNumber("AUTO_TURN_P", 0);
 		RobotConstants.AUTO_TURN_I = SmartDashboard.getNumber("AUTO_TURN_I", 0);
 		RobotConstants.AUTO_TURN_D = SmartDashboard.getNumber("AUTO_TURN_D", 0);
