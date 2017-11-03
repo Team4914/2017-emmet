@@ -16,5 +16,6 @@ public class AutoLeftHook extends CommandGroup {
     	//smooth drive up to hook
     	addSequential(new SmoothLeftHookApproach(RobotConstants.LEFT_HOOK_APPROACH_TIME, RobotConstants.LEFT_HOOK_TURNING_RADIUS, 
     			RobotConstants.LEFT_HOOK_TURNING_ANGLE));
+    	addSequential(new ClawExtend2());
     }
 }

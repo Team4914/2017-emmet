@@ -48,8 +48,8 @@ public class SmoothLeftHookApproach extends Command {
     	
     	//If the time is still within half the total time interval, keep accelerating to peak speed
     	if (timeElapsed <= (totalTime/2)) {
-    		leftInstantaneousSpeed = (leftPeakSpeed/(totalTime/2))*timeElapsed;
-    		rightInstantaneousSpeed = (rightPeakSpeed/(totalTime/2))*timeElapsed;
+    		leftInstantaneousSpeed = ((leftPeakSpeed/(totalTime/2)*2)*timeElapsed)*0.25;
+    		rightInstantaneousSpeed = ((rightPeakSpeed/(totalTime/2)*2)*timeElapsed)*0.25;
     	}
     	//If the time is past the halfway point in the total time interval, decelerate to a stop
     	else {
