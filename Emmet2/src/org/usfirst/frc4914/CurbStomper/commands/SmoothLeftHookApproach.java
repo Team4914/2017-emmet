@@ -1,7 +1,6 @@
 package org.usfirst.frc4914.CurbStomper.commands;
 
 import org.usfirst.frc4914.CurbStomper.Robot;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 public class SmoothLeftHookApproach extends Command {
@@ -11,24 +10,26 @@ public class SmoothLeftHookApproach extends Command {
 	double currentTime;
 	double timeElapsed;
 	double totalTime;
+	double angleToTurn;
 	double leftPeakSpeed;
 	double rightPeakSpeed;
 	double leftInstantaneousSpeed;
 	double rightInstantaneousSpeed;
 	double radiusOfTurn;
 	
-	public SmoothLeftHookApproach(double time, double radius) {
+	public SmoothLeftHookApproach(double time, double radius, double angle) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
 		
-		//set local variables for time interval and turning radius
+		//set local variables for time interval, turning radius, and how much of a circle to turn in degrees
     	totalTime = time;
     	radiusOfTurn = radius;
+    	angleToTurn = angle;
     	
     	//calculate left and right peak speeds
     	//peak speed = (1/6 of a circle with radius "radiusOfTurn" +/- width of the robot)/time interval
-    	leftPeakSpeed = (2*pi*(radiusOfTurn+(27.5/2)))/(3*totalTime);
-    	rightPeakSpeed = (2*pi*(radiusOfTurn-(27.5/2)))/(3*totalTime);
+    	leftPeakSpeed = (angleToTurn * pi * (radiusOfTurn+(27.5/2)) * 2)/(180 * totalTime);
+    	rightPeakSpeed = (angleToTurn * pi * (radiusOfTurn-(27.5/2)) * 2)/(180 * totalTime);
     }
 	
 	// Called just before this Command runs the first time

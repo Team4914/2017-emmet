@@ -14,6 +14,7 @@ public class AutoLeftHook extends CommandGroup {
 	// AKA LOADING STATION HOOK
     public AutoLeftHook() {
     	//smooth drive up to hook
-    	addSequential(new SmoothLeftHookApproach(RobotConstants.LEFT_APPROACH_TIME, RobotConstants.LEFT_TURNING_RADIUS));
+    	addSequential(new SmoothLeftHookApproach(RobotConstants.LEFT_APPROACH_TIME, RobotConstants.LEFT_TURNING_RADIUS, 
+    			RobotConstants.LEFT_TURNING_ANGLE));
     }
 }

@@ -45,6 +45,7 @@ public class RobotConstants {
 	// SMOOTH AUTONOMOUS \\
 	public static double LEFT_TURNING_RADIUS = 130.198;
 	public static double LEFT_APPROACH_TIME = 5;
+	public static double LEFT_TURNING_ANGLE = 60;
 	
 	//to set emergency timeout for DeadReckonTurn in case gyro fails
 	//Multiply angle by this constant and add one and a half seconds to get timeout
