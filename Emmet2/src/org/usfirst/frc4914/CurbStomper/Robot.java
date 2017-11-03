@@ -48,7 +48,7 @@ public class Robot extends IterativeRobot {
 		// server.startAutomaticCapture(0);
 		
 		//change autonomousCommand and redeploy for diff auto positions
-		autonomousCommand = (Command) new AutoLeftHook;
+		autonomousCommand = (Command) new AutoLeftHook();
 		
 		// resets all sensors
 		resetAllSensors();
