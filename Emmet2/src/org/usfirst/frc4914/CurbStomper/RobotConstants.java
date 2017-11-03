@@ -16,11 +16,6 @@ public class RobotConstants {
 	public static double INCHES_TO_ENCODER = 1.0/9.185185;
 
 	public static double AUTO_DRIVE_TOLERANCE = 0.5;
-	public static double AUTO_DRIVE_RHOOK_D1 = 67.9;
-	public static double AUTO_DRIVE_RHOOK_D2 = 67.0;
-	public static double AUTO_DRIVE_LHOOK_D1 = 68.8;
-	public static double AUTO_DRIVE_LHOOK_D2 = 65.3;
-	public static double AUTO_DRIVE_MHOOK_D1 = 10; // originally 72
 	public static double AUTO_DRIVE_P = 0.1;
 	public static double AUTO_DRIVE_I = 0;
 	public static double AUTO_DRIVE_D = 0;
@@ -28,8 +23,6 @@ public class RobotConstants {
 	public static double AUTO_DRIVESTRAIGHT_P = 0.05;
 	
 	public static int AUTO_TURN_TOLERANCE = 2;
-	public static int AUTO_TURN_RHOOK_SETPOINT = 60;
-	public static int AUTO_TURN_LHOOK_SETPOINT = 60;
 	public static double AUTO_TURN_P = 0.1;
 	public static double AUTO_TURN_I = 0;
 	public static double AUTO_TURN_D = 0;
@@ -48,6 +41,10 @@ public class RobotConstants {
 	
 	public static double AUTO_MHOOK_D1_TIME = 7.9/2;
 	public static double AUTO_MHOOK_D2_TIME = 4.5/2;
+	
+	// SMOOTH AUTONOMOUS \\
+	public static double LEFT_TURNING_RADIUS = 130.198;
+	public static double LEFT_APPROACH_TIME = 5;
 	
 	//to set emergency timeout for DeadReckonTurn in case gyro fails
 	//Multiply angle by this constant and add one and a half seconds to get timeout
