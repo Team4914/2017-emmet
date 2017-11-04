@@ -44,7 +44,7 @@ public class RobotConstants {
 	
 	// SMOOTH AUTONOMOUS \\
 //	public static double LEFT_HOOK_TURNING_RADIUS = 130.198;
-	public static double LEFT_HOOK_TURNING_RADIUS = 89;
+	public static double LEFT_HOOK_TURNING_RADIUS = 87;
 	public static double LEFT_HOOK_APPROACH_TIME = 7;
 	public static double LEFT_HOOK_TURNING_ANGLE = 72;
 	

@@ -17,7 +17,7 @@ public class SmoothMiddleHookApproach extends Command {
 		distanceToMove = distance;
 		
 		//peak speed = 2 * ((distance from alliance station wall to airship - (half the hook length + half the robot length)) / total time interval)
-		peakSpeed = 2*((distanceToMove - (8.5 + (38/2)))/totalTime);
+		peakSpeed = (2*((distanceToMove - (8.5 + (38/2)))/totalTime))*0.7;
 	}
 	
 	// Called just before this Command runs the first time

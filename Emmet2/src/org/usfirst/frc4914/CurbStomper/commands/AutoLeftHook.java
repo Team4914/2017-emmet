@@ -17,5 +17,7 @@ public class AutoLeftHook extends CommandGroup {
     	addSequential(new SmoothLeftHookApproach(RobotConstants.LEFT_HOOK_APPROACH_TIME, RobotConstants.LEFT_HOOK_TURNING_RADIUS, 
     			RobotConstants.LEFT_HOOK_TURNING_ANGLE));
     	addSequential(new ClawExtend2());
+    	addSequential(new DeadReckon2(-2));
+    	addSequential(new ClawRetract2());
     }
 }
