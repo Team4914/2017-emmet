@@ -28,8 +28,8 @@ public class SmoothLeftHookApproach extends Command {
     	
     	//calculate left and right peak speeds
     	//peak speed = (length of an arc of the angle provided of a circle with radius "radiusOfTurn" +/- width of the robot)/time interval
-    	leftPeakSpeed = (angleToTurn * pi * (radiusOfTurn+(27.5/2)) * 2)/(180 * totalTime);
-    	rightPeakSpeed = (angleToTurn * pi * (radiusOfTurn-(27.5/2)) * 2)/(180 * totalTime);
+    	leftPeakSpeed = (angleToTurn * pi * (radiusOfTurn+(27.5/2)) * 2)/(180 * totalTime)*0.5;
+    	rightPeakSpeed = (angleToTurn * pi * (radiusOfTurn-(27.5/2)) * 2)/(180 * totalTime)*0.5;
     }
 	
 	// Called just before this Command runs the first time
@@ -48,8 +48,8 @@ public class SmoothLeftHookApproach extends Command {
     	
     	//If the time is still within half the total time interval, keep accelerating to peak speed
     	if (timeElapsed <= (totalTime/2)) {
-    		leftInstantaneousSpeed = ((leftPeakSpeed/(totalTime/2)*2)*timeElapsed)*0.25;
-    		rightInstantaneousSpeed = ((rightPeakSpeed/(totalTime/2)*2)*timeElapsed)*0.25;
+    		leftInstantaneousSpeed = ((leftPeakSpeed/(totalTime/2)*2)*timeElapsed);
+    		rightInstantaneousSpeed = ((rightPeakSpeed/(totalTime/2)*2)*timeElapsed);
     	}
     	//If the time is past the halfway point in the total time interval, decelerate to a stop
     	else {
