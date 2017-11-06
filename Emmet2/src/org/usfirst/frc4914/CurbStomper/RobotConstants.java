@@ -12,7 +12,7 @@ public class RobotConstants {
 	// AUTONOMOUS \\
 	public static boolean isBaselineAuto = false;
 	// divide real-world velocity in inches per second by 60 to obtain motor output
-	public static double AUTO_SPEED = 10/60.0;
+	public static double AUTO_SPEED = 15/60.0;
 	public static double INCHES_TO_ENCODER = 1.0/9.185185;
 
 	public static double AUTO_DRIVE_TOLERANCE = 0.5;
@@ -39,8 +39,8 @@ public class RobotConstants {
 	public static double AUTO_LHOOK_D2_TIME = 4.5/2;
 	public static double AUTO_LHOOK_D3_TIME = 2.5/2;
 	
-	public static double AUTO_MHOOK_D1_TIME = 7.9/2;
-	public static double AUTO_MHOOK_D2_TIME = 4.5/2;
+	public static double AUTO_MHOOK_D1_TIME = 1.25;
+	public static double AUTO_MHOOK_D2_TIME = 0.5;
 	
 	// SMOOTH AUTONOMOUS \\
 //	public static double LEFT_HOOK_TURNING_RADIUS = 130.198;
