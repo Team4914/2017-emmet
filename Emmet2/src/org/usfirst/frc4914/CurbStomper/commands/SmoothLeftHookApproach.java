@@ -28,8 +28,8 @@ public class SmoothLeftHookApproach extends Command {
     	
     	//calculate left and right peak speeds
     	//peak speed = (length of an arc of the angle provided of a circle with radius "radiusOfTurn" +/- width of the robot)/time interval
-    	leftPeakSpeed = (angleToTurn * pi * (radiusOfTurn+(27.5/2)) * 2)/(180 * totalTime)*0.5;
-    	rightPeakSpeed = (angleToTurn * pi * (radiusOfTurn-(27.5/2)) * 2)/(180 * totalTime)*0.5;
+    	leftPeakSpeed = (angleToTurn * pi * (radiusOfTurn+(27.5/2)) * 2)/(180 * totalTime);
+    	rightPeakSpeed = (angleToTurn * pi * (radiusOfTurn-(27.5/2)) * 2)/(180 * totalTime);
     }
 	
 	// Called just before this Command runs the first time
@@ -48,13 +48,13 @@ public class SmoothLeftHookApproach extends Command {
     	
     	//If the time is still within half the total time interval, keep accelerating to peak speed
     	if (timeElapsed <= (totalTime/2)) {
-    		leftInstantaneousSpeed = ((leftPeakSpeed/(totalTime/2)*2)*timeElapsed);
-    		rightInstantaneousSpeed = ((rightPeakSpeed/(totalTime/2)*2)*timeElapsed);
+    		leftInstantaneousSpeed = (((2*leftPeakSpeed)/totalTime)*timeElapsed);
+    		rightInstantaneousSpeed = (((2*rightPeakSpeed)/totalTime)*timeElapsed);
     	}
     	//If the time is past the halfway point in the total time interval, decelerate to a stop
     	else {
-    		leftInstantaneousSpeed = ((-leftPeakSpeed/(totalTime/2))*timeElapsed) + (2*leftPeakSpeed);
-    		rightInstantaneousSpeed = ((-rightPeakSpeed/(totalTime/2))*timeElapsed) + (2*rightPeakSpeed);
+    		leftInstantaneousSpeed = (((-2*leftPeakSpeed)/totalTime)*timeElapsed) + (2*leftPeakSpeed);
+    		rightInstantaneousSpeed = (((-2*rightPeakSpeed)/totalTime)*timeElapsed) + (2*rightPeakSpeed);
     	}
     	
     	Robot.drivetrain.tankDrive(rightInstantaneousSpeed, leftInstantaneousSpeed, true, false);

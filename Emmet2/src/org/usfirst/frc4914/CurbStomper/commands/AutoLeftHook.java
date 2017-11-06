@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class AutoLeftHook extends CommandGroup {
 	
-	//Position with bumper 8" from loading station or 12" from boiler
+	//Position with bumper 4" into the loading station (past the blue line) or flush with boiler
     public AutoLeftHook() {
     	//smooth drive up to hook
     	addSequential(new SmoothLeftHookApproach(RobotConstants.LEFT_HOOK_APPROACH_TIME, RobotConstants.LEFT_HOOK_TURNING_RADIUS, 

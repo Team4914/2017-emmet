@@ -46,7 +46,8 @@ public class RobotConstants {
 //	public static double LEFT_HOOK_TURNING_RADIUS = 130.198;
 	public static double LEFT_HOOK_TURNING_RADIUS = 87;
 	public static double LEFT_HOOK_APPROACH_TIME = 7;
-	public static double LEFT_HOOK_TURNING_ANGLE = 72;
+//	public static double LEFT_HOOK_TURNING_ANGLE = 72;
+	public static double LEFT_HOOK_TURNING_ANGLE = 72*0.74967;
 	
 	public static double MIDDLE_DISTANCE = 114.207;
 	public static double MIDDLE_HOOK_TIME = 5;
