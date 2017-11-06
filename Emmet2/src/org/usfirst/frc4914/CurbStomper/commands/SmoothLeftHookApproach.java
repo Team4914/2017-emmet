@@ -5,6 +5,11 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class SmoothLeftHookApproach extends Command {
 	
+	/* SmoothLeftHookApproach accelerates the robot through an arc of a given radius and angle in a given time. 
+	 * The time only affects the acceleration and peak speeds, but not the distance moved.
+	 * When tweaking the arc to fit the field, make sure battery is at least above 12.8V ON DRIVER STATION and
+	 * only change the radius, time and angle values in RobotConstants.java and nothing else. */
+	
 	double pi = 3.14159265359;
 	double initialTime;
 	double currentTime;
@@ -22,22 +27,28 @@ public class SmoothLeftHookApproach extends Command {
         // eg. requires(chassis);
 		
 		//set local variables for time interval, turning radius, and how much of a circle to turn in degrees
-    	totalTime = time;
-    	radiusOfTurn = radius;
-    	angleToTurn = angle;
+		this.totalTime = time;
+		this.radiusOfTurn = radius;
+		this.angleToTurn = angle;
     	
     	//calculate left and right peak speeds
     	//peak speed = (length of an arc of the angle provided of a circle with radius "radiusOfTurn" +/- width of the robot)/time interval
-    	leftPeakSpeed = (angleToTurn * pi * (radiusOfTurn+(27.5/2)) * 2)/(180 * totalTime);
-    	rightPeakSpeed = (angleToTurn * pi * (radiusOfTurn-(27.5/2)) * 2)/(180 * totalTime);
+		this.leftPeakSpeed = (angleToTurn * pi * (radiusOfTurn+(27.5/2)) * 2)/(180 * totalTime);
+		this.rightPeakSpeed = (angleToTurn * pi * (radiusOfTurn-(27.5/2)) * 2)/(180 * totalTime);
     }
 	
 	// Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.drivetrain.stop();
     	setTimeout(totalTime);
+    	
     	//set to current time in seconds
     	initialTime = System.nanoTime()/Math.pow(10,9);
+    	
+    	//reset sensors
+    	Robot.drivetrain.resetGyro();
+    	Robot.drivetrain.resetEncoder();
+    	
+    	System.out.println("<<BEGIN VALUE LOG>>");
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -58,8 +69,12 @@ public class SmoothLeftHookApproach extends Command {
     	}
     	
     	Robot.drivetrain.tankDrive(rightInstantaneousSpeed, leftInstantaneousSpeed, true, false);
-    	System.out.println("Time Elapsed: " + timeElapsed);
-    	System.out.println("Left Instantaneous Speed: " + leftInstantaneousSpeed + " Right Instantaneous Speed: " + rightInstantaneousSpeed);
+//    	System.out.println("Time Elapsed: " + timeElapsed);
+//    	System.out.println("Left Instantaneous Speed: " + leftInstantaneousSpeed + " Right Instantaneous Speed: " + rightInstantaneousSpeed);
+//    	System.out.println("Raw Gyro Bearing: " + Robot.drivetrain.getRawGyroBearing());
+    	
+    	//log values
+    	System.out.println(timeElapsed + " " + leftInstantaneousSpeed + " " + rightInstantaneousSpeed + " " + Robot.drivetrain.getRawGyroBearing());
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -70,6 +85,7 @@ public class SmoothLeftHookApproach extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	System.out.println("<<END VALUE LOG>>");
     	Robot.drivetrain.stop();
     }
 
