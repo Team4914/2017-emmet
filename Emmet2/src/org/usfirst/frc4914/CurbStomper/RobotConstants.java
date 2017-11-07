@@ -42,19 +42,16 @@ public class RobotConstants {
 	public static double AUTO_MHOOK_D1_TIME = 1.25;
 	public static double AUTO_MHOOK_D2_TIME = 0.5;
 	
-	// SMOOTH AUTONOMOUS \\
-//	public static double LEFT_HOOK_TURNING_RADIUS = 130.198;
-	public static double LEFT_HOOK_TURNING_RADIUS = 87;
-	public static double LEFT_HOOK_APPROACH_TIME = 7;
-//	public static double LEFT_HOOK_TURNING_ANGLE = 72;
-	public static double LEFT_HOOK_TURNING_ANGLE = 53.97624;
-	
-	public static double MIDDLE_DISTANCE = 114.207;
-	public static double MIDDLE_HOOK_TIME = 5;
-	
-	//to set emergency timeout for DeadReckonTurn in case gyro fails
+	//Emergency timeout for DeadReckonTurn in case gyro fails: 
 	//Multiply angle by this constant and add one and a half seconds to get timeout
 	public static double ANGLE_TO_TIME_DEAD_RECKON_TURN = 1/30;
+	
+	// SMOOTH AUTONOMOUS \\
+//	public static double LEFT_HOOK_TURNING_RADIUS = 130.198;
+	public static double LEFT_HOOK_TURNING_RADIUS = 85;
+	public static double LEFT_HOOK_APPROACH_TIME = 7;
+//	public static double LEFT_HOOK_TURNING_ANGLE = 72;
+	public static double LEFT_HOOK_TURNING_ANGLE = 60;
 	
 	// FUEL \\
 	public static double FLYWHEEL_SPEED = 0;

@@ -1,6 +1,8 @@
 package org.usfirst.frc4914.CurbStomper.commands;
 
 import org.usfirst.frc4914.CurbStomper.Robot;
+import org.usfirst.frc4914.CurbStomper.RobotConstants;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 public class SmoothLeftHookApproach extends Command {
@@ -21,6 +23,11 @@ public class SmoothLeftHookApproach extends Command {
 	double leftInstantaneousSpeed;
 	double rightInstantaneousSpeed;
 	double radiusOfTurn;
+	double properAngle;
+	double currentAngle;
+	double angleDeviation;
+	double angleCorrectionAmplitude;
+	
 	
 	public SmoothLeftHookApproach(double time, double radius, double angle) {
         // Use requires() here to declare subsystem dependencies
@@ -57,6 +64,16 @@ public class SmoothLeftHookApproach extends Command {
     	currentTime = System.nanoTime()/Math.pow(10,9);
     	timeElapsed = currentTime - initialTime;
     	
+    	//calculate optimal angle for current time: y = 0.017x6 - 0.2842x5 + 1.4966x4 - 2.5517x3 + 2.3368x2 - 0.865x + 0.0606
+    	properAngle = (0.017*(Math.pow(timeElapsed, 6))) - (0.2842*(Math.pow(timeElapsed, 5))) + (1.4966*(Math.pow(timeElapsed, 4)))
+    			- (2.5517*(Math.pow(timeElapsed, 3))) + (2.3368*(Math.pow(timeElapsed, 2))) - (0.865*timeElapsed) + 0.0606;
+    	
+    	//sample gyro
+    	currentAngle = Robot.drivetrain.getGyroBearing();
+    	
+    	//calculate deviation from optimal angle
+    	angleDeviation = currentAngle - properAngle;
+    	
     	//If the time is still within half the total time interval, keep accelerating to peak speed
     	if (timeElapsed <= (totalTime/2)) {
     		leftInstantaneousSpeed = (((2*leftPeakSpeed)/totalTime)*timeElapsed);
@@ -68,7 +85,11 @@ public class SmoothLeftHookApproach extends Command {
     		rightInstantaneousSpeed = (((-2*rightPeakSpeed)/totalTime)*timeElapsed) + (2*rightPeakSpeed);
     	}
     	
-    	Robot.drivetrain.tankDrive(rightInstantaneousSpeed, leftInstantaneousSpeed, true, false);
+    	//calculate amount needed for angle correction
+    	angleCorrectionAmplitude = (3/(10.0/60)) * ((leftInstantaneousSpeed + rightInstantaneousSpeed)/2);
+    	
+    	Robot.drivetrain.tankDrive(rightInstantaneousSpeed + angleDeviation*angleCorrectionAmplitude, 
+    			leftInstantaneousSpeed - angleDeviation*angleCorrectionAmplitude, true, false);
 //    	System.out.println("Time Elapsed: " + timeElapsed);
 //    	System.out.println("Left Instantaneous Speed: " + leftInstantaneousSpeed + " Right Instantaneous Speed: " + rightInstantaneousSpeed);
 //    	System.out.println("Raw Gyro Bearing: " + Robot.drivetrain.getRawGyroBearing());
