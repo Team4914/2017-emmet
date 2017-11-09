@@ -20,12 +20,19 @@ public class AutoLeftHook extends CommandGroup {
 //    	addSequential(new DeadReckon2(-2));
 //    	addSequential(new ClawRetract2());
     	
-    	addSequential(new DeadReckon2(0.75));
-    	addSequential(new DeadReckonTurn(58, true));
-    	addSequential(new DeadReckon2(0.8));
-    	addSequential(new DeadReckon2(0.5));
+//    	addSequential(new DeadReckon2(0.75));
+//    	addSequential(new DeadReckonTurn(58, true));
+//    	addSequential(new DeadReckon2(0.8));
+//    	addSequential(new DeadReckon2(0.5));
+//    	addSequential(new ClawExtend2());
+//    	addSequential(new DeadReckon2(-0.5));
+//    	addSequential(new ClawRetract2());
+    	
+    	addSequential(new DeadReckon3(RobotConstants.AUTO_LHOOK_D1, RobotConstants.AUTO_SPEED));
+    	addSequential(new DeadReckonTurn(60, true));
+    	addSequential(new DeadReckon3(RobotConstants.AUTO_LHOOK_D2, RobotConstants.AUTO_SPEED));
     	addSequential(new ClawExtend2());
-    	addSequential(new DeadReckon2(-0.5));
+    	addSequential(new DeadReckon3(RobotConstants.AUTO_LHOOK_D3, RobotConstants.AUTO_SPEED));
     	addSequential(new ClawRetract2());
     }
 }

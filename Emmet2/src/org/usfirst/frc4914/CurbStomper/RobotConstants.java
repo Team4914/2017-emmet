@@ -27,30 +27,34 @@ public class RobotConstants {
 	public static double AUTO_TURN_I = 0;
 	public static double AUTO_TURN_D = 0;
 	
-	// NEW DEAD RECKON AUTO \\
-	//Use AUTO_SPEED for speed from normal autonomous ^
-	public static double AUTO_RHOOK_D1_TIME = 7.6/2;
-	public static double AUTO_RHOOK_ROTATION_ANGLE = 60;
-	public static double AUTO_RHOOK_D2_TIME = 4.5/2;
-	public static double AUTO_RHOOK_D3_TIME = 2.5/2;
-	
-	public static double AUTO_LHOOK_D1_TIME = 7.6/2;
-	public static double AUTO_LHOOK_ROTATION_ANGLE = 60;
-	public static double AUTO_LHOOK_D2_TIME = 4.5/2;
-	public static double AUTO_LHOOK_D3_TIME = 2.5/2;
+//	// NEW DEAD RECKON AUTO \\
+//	//Use AUTO_SPEED for speed from normal autonomous ^
+//	public static double AUTO_RHOOK_D1_TIME = 7.6/2;
+//	public static double AUTO_RHOOK_ROTATION_ANGLE = 60;
+//	public static double AUTO_RHOOK_D2_TIME = 4.5/2;
+//	public static double AUTO_RHOOK_D3_TIME = 2.5/2;
+//	
+//	public static double AUTO_LHOOK_D1_TIME = 7.6/2;
+//	public static double AUTO_LHOOK_ROTATION_ANGLE = 60;
+//	public static double AUTO_LHOOK_D2_TIME = 4.5/2;
+//	public static double AUTO_LHOOK_D3_TIME = 2.5/2;
 	
 	public static double AUTO_MHOOK_D1_TIME = 1.2;
 	public static double AUTO_MHOOK_D2_TIME = 0.5;
 	
-	// SMOOTH AUTONOMOUS \\
-//	public static double LEFT_HOOK_TURNING_RADIUS = 130.198;
-	public static double LEFT_HOOK_TURNING_RADIUS = 77;
-	public static double LEFT_HOOK_APPROACH_TIME = 7;
-//	public static double LEFT_HOOK_TURNING_ANGLE = 72;
-	public static double LEFT_HOOK_TURNING_ANGLE = 70;
+	public static double AUTO_LHOOK_D1 = 65.003;
+	public static double AUTO_LHOOK_D2 = 93.582;
+	public static double AUTO_LHOOK_D3 = 40;
 	
-	public static double MIDDLE_DISTANCE = 114.207;
-	public static double MIDDLE_HOOK_TIME = 5;
+//	// SMOOTH AUTONOMOUS \\
+////	public static double LEFT_HOOK_TURNING_RADIUS = 130.198;
+//	public static double LEFT_HOOK_TURNING_RADIUS = 77;
+//	public static double LEFT_HOOK_APPROACH_TIME = 7;
+////	public static double LEFT_HOOK_TURNING_ANGLE = 72;
+//	public static double LEFT_HOOK_TURNING_ANGLE = 70;
+//	
+//	public static double MIDDLE_DISTANCE = 114.207;
+//	public static double MIDDLE_HOOK_TIME = 5;
 	
 	//to set emergency timeout for DeadReckonTurn in case gyro fails
 	//Multiply angle by this constant and add one and a half seconds to get timeout
