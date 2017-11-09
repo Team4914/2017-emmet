@@ -39,7 +39,7 @@ public class DeadReckon2 extends Command {
 		Robot.drivetrain.tankDrive((RobotConstants.AUTO_SPEED + bearing*RobotConstants.AUTO_DRIVESTRAIGHT_P), 
 				(RobotConstants.AUTO_SPEED - bearing*RobotConstants.AUTO_DRIVESTRAIGHT_P), false, false);
 		
-		// Logs raw gyrometer readings as console output
+		// Logs raw gyroscope readings as console output
     	// System.out.println(Robot.drivetrain.getRawGyroBearing());
     	
     }
