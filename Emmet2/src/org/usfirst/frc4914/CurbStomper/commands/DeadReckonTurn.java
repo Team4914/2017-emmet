@@ -20,7 +20,7 @@ public class DeadReckonTurn extends Command{
     	setTimeout(7);
     	
     	//set local variables for this object
-    	TurnCW = angle < 0;
+    	TurnCW = angle > 0;
     	angleToTurn = Math.abs(angle);
     	
     	//change polarity of speed
@@ -52,6 +52,7 @@ public class DeadReckonTurn extends Command{
     // Called once after isFinished returns true
     protected void end() {
     	Robot.drivetrain.stop();
+    	System.out.println(Robot.drivetrain.getRawGyroBearing());
     }
 
     // Called when another command which requires one or more of the same

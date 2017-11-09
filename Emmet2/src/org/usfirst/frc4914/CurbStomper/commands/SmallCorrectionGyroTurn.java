@@ -5,7 +5,7 @@ import org.usfirst.frc4914.CurbStomper.RobotConstants;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class SmallCorrectionGyroTurn extends Command {
-	double speed = RobotConstants.AUTO_SPEED/10;
+	double speed = RobotConstants.AUTO_SPEED*0.75;
 	//angle that is tested for to end the function
 	double currentAngle = 0;
 	//local variable for turning direction
@@ -20,12 +20,12 @@ public class SmallCorrectionGyroTurn extends Command {
     	setTimeout(7);
     	
     	// set local variables for this object
-    	TurnCW = angle < 0;
+    	TurnCW = angle > 0;
     	// stores absoulute value of the angle to turn to
     	angleToTurnTo = Math.abs(angle);
     	
     	//change polarity of speed if moving counter clockwise
-    	if (TurnCW) speed = -speed;
+    	if (!TurnCW) speed = -speed;
     }
 
     // Called just before this Command runs the first time
@@ -36,12 +36,14 @@ public class SmallCorrectionGyroTurn extends Command {
     	//set current angle
     	currentAngle = Robot.drivetrain.getRawGyroBearing();
     	
+    	System.out.println(currentAngle);
+    	
     	if (Math.abs(currentAngle) > angleToTurnTo) overTurned = true;
     	else overTurned = false;
     	
     	//change polarity of speed
     	if (TurnCW && !overTurned) speed = -speed;
-    	if (!TurnCW && overTurned) speed = -speed;
+    	if (!TurnCW && !overTurned) speed = -speed;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -60,6 +62,7 @@ public class SmallCorrectionGyroTurn extends Command {
     	}
     	else if (!TurnCW && overTurned) {
     		actionDone = Math.abs(Robot.drivetrain.getRawGyroBearing()) <= angleToTurnTo;
+    		System.out.println("1");
     	}
     	else if (!TurnCW && !overTurned) {
     		actionDone = Math.abs(Robot.drivetrain.getRawGyroBearing()) >= angleToTurnTo;
@@ -76,6 +79,7 @@ public class SmallCorrectionGyroTurn extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.drivetrain.stop();
+    	System.out.println("done " + Robot.drivetrain.getRawGyroBearing() + actionDone);
     }
 
     // Called when another command which requires one or more of the same

@@ -42,9 +42,10 @@ public class RobotConstants {
 	public static double AUTO_MHOOK_D1_TIME = 1.2;
 	public static double AUTO_MHOOK_D2_TIME = 0.5;
 	
-	public static double AUTO_LHOOK_D1 = 65.003;
-	public static double AUTO_LHOOK_D2 = 93.582;
-	public static double AUTO_LHOOK_D3 = 40;
+	public static double AUTO_LHOOK_D1 = 64;
+	public static double AUTO_LHOOK_D2 = 80;
+	public static double AUTO_LHOOK_D3 = -40;
+	public static double AUTO_LHOOK_D2_TIME = 3.5;
 	
 //	// SMOOTH AUTONOMOUS \\
 ////	public static double LEFT_HOOK_TURNING_RADIUS = 130.198;

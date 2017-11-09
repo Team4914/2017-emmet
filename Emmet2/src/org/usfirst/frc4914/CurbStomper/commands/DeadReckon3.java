@@ -21,8 +21,9 @@ public class DeadReckon3 extends Command {
 		this.speed = speed;
 		
 	 	// calculates timeout in seconds given distance and speed and adds two seconds as emergency stop
-	 	double timeout = Math.abs(distance/speed) + 2;
+	 	double timeout = Math.abs(distance/(speed*100)+1);
 	 	setTimeout(timeout);
+	 	System.out.println(timeout + " " + distance + " " + speed);
 	 	
 	 	// converts distance in inches to an encoder value
 	 	encoderValueToReach = RobotConstants.INCHES_TO_ENCODER * distance;
