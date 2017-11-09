@@ -16,14 +16,15 @@ public class SmallCorrectionGyroTurn extends Command {
 	
 	//CW boolean true for CW, false for CCW
 	public SmallCorrectionGyroTurn(double angle) {
-		//set timeout to 10 seconds more than it would take if it was time-based dead reckoning
-    	setTimeout((angle*RobotConstants.ANGLE_TO_TIME_DEAD_RECKON_TURN*10) + 10);
+		// set timeout to 7 seconds as an emergency stop
+    	setTimeout(7);
     	
-    	//set local variables for this object
+    	// set local variables for this object
     	TurnCW = angle < 0;
+    	// stores absoulute value of the angle to turn to
     	angleToTurnTo = Math.abs(angle);
     	
-    	//change polarity of speed
+    	//change polarity of speed if moving counter clockwise
     	if (TurnCW) speed = -speed;
     }
 

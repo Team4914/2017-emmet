@@ -17,16 +17,14 @@ public class DeadReckonTurn extends Command{
 	//CW boolean true for CW, false for CCW
 	public DeadReckonTurn(double angle) {
 		//set timeout to 1.5 second more than it would take if it was time-based dead reckoning
-    	setTimeout((angle*RobotConstants.ANGLE_TO_TIME_DEAD_RECKON_TURN) + 10);
+    	setTimeout(7);
     	
     	//set local variables for this object
     	TurnCW = angle < 0;
-    	angleToTurn = angle;
+    	angleToTurn = Math.abs(angle);
     	
     	//change polarity of speed
     	if (TurnCW) speed = -speed;
-    	
-    	angleToTurn = Math.abs(angleToTurn);
     }
 
     // Called just before this Command runs the first time
