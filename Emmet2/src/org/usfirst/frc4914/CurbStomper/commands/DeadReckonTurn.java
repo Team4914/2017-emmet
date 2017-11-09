@@ -15,16 +15,18 @@ public class DeadReckonTurn extends Command{
 	double angleToTurn;
 	
 	//CW boolean true for CW, false for CCW
-	public DeadReckonTurn(double angle, boolean CW) {
+	public DeadReckonTurn(double angle) {
 		//set timeout to 1.5 second more than it would take if it was time-based dead reckoning
-    	setTimeout((angle*RobotConstants.ANGLE_TO_TIME_DEAD_RECKON_TURN) + 1);
-    	
-    	//change polarity of speed
-    	if (CW) speed = -speed;
+    	setTimeout((angle*RobotConstants.ANGLE_TO_TIME_DEAD_RECKON_TURN) + 10);
     	
     	//set local variables for this object
-    	TurnCW = CW;
+    	TurnCW = angle < 0;
     	angleToTurn = angle;
+    	
+    	//change polarity of speed
+    	if (TurnCW) speed = -speed;
+    	
+    	angleToTurn = Math.abs(angleToTurn);
     }
 
     // Called just before this Command runs the first time
@@ -39,12 +41,7 @@ public class DeadReckonTurn extends Command{
     	//run drivetrain
     	Robot.drivetrain.tankDrive(speed, -speed, false, false);
     	//update realAngleTurned
-    	if (TurnCW) {
-    		realAngleTurned = Robot.drivetrain.getRawGyroBearing();
-    	}
-    	else {
-    		realAngleTurned = 360 - Robot.drivetrain.getRawGyroBearing();
-    	}
+    	realAngleTurned = Math.abs(Robot.drivetrain.getRawGyroBearing());
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -13,14 +13,12 @@ public class AutoRightHook extends CommandGroup {
 	
 	// AKA BOILER SIDE HOOK
     public AutoRightHook() {
-    	//drive forward past baseline
-    	addSequential(new DeadReckon2(RobotConstants.AUTO_RHOOK_D1_TIME));
-    	//turn towards hook
-    	addSequential(new DeadReckonTurn(RobotConstants.AUTO_RHOOK_ROTATION_ANGLE, false));
-    	//first attempt
-    	addSequential(new DeadReckon2(RobotConstants.AUTO_RHOOK_D2_TIME));
+    	addSequential(new DeadReckon3(RobotConstants.AUTO_LHOOK_D1, RobotConstants.AUTO_SPEED));
+    	addSequential(new DeadReckonTurn(-60));
+    	addSequential(new SmallCorrectionGyroTurn(-60));
+    	addSequential(new DeadReckon3(RobotConstants.AUTO_LHOOK_D2, RobotConstants.AUTO_SPEED));
     	addSequential(new ClawExtend2());
-    	addSequential(new DeadReckon2(-RobotConstants.AUTO_RHOOK_D3_TIME));
-    	addParallel(new ClawRetract2());
+    	addSequential(new DeadReckon3(RobotConstants.AUTO_LHOOK_D3, RobotConstants.AUTO_SPEED));
+    	addSequential(new ClawRetract2());
     }
 }
