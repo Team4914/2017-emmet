@@ -17,7 +17,7 @@ public class DeadReckonTurn extends Command{
 	//CW boolean true for CW, false for CCW
 	public DeadReckonTurn(double angle, boolean CW) {
 		//set timeout to 1.5 second more than it would take if it was time-based dead reckoning
-    	setTimeout((angle*RobotConstants.ANGLE_TO_TIME_DEAD_RECKON_TURN) + 1.5);
+    	setTimeout((angle*RobotConstants.ANGLE_TO_TIME_DEAD_RECKON_TURN) + 1);
     	
     	//change polarity of speed
     	if (CW) speed = -speed;
