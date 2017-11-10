@@ -17,6 +17,7 @@ public class DeadReckon3 extends Command {
 	double encoderValueToReach = 0; // encoder value to reach
 	
 	public DeadReckon3(double distance, double speed) {
+		// set distance and speed
 		this.distance = distance;
 		this.speed = speed;
 		

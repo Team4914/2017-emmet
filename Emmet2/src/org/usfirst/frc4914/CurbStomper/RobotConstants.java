@@ -13,6 +13,8 @@ public class RobotConstants {
 	public static boolean isBaselineAuto = false;
 	// divide real-world velocity in inches per second by 60 to obtain motor output
 	public static double AUTO_SPEED = 15/60.0;
+	
+	// multiply value in inches by this constant to obtain encoder value
 	public static double INCHES_TO_ENCODER = 1.0/9.185185;
 
 	public static double AUTO_DRIVE_TOLERANCE = 0.5;
@@ -28,24 +30,15 @@ public class RobotConstants {
 	public static double AUTO_TURN_D = 0;
 	
 //	// NEW DEAD RECKON AUTO \\
-//	//Use AUTO_SPEED for speed from normal autonomous ^
-//	public static double AUTO_RHOOK_D1_TIME = 7.6/2;
-//	public static double AUTO_RHOOK_ROTATION_ANGLE = 60;
-//	public static double AUTO_RHOOK_D2_TIME = 4.5/2;
-//	public static double AUTO_RHOOK_D3_TIME = 2.5/2;
-//	
-//	public static double AUTO_LHOOK_D1_TIME = 7.6/2;
-//	public static double AUTO_LHOOK_ROTATION_ANGLE = 60;
-//	public static double AUTO_LHOOK_D2_TIME = 4.5/2;
-//	public static double AUTO_LHOOK_D3_TIME = 2.5/2;
+	// Use AUTO_SPEED for speed from normal autonomous ^
 	
 	public static double AUTO_MHOOK_D1_TIME = 1.2;
 	public static double AUTO_MHOOK_D2_TIME = 0.5;
 	
+	// used for both left and right hook
+	// distance to move forward in inches
 	public static double AUTO_LHOOK_D1 = 64;
 	public static double AUTO_LHOOK_D2 = 80;
-	public static double AUTO_LHOOK_D3 = -40;
-	public static double AUTO_LHOOK_D2_TIME = 3.5;
 	
 //	// SMOOTH AUTONOMOUS \\
 ////	public static double LEFT_HOOK_TURNING_RADIUS = 130.198;
