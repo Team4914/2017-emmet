@@ -26,6 +26,10 @@ public class Gear extends Subsystem {
     	claw.set(speed);
     }
     
+    public void example() {
+    	int a = 0;
+    }
+    
     public void stop() {
     	setClaw(0);
     }
